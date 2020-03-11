@@ -1,0 +1,73 @@
+
+.. _ServerConnection:
+
+
+Connection to a Database
+##########################
+
+PythonTools serves as a data analysis/mining tool. It is often required to import data from a database to perform transformation, analysis and visualization. PythonTools has a connection module that allows the user to connect to different servers. The result of the query which is a tables is casted into pandas data frames. 
+
+
+
+.. _ServerConnect:
+
+Class: ServerConnect
+=====================
+.. autoclass:: PythonTools.ServerConnect
+
+.. _execute_query:
+
+Execute Query
++++++++++++++
+.. automethod:: PythonTools.ServerConnect.execute_query
+
+.. _execute_query:
+
+Deploy
++++++++++++++
+.. automethod:: PythonTools.ServerConnect.deploy
+
+.. _colse:
+
+Close Connection
++++++++++++++++++
+.. automethod:: PythonTools.ServerConnect.execute_query
+
+
+
+.. _AccessConnect:
+
+Class: AccessConnect
+=====================
+.. autoclass:: PythonTools.AccessConnect
+
+.. _execute_query:
+
+Execute Query
++++++++++++++
+.. automethod:: PythonTools.AccessConnect.execute_query
+
+.. _colse:
+
+Close Connection
++++++++++++++++++
+.. automethod:: PythonTools.AccessConnect.close
+
+
+.. _SqliteConnect:
+
+Class: Sqlite3Connect
+=====================
+.. autoclass:: PythonTools.Sqlite3Connect
+
+.. _execute_query:
+
+Execute Query
++++++++++++++
+.. automethod:: PythonTools.Sqlite3Connect.execute_query
+
+.. _colse:
+
+Close Connection
++++++++++++++++++
+.. automethod:: PythonTools.Sqlite3Connect.close

@@ -1,0 +1,63 @@
+
+.. _installation:
+
+
+Installation
+============
+
+Note that PythonTools requires Python 3.X, preferably 3.4 or higher. You may already have Python 2.X installed on your computer; PythonTools will not likely work without modification. Installing Python 3.X for using PythonTools is recommended.
+
+Python Installation
+--------------------
+
+The Anaconda distribution by Continuum Analytics: https://www.continuum.io/downloads is recommended as it includes all dependencies for PythonTools. If unfamiliar with Python and virtual environments, then accepting the defaults of registering with the system and installing to the path are recommended.
+
+If there is a package that is not installed, you can use conda through command prompt::
+
+   $ conda intsall -c anaconda sphinx
+
+Make sure that C:/Users/user/Anaconda3 and C:/Users/use/Anaconda3/scripts are added to the path system environmental variable. Although Anaconda distribution does not required administration rights, you may need to set the user environmental variables every time you start a new conda prompt if you do not have administration rights. 
+
+Another alternative is to use pip that is a package management system used to install and manage software packages written in Python::
+
+   $ pip install numba
+
+PythonTools Installation
+------------------------
+
+Option 1
+************
+
+Download the PythonTools and install the packages:
+
+	$ python setup.py install  -- Not suitable for version control
+
+
+Option 2
+************
+Clone/download the PythonTools to a local directory and point the python environmental variable to that director. This option allows to implement version control and have access to the latest version of the code.::
+
+	$PYTHONPATH = 'D:\Git\PythonTools'
+
+Afterwards, PythonTools can be imported to your python codes/notebooks.::
+	
+	$import PythonTools as PT
+
+After installing PythonTools, you can use it in your python codes:
+
+.. highlight:: python
+   :linenothreshold: 5
+
+.. code-block:: python
+   :linenos:
+
+   import PythonTools
+
+   local_connection = PythonTools.ServerConnect(server='localhost', database = 'MyDB', uid = 'username')
+
+Jupyter Notebook
+---------------------------------
+The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and explanatory text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, machine learning and much more.
+
+.. image:: ./figures/jupyter.png
+   :align: center

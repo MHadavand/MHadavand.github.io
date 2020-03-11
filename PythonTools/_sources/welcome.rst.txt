@@ -1,0 +1,39 @@
+
+.. _welcome:
+
+
+.. image:: ./figures/Python.png
+   :align: center
+
+|
+
+Welcome
+=======
+
+Python is an interpreted high-level programming language with lots of free, open source packages. I use python for data query, data analysis, machine learning and visualization. PythonTools is a collection of Python libraries that I have developed and used for different projects. Please feel free to go over its documentation and let me know if you are interested to use any of the provided tools. 
+
+Features:
+
+* Connection to different database servers for data query
+* Data analysis/mining
+* Visualization
+* Machine Learning
+
+Contact Info:  Mostafa Hadavand    
+
+Email: hadavand@ualberta.ca    
+
+Website: https://sites.ualberta.ca/~hadavand/  
+
+:ref:`mastertoc`.
+
+
+Indices and tables
+++++++++++++++++++
+
+* :ref:`genindex`
+* :ref:`search`
+.. * :ref:`modindex`
+
+
+

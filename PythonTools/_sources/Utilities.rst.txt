@@ -1,0 +1,58 @@
+
+.. _Utilities:
+
+
+General Utilities
+#####################
+
+
+This module provides a collection of miscellaneous utilities to facilitate data analysis, saving plots, OS manipulations and etc. 
+
+
+.. _mkdir:
+
+mkdir
+++++++++
+.. automethod:: PythonTools.utilities.mkdir
+
+
+.. _plot_setting:
+
+plot setting
+++++++++++++++
+.. automethod:: PythonTools.utilities.plot_settings
+
+
+.. _random_rgb_color:
+
+Random RGB Color Generator
+++++++++++++++++++++++++++++
+.. automethod:: PythonTools.utilities.random_rgb_color
+
+
+.. _save_plot:
+
+Save Plot
+++++++++++
+.. automethod:: PythonTools.utilities.save_plot
+
+
+.. _unzip_file:
+
+Unzip file
+++++++++++
+.. automethod:: PythonTools.utilities.unzip_file
+
+
+.. _get_file_size:
+
+Get File Size
++++++++++++++
+.. automethod:: PythonTools.utilities.get_file_size
+
+
+.. _add_month:
+
+Monthly Increment for a Date
+++++++++++++++++++++++++++++
+.. automethod:: PythonTools.utilities.add_month

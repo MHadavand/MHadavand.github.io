@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Connection to a Database &mdash; PythonTools 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/Python.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PythonTools 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Plotting Tools" href="Plotting.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PythonTools
+          
+
+          
+            
+            <img src="_static/Python.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Connection to a Database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-serverconnect">Class: ServerConnect</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#execute-query">Execute Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy">Deploy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#close-connection">Close Connection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#class-accessconnect">Class: AccessConnect</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Execute Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Close Connection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#class-sqlite3connect">Class: Sqlite3Connect</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Execute Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Close Connection</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plotting.html">Plotting Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">General Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PythonTools</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Connection to a Database</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ServerConnection.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="connection-to-a-database">
+<span id="serverconnection"></span><h1>Connection to a Database<a class="headerlink" href="#connection-to-a-database" title="Permalink to this headline">¶</a></h1>
+<p>PythonTools serves as a data analysis/mining tool. It is often required to import data from a database to perform transformation, analysis and visualization. PythonTools has a connection module that allows the user to connect to different servers. The result of the query which is a tables is casted into pandas data frames.</p>
+<div class="section" id="class-serverconnect">
+<span id="serverconnect"></span><h2>Class: ServerConnect<a class="headerlink" href="#class-serverconnect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PythonTools.ServerConnect">
+<em class="property">class </em><code class="descclassname">PythonTools.</code><code class="descname">ServerConnect</code><span class="sig-paren">(</span><em>server=None</em>, <em>database=None</em>, <em>trusted_connection=True</em>, <em>uid=None</em>, <em>pwd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#ServerConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.ServerConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class to facilitate connection to SQL server databases using Python implementation of ODBC (pyodbc).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>server</strong> (<em>str</em>) – Server name/address for connection</li>
+<li><strong>database</strong> (<em>str</em>) – Database name/initial catalog</li>
+<li><strong>trusted_connection</strong> (<em>bool</em>) – True if <code class="docutils literal"><span class="pre">Windows</span> <span class="pre">Authentication</span></code> is used</li>
+<li><strong>uid</strong> (<em>str</em>) – User ID to login and access the server</li>
+<li><strong>pwd</strong> (<em>str</em>) – Password</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>Quick connection into local server:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">connection</span><span class="o">=</span><span class="n">PythonTools</span><span class="o">.</span><span class="n">ServerConnect</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="n">database</span><span class="o">=</span><span class="s1">&#39;EdwInfoMartLocal&#39;</span><span class="p">,</span> <span class="n">trusted_connection</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Code author: Mostafa Hadavand 2017-26-7</em></p>
+</dd></dl>
+
+<div class="section" id="execute-query">
+<span id="id1"></span><h3>Execute Query<a class="headerlink" href="#execute-query" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.ServerConnect.execute_query">
+<code class="descclassname">ServerConnect.</code><code class="descname">execute_query</code><span class="sig-paren">(</span><em>sql_query</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#ServerConnect.execute_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.ServerConnect.execute_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to run a SQL query and it returns data as a pandas data frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sql_query</strong> (<em>str</em>) – the sql query that is passed to the assigned server and database to retrieve data</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Main_DF</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">sql_query</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="deploy">
+<span id="id2"></span><h3>Deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.ServerConnect.deploy">
+<code class="descclassname">ServerConnect.</code><code class="descname">deploy</code><span class="sig-paren">(</span><em>command</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#ServerConnect.deploy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.ServerConnect.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function can be used to deploy and commit a sql command into the target sql server using the inital catalog
+that is set during the initialization of PythonTools.ServerConnect</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<em>str</em>) – the command that is passed to the assigned server and database</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">EDW_Access</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">deploy</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="close-connection">
+<span id="colse"></span><h3>Close Connection<a class="headerlink" href="#close-connection" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt>
+<code class="descclassname">ServerConnect.</code><code class="descname">execute_query</code><span class="sig-paren">(</span><em>sql_query</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#ServerConnect.execute_query"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>This function is used to run a SQL query and it returns data as a pandas data frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sql_query</strong> (<em>str</em>) – the sql query that is passed to the assigned server and database to retrieve data</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Main_DF</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">sql_query</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="class-accessconnect">
+<span id="accessconnect"></span><h2>Class: AccessConnect<a class="headerlink" href="#class-accessconnect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PythonTools.AccessConnect">
+<em class="property">class </em><code class="descclassname">PythonTools.</code><code class="descname">AccessConnect</code><span class="sig-paren">(</span><em>access_database_file=None</em>, <em>uid=None</em>, <em>pwd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#AccessConnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.AccessConnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class to facilitate connection to MS Access database (<a href="#id3"><span class="problematic" id="id4">*</span></a>.mdb, <a href="#id5"><span class="problematic" id="id6">*</span></a>.accdb) using Python implementation of ODBC (pyodbc).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_database_file</strong> (<em>str</em>) – Access data base file</li>
+<li><strong>uid</strong> (<em>str</em>) – User ID to login and access the server</li>
+<li><strong>pwd</strong> (<em>str</em>) – Password</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>Quick connection into MS access database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Main_Access</span> <span class="o">=</span> <span class="n">PythonTools</span><span class="o">.</span><span class="n">AccessConnec</span><span class="p">(</span><span class="n">access_database_file</span> <span class="o">=</span> <span class="n">Well_Reports</span><span class="o">.</span><span class="n">mdb</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Code author: Mostafa Hadavand 2018-31-1</em></p>
+</dd></dl>
+
+<div class="section" id="id7">
+<span id="id8"></span><h3>Execute Query<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.AccessConnect.execute_query">
+<code class="descclassname">AccessConnect.</code><code class="descname">execute_query</code><span class="sig-paren">(</span><em>query</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#AccessConnect.execute_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.AccessConnect.execute_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to run a SQL query and it returns data as a pandas data frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>str</em>) – the query that is passed to the assigned server and database to retrieve data</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT * FROM FLOW &#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">Main_Access</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">Query</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="id9">
+<span id="id10"></span><h3>Close Connection<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.AccessConnect.close">
+<code class="descclassname">AccessConnect.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#AccessConnect.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.AccessConnect.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method to close the MS Access connection</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EDW_Access</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="class-sqlite3connect">
+<span id="sqliteconnect"></span><h2>Class: Sqlite3Connect<a class="headerlink" href="#class-sqlite3connect" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PythonTools.Sqlite3Connect">
+<em class="property">class </em><code class="descclassname">PythonTools.</code><code class="descname">Sqlite3Connect</code><span class="sig-paren">(</span><em>database=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#Sqlite3Connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.Sqlite3Connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a class to facilitate connection to sqlite3 databases</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>database</strong> (<em>str</em>) – name/address of the datbase file</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>Quick connection into Sqlite access database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EDW_sqlite</span> <span class="o">=</span> <span class="n">PythonTools</span><span class="o">.</span><span class="n">Sqlite3Connect</span><span class="p">(</span><span class="n">database</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">edmoxpfs01.env.gov.ab.ca\EDWshare\hydat.sqlite3&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Code author: Mostafa Hadavand 2018-12-2</em></p>
+</dd></dl>
+
+<div class="section" id="id11">
+<span id="id12"></span><h3>Execute Query<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.Sqlite3Connect.execute_query">
+<code class="descclassname">Sqlite3Connect.</code><code class="descname">execute_query</code><span class="sig-paren">(</span><em>query</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#Sqlite3Connect.execute_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.Sqlite3Connect.execute_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to run a SQL query and it returns data as a pandas data frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>query</strong> (<em>str</em>) – the query that is passed to the assigned server and database to retrieve data</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;SELECT * FROM STATIONS &#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">EDW_sqlite</span><span class="o">.</span><span class="n">execute_query</span><span class="p">(</span><span class="n">Query</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="id13">
+<span id="id14"></span><h3>Close Connection<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="PythonTools.Sqlite3Connect.close">
+<code class="descclassname">Sqlite3Connect.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/PythonTools/Connection/connection.html#Sqlite3Connect.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#PythonTools.Sqlite3Connect.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>A method to close the sqlite3 connection</p>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">EDW_sqlite</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Plotting.html" class="btn btn-neutral float-right" title="Plotting Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mostafa Hadavand.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

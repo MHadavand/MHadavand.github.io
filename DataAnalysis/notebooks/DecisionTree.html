@@ -1,0 +1,3033 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Decision Tree and Ensemble Learning &mdash; DataScience 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/DA.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Statistical Analysis for Income Data" href="IncomeDataAnalysis.html" />
+    <link rel="prev" title="Principal Component Analysis (PCA)" href="PCA-RPCA.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DataScience
+          
+
+          
+            
+            <img src="../_static/DA.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PCA-RPCA.html">Principal Component Analysis (PCA)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Decision Tree and Ensemble Learning</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Decision-Tree">Decision Tree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Order-of-decision;-why-Outlook-is-the-first-question/decision?">Order of decision; why Outlook is the first question/decision?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Entropy-of-the-entire-system">Entropy of the entire system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Information-Gain">Information Gain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Outlook-decision">Outlook decision</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Temperature-Decision">Temperature Decision</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Wind-Decision">Wind Decision</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Humidity-Decision">Humidity Decision</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Titanic-Example">Titanic Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Loading-data-using-BeautifulSoup-and-urlib3-as-the-htm-client">Loading data using BeautifulSoup and urlib3 as the htm client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Processing-data">Processing data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Categorize-passengers-and-crews">Categorize passengers and crews</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-passenger-ticket-class">Check passenger ticket class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-Adult/Child">Check Adult/Child</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Check-Gender">Check Gender</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Check-the-importance-of-each-feature">Check the importance of each feature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Information-gain-analysis">Information gain analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Pick-features-and-lable-to-construct-the-decision-tree">Pick features and lable to construct the decision tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Process-categorical-variables-to-numerical">Process categorical variables to numerical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Split-to-train-and-test-data">Split to train and test data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Build-a-decision-tree">Build a decision tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Tree-visualization">Tree visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Evaluate-the-tree">Evaluate the tree</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Using-train-and-test-data-sets">Using train and test data sets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#K-fold-cross-validation">K-fold cross validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Ensemble-learning-to-avoid-over-fitting">Ensemble learning to avoid over fitting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Random-Forest">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Gradient-Boosted-Trees">Gradient Boosted Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Hyper-Parameter-Tuning">Hyper Parameter Tuning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IncomeDataAnalysis.html">Statistical Analysis for Income Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hydat_Analysis.html">National Water Data: HYDAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dijkstra_Algorithm.html">Simple Implementation of Dijkstra Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Review.html">Summary Statistics for Well Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Reshaping_Pandas.html">Reshaping in Pandas - Pivot, Pivot-Table, Stack and Unstack</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DataScience</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Decision Tree and Ensemble Learning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/notebooks/DecisionTree.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+<div class="section" id="Decision-Tree-and-Ensemble-Learning">
+<h1>Decision Tree and Ensemble Learning<a class="headerlink" href="#Decision-Tree-and-Ensemble-Learning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Decision-Tree">
+<h2>Decision Tree<a class="headerlink" href="#Decision-Tree" title="Permalink to this headline">¶</a></h2>
+<p>A decision tree may be described as a set of decisions/categorization
+steps that help you to classify your data into predefined classes. This
+helps you to solve a classification problem.</p>
+<p>For example, consider the following data set related to playing tennis
+in a specific day based on weather condition parameters. Based on the
+provided parameters, we are need to come up with a decision tree that
+helps us to decide whether the player plays tennis on a specific day
+based on four weather related parameters including outlook, temperature,
+humidity and wind condition.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Outlook&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sunny&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">,</span> <span class="s1">&#39;Overcast&#39;</span><span class="p">,</span> <span class="s1">&#39;Rainy&#39;</span><span class="p">,</span> <span class="s1">&#39;Rainy&#39;</span><span class="p">,</span> <span class="s1">&#39;Rainy&#39;</span><span class="p">,</span> <span class="s1">&#39;Overcast&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">,</span><span class="s1">&#39;Rainy&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunny&#39;</span><span class="p">,</span> <span class="s1">&#39;Overcast&#39;</span><span class="p">,</span> <span class="s1">&#39;Overcast&#39;</span><span class="p">,</span> <span class="s1">&#39;Rainy&#39;</span><span class="p">]</span>
+    <span class="p">,</span><span class="s1">&#39;Temperature&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Hot&#39;</span><span class="p">,</span> <span class="s1">&#39;Hot&#39;</span><span class="p">,</span> <span class="s1">&#39;Hot&#39;</span><span class="p">,</span> <span class="s1">&#39;Mild&#39;</span><span class="p">,</span> <span class="s1">&#39;Cool&#39;</span><span class="p">,</span> <span class="s1">&#39;Cool&#39;</span><span class="p">,</span> <span class="s1">&#39;Cool&#39;</span><span class="p">,</span> <span class="s1">&#39;Mild&#39;</span><span class="p">,</span> <span class="s1">&#39;Cool&#39;</span><span class="p">,</span> <span class="s1">&#39;Mild&#39;</span><span class="p">,</span><span class="s1">&#39;Mild&#39;</span><span class="p">,</span><span class="s1">&#39;Mild&#39;</span><span class="p">,</span> <span class="s1">&#39;Hot&#39;</span><span class="p">,</span> <span class="s1">&#39;Mild&#39;</span><span class="p">]</span>
+    <span class="p">,</span><span class="s1">&#39;Humidity&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span><span class="s1">&#39;Normal&#39;</span><span class="p">,</span><span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Normal&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">]</span>
+    <span class="p">,</span><span class="s1">&#39;Wind&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">]</span>
+    <span class="p">,</span><span class="s1">&#39;PlayTennis&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">tennis_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">data_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">tennis_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Outlook</th>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Wind</th>
+      <th>PlayTennis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sunny</td>
+      <td>Hot</td>
+      <td>High</td>
+      <td>False</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Sunny</td>
+      <td>Hot</td>
+      <td>High</td>
+      <td>True</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Overcast</td>
+      <td>Hot</td>
+      <td>High</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Rainy</td>
+      <td>Mild</td>
+      <td>High</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Rainy</td>
+      <td>Cool</td>
+      <td>Normal</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Rainy</td>
+      <td>Cool</td>
+      <td>Normal</td>
+      <td>True</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Overcast</td>
+      <td>Cool</td>
+      <td>Normal</td>
+      <td>True</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Sunny</td>
+      <td>Mild</td>
+      <td>High</td>
+      <td>False</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Sunny</td>
+      <td>Cool</td>
+      <td>Normal</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Rainy</td>
+      <td>Mild</td>
+      <td>Normal</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Sunny</td>
+      <td>Mild</td>
+      <td>Normal</td>
+      <td>True</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>Overcast</td>
+      <td>Mild</td>
+      <td>High</td>
+      <td>True</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Overcast</td>
+      <td>Hot</td>
+      <td>Normal</td>
+      <td>False</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>Rainy</td>
+      <td>Mild</td>
+      <td>High</td>
+      <td>True</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The following decision three helps us to use a set of decisions to solve
+our classification problem. <img alt="alt text" src="../_images/DT1.jpg" /></p>
+<div class="section" id="Order-of-decision;-why-Outlook-is-the-first-question/decision?">
+<h3>Order of decision; why Outlook is the first question/decision?<a class="headerlink" href="#Order-of-decision;-why-Outlook-is-the-first-question/decision?" title="Permalink to this headline">¶</a></h3>
+<p>The main question is why outlook was chosen as the first decision level.
+The answer is that the amount of <strong>Information Grain</strong> that is resolved
+by this decision is higher that the other decisions. This can be
+quantified using entropy which is a measure of randomness. Higher
+entropy means higher randomness and the amount of reduction in
+randomness based on a decision is called information gain.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-latex notranslate"><div class="highlight"><pre>
+<span></span><span class="c">%%latex</span>
+
+Entropy = <span class="s">$</span><span class="o">-</span><span class="nv">\sum</span><span class="nb">_{i</span><span class="o">=</span><span class="m">1</span><span class="nb">}^{n} P_i</span><span class="nv">\times</span><span class="nb"> Log_b</span><span class="o">(</span><span class="nb">P_i</span><span class="o">)</span><span class="s">$</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="math notranslate nohighlight">
+Entropy = $-\sum_{i=1}^{n} P_i\times Log_b(P_i)$</div></div>
+</div>
+<p>Note: corresponding units of entropy are the bits for b = 2, nats for b
+= e, and bans for b = 10 where b is the base of the logarithm function</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">entropy_calculate</span><span class="p">(</span><span class="n">prob_list</span><span class="p">):</span>
+
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prob_list</span><span class="p">:</span>
+        <span class="n">entropy</span> <span class="o">-=</span> <span class="n">item</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entropy</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Entropy-of-the-entire-system">
+<h3>Entropy of the entire system<a class="headerlink" href="#Entropy-of-the-entire-system" title="Permalink to this headline">¶</a></h3>
+<p>Entropy of the entire system: 14 observations: 9 Yes and 5 No</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cases</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">PlayTennis</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Probabilities of </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1"> are </span><span class="si">%.3f</span><span class="s1">, </span><span class="si">%.3f</span><span class="s1"> respectively&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">cases</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">cases</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">entropy_entire</span> <span class="o">=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entire syetems entropy is </span><span class="si">%.3f</span><span class="s1"> bits&#39;</span><span class="o">%</span><span class="k">entropy_entire</span>)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Probabilities of No and Yes are 0.357, 0.643 respectively
+Entire syetems entropy is 0.940 bits
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Information-Gain">
+<h3>Information Gain<a class="headerlink" href="#Information-Gain" title="Permalink to this headline">¶</a></h3>
+<p>Lets calculate reduction in entropy for each decision. For each
+decision, entropy is calculated for each case under that decision and
+the a probability weighted average is calculated.</p>
+<div class="section" id="Outlook-decision">
+<h4>Outlook decision<a class="headerlink" href="#Outlook-decision" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cases_outlook</span><span class="p">,</span><span class="n">counts_outlook</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Outlook</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">P_outlook</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts_outlook</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For outlook:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_outlook</span><span class="p">,</span><span class="n">P_outlook</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Probabality of </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+For outlook:
+        Probabality of Overcast is 0.286
+        Probabality of Rainy is 0.357
+        Probabality of Sunny is 0.357
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entropy_outlook</span><span class="o">=</span><span class="p">{}</span>
+<span class="n">total_entropy_outlook</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_outlook</span><span class="p">,</span><span class="n">P_outlook</span><span class="p">):</span>
+    <span class="n">cases</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">PlayTennis</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Outlook</span><span class="o">==</span><span class="n">case</span><span class="p">],</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Outlook</span><span class="o">==</span><span class="n">case</span><span class="p">])</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+    <span class="n">entropy_outlook</span><span class="p">[</span><span class="n">case</span><span class="p">]</span><span class="o">=</span><span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">total_entropy_outlook</span> <span class="o">+=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">prob</span>
+
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">entropy</span> <span class="ow">in</span> <span class="n">entropy_outlook</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entropy for </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span><span class="n">entropy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Entropy at Outlook decision level is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">total_entropy_outlook</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Information gain is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">entropy_entire</span><span class="o">-</span> <span class="n">total_entropy_outlook</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Entropy for Overcast is 0.00
+Entropy for Rainy is 0.97
+Entropy for Sunny is 0.97
+
+Entropy at Outlook decision level is 0.694
+
+Information gain is 0.247
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Temperature-Decision">
+<h4>Temperature Decision<a class="headerlink" href="#Temperature-Decision" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cases_temperature</span><span class="p">,</span><span class="n">counts_temperature</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Temperature</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">P_temperature</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts_temperature</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For temperature:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_temperature</span><span class="p">,</span><span class="n">P_temperature</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Probabality of </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+For temperature:
+        Probabality of Cool is 0.286
+        Probabality of Hot is 0.286
+        Probabality of Mild is 0.429
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entropy_temperature</span><span class="o">=</span><span class="p">{}</span>
+<span class="n">total_entropy_temperature</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_temperature</span><span class="p">,</span><span class="n">P_temperature</span><span class="p">):</span>
+    <span class="n">cases</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">PlayTennis</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Temperature</span><span class="o">==</span><span class="n">case</span><span class="p">],</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Temperature</span><span class="o">==</span><span class="n">case</span><span class="p">])</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+    <span class="n">entropy_temperature</span><span class="p">[</span><span class="n">case</span><span class="p">]</span><span class="o">=</span><span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">total_entropy_temperature</span> <span class="o">+=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">prob</span>
+
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">entropy</span> <span class="ow">in</span> <span class="n">entropy_temperature</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entropy for </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span><span class="n">entropy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Entropy at Temperature decision level is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">total_entropy_temperature</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Information gain is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">entropy_entire</span><span class="o">-</span> <span class="n">total_entropy_temperature</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Entropy for Cool is 0.81
+Entropy for Hot is 1.00
+Entropy for Mild is 0.92
+
+Entropy at Temperature decision level is 0.911
+
+Information gain is 0.029
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Wind-Decision">
+<h4>Wind Decision<a class="headerlink" href="#Wind-Decision" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cases_wind</span><span class="p">,</span><span class="n">counts_wind</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Wind</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">P_wind</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts_wind</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For wind:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_wind</span><span class="p">,</span><span class="n">P_wind</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Probabality of </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+For wind:
+        Probabality of False is 0.571
+        Probabality of True is 0.429
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entropy_wind</span><span class="o">=</span><span class="p">{}</span>
+<span class="n">total_entropy_wind</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_wind</span><span class="p">,</span><span class="n">P_wind</span><span class="p">):</span>
+    <span class="n">cases</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">PlayTennis</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Wind</span><span class="o">==</span><span class="n">case</span><span class="p">],</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Wind</span><span class="o">==</span><span class="n">case</span><span class="p">])</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+    <span class="n">entropy_wind</span><span class="p">[</span><span class="n">case</span><span class="p">]</span><span class="o">=</span><span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">total_entropy_wind</span> <span class="o">+=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">prob</span>
+
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">entropy</span> <span class="ow">in</span> <span class="n">entropy_wind</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entropy for </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span><span class="n">entropy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Entropy at Wind decision level is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">total_entropy_wind</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Information gain is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">entropy_entire</span><span class="o">-</span> <span class="n">total_entropy_wind</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Entropy for False is 0.81
+Entropy for True is 1.00
+
+Entropy at Wind decision level is 0.892
+
+Information gain is 0.048
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Humidity-Decision">
+<h4>Humidity Decision<a class="headerlink" href="#Humidity-Decision" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cases_humidity</span><span class="p">,</span><span class="n">counts_humidity</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Humidity</span><span class="p">,</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">P_humidity</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">)</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts_humidity</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For humidity:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_humidity</span><span class="p">,</span><span class="n">P_humidity</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Probabality of </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span> <span class="n">prob</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+For humidity:
+        Probabality of High is 0.500
+        Probabality of Normal is 0.500
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">entropy_humidity</span><span class="o">=</span><span class="p">{}</span>
+<span class="n">total_entropy_humidity</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">prob</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cases_humidity</span><span class="p">,</span><span class="n">P_humidity</span><span class="p">):</span>
+    <span class="n">cases</span><span class="p">,</span><span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">PlayTennis</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Humidity</span><span class="o">==</span><span class="n">case</span><span class="p">],</span><span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="n">count</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">tennis_data</span><span class="p">[</span><span class="n">tennis_data</span><span class="o">.</span><span class="n">Humidity</span><span class="o">==</span><span class="n">case</span><span class="p">])</span> <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="p">]</span>
+    <span class="n">entropy_humidity</span><span class="p">[</span><span class="n">case</span><span class="p">]</span><span class="o">=</span><span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">total_entropy_humidity</span> <span class="o">+=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">P</span><span class="p">)</span><span class="o">*</span><span class="n">prob</span>
+
+<span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">entropy</span> <span class="ow">in</span> <span class="n">entropy_humidity</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entropy for </span><span class="si">%s</span><span class="s1"> is </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">case</span><span class="p">,</span><span class="n">entropy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Entropy at Humidity decision level is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">total_entropy_humidity</span>)
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Information gain is </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">entropy_entire</span><span class="o">-</span> <span class="n">total_entropy_humidity</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Entropy for High is 0.99
+Entropy for Normal is 0.59
+
+Entropy at Humidity decision level is 0.788
+
+Information gain is 0.152
+</pre></div></div>
+</div>
+<p>As shown above, by choosing outlook as the first decision/question, the
+highest reduction in entropy/randomness is achieved that corresponds to
+the highest <strong>Information Gain</strong></p>
+</div>
+</div>
+</div>
+<div class="section" id="Titanic-Example">
+<h2>Titanic Example<a class="headerlink" href="#Titanic-Example" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">certifi</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Loading-data-using-BeautifulSoup-and-urlib3-as-the-htm-client">
+<h3>Loading data using BeautifulSoup and urlib3 as the htm client<a class="headerlink" href="#Loading-data-using-BeautifulSoup-and-urlib3-as-the-htm-client" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">html_address</span> <span class="o">=</span> <span class="s1">&#39;https://www.encyclopedia-titanica.org/titanic-passengers-and-crew/&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">http</span> <span class="o">=</span> <span class="n">urllib3</span><span class="o">.</span><span class="n">PoolManager</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cert_reqs</span><span class="o">=</span><span class="s1">&#39;CERT_REQUIRED&#39;</span><span class="p">,</span><span class="n">ca_certs</span><span class="o">=</span><span class="n">certifi</span><span class="o">.</span><span class="n">where</span><span class="p">())</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">http</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="n">html_address</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">table</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="p">),</span><span class="n">flavor</span><span class="o">=</span><span class="s1">&#39;bs4&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Note that the flavor cotains information about the encoding as well</span>
+<span class="n">http</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Ticket</th>
+      <th>Joined</th>
+      <th>Job</th>
+      <th>Boat [Body]</th>
+      <th>Unnamed: 7</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42</td>
+      <td>3rd Class Passenger</td>
+      <td>5547£7 11s</td>
+      <td>Southampton</td>
+      <td>Blacksmith</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39</td>
+      <td>3rd Class Passenger</td>
+      <td>CA2673£20 5s</td>
+      <td>Southampton</td>
+      <td>NaN</td>
+      <td>A</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16</td>
+      <td>3rd Class Passenger</td>
+      <td>CA2673£20 5s</td>
+      <td>Southampton</td>
+      <td>Jeweller</td>
+      <td>[190]</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13</td>
+      <td>3rd Class Passenger</td>
+      <td>CA2673£20 5s</td>
+      <td>Southampton</td>
+      <td>Scholar</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21</td>
+      <td>Victualling Crew</td>
+      <td>NaN</td>
+      <td>Southampton</td>
+      <td>Lounge Pantry Steward</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_trim</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Class/Dept&#39;</span><span class="p">,</span> <span class="s1">&#39;Boat [Body]&#39;</span><span class="p">]]</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[19]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42</td>
+      <td>3rd Class Passenger</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13</td>
+      <td>3rd Class Passenger</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21</td>
+      <td>Victualling Crew</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Processing-data">
+<h3>Processing data<a class="headerlink" href="#Processing-data" title="Permalink to this headline">¶</a></h3>
+<p>Special characters are removed and then the age is change to float and
+ages below 1 year are converted to a representative float number</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Boat [Body]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Boat [Body]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;ignore&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">process_age</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;m&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.?\d*&#39;</span><span class="p">,</span><span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="mi">12</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">process_age</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Categorize-passengers-and-crews">
+<h4>Categorize passengers and crews<a class="headerlink" href="#Categorize-passengers-and-crews" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">categorizer</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;PASSENGER&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;Passenger&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Crew&#39;</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Class/Dept&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">categorizer</span><span class="p">)</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[22]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+      <th>Crew/Passenger</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+      <td>Passenger</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+      <td>Passenger</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+      <td>Crew</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Check-passenger-ticket-class">
+<h4>Check passenger ticket class<a class="headerlink" href="#Check-passenger-ticket-class" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">get_passenger_class</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;PASSENGER&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Crew&#39;</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Class&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Class/Dept&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_passenger_class</span><span class="p">)</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+      <td>Crew</td>
+      <td>Crew</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Check-Adult/Child">
+<h4>Check Adult/Child<a class="headerlink" href="#Check-Adult/Child" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">check_adult</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">18</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Adult&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Child&#39;</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Adult/Child&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">check_adult</span><span class="p">)</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+      <th>Adult/Child</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+      <td>Crew</td>
+      <td>Crew</td>
+      <td>Adult</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Check-Gender">
+<h4>Check Gender<a class="headerlink" href="#Check-Gender" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">check_gender</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">firstname</span> <span class="o">=</span> <span class="n">name</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">:]</span>
+    <span class="n">salutation</span> <span class="o">=</span> <span class="n">firstname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">salutation</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;MR&#39;</span><span class="p">,</span> <span class="s1">&#39;MASTER&#39;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s1">&#39;Male&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Female&#39;</span>
+
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">check_gender</span><span class="p">)</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+      <th>Adult/Child</th>
+      <th>Gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Female</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+      <td>Crew</td>
+      <td>Crew</td>
+      <td>Adult</td>
+      <td>Male</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">check_survival</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;nan&#39;</span> <span class="ow">or</span> <span class="s1">&#39;[&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+<span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[</span><span class="s1">&#39;Boat [Body]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">check_survival</span><span class="p">)</span>
+<span class="n">data_trim</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Class/Dept</th>
+      <th>Boat [Body]</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+      <th>Adult/Child</th>
+      <th>Gender</th>
+      <th>Survival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ABBING, Mr Anthony</td>
+      <td>42.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ABBOTT, Mrs Rhoda Mary 'Rosa'</td>
+      <td>39.0</td>
+      <td>3rd Class Passenger</td>
+      <td>A</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Female</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ABBOTT, Mr Rossmore Edward</td>
+      <td>16.0</td>
+      <td>3rd Class Passenger</td>
+      <td>[190]</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ABBOTT, Mr Eugene Joseph</td>
+      <td>13.0</td>
+      <td>3rd Class Passenger</td>
+      <td>nan</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ABBOTT, Mr Ernest Owen</td>
+      <td>21.0</td>
+      <td>Victualling Crew</td>
+      <td>nan</td>
+      <td>Crew</td>
+      <td>Crew</td>
+      <td>Adult</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Check-the-importance-of-each-feature">
+<h3>Check the importance of each feature<a class="headerlink" href="#Check-the-importance-of-each-feature" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">entropy_calculate</span><span class="p">(</span><span class="n">prob_list</span><span class="p">):</span>
+
+    <span class="n">entropy</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">prob_list</span><span class="p">:</span>
+        <span class="n">entropy</span> <span class="o">-=</span> <span class="n">item</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">entropy</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">information_gain</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">initial_entropy</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Information gain analysis for </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">))</span>
+    <span class="n">probability_l1</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">feature</span><span class="p">])[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">entropy_feature</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">for</span> <span class="n">item</span><span class="p">,</span> <span class="n">probabality</span> <span class="ow">in</span> <span class="n">probability_l1</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Probability of </span><span class="si">{}</span><span class="s1">:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="n">probabality</span><span class="p">)</span>
+        <span class="n">probability_l2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">==</span><span class="n">item</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Survival&#39;</span><span class="p">])[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span><span class="o">==</span><span class="n">item</span><span class="p">])</span>
+
+        <span class="n">entropy_feature</span> <span class="o">+=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">probability_l2</span><span class="p">)</span> <span class="o">*</span> <span class="n">probabality</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">Entropy of feature: </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">entropy_feature</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Information gain: </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">initial_entropy</span> <span class="o">-</span> <span class="n">entropy_feature</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Information-gain-analysis">
+<h3>Information gain analysis<a class="headerlink" href="#Information-gain-analysis" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [29]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">probability_initial</span> <span class="o">=</span> <span class="n">data_trim</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Survival&#39;</span><span class="p">])[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_trim</span><span class="p">)</span>
+<span class="n">initial_entropy</span> <span class="o">=</span> <span class="n">entropy_calculate</span><span class="p">(</span><span class="n">probability_initial</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initial entropy: </span><span class="si">%.3f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">initial_entropy</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Initial entropy: 0.815
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">information_gain</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_trim</span><span class="p">,</span> <span class="n">initial_entropy</span><span class="o">=</span><span class="n">initial_entropy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Information gain analysis for Crew/Passenger
+        Probability of Crew: 0.4543987086359968
+        Probability of Passenger: 0.5456012913640033
+
+        Entropy of feature: 0.772
+        Information gain: 0.043
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">information_gain</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_trim</span><span class="p">,</span> <span class="n">initial_entropy</span><span class="o">=</span><span class="n">initial_entropy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Information gain analysis for Class
+        Probability of 1st: 0.14124293785310735
+        Probability of 2nd: 0.11824051654560129
+        Probability of 3rd: 0.2861178369652946
+        Probability of Crew: 0.4543987086359968
+
+        Entropy of feature: 0.738
+        Information gain: 0.077
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">information_gain</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_trim</span><span class="p">,</span> <span class="n">initial_entropy</span><span class="o">=</span><span class="n">initial_entropy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Information gain analysis for Adult/Child
+        Probability of Adult: 0.880548829701372
+        Probability of Child: 0.11945117029862792
+
+        Entropy of feature: 0.813
+        Information gain: 0.003
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [33]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">information_gain</span><span class="p">(</span><span class="n">feature</span><span class="o">=</span><span class="s1">&#39;Gender&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_trim</span><span class="p">,</span> <span class="n">initial_entropy</span><span class="o">=</span><span class="n">initial_entropy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Information gain analysis for Gender
+        Probability of Female: 0.23284907183212267
+        Probability of Male: 0.7671509281678773
+
+        Entropy of feature: 0.702
+        Information gain: 0.113
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Pick-features-and-lable-to-construct-the-decision-tree">
+<h3>Pick features and lable to construct the decision tree<a class="headerlink" href="#Pick-features-and-lable-to-construct-the-decision-tree" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">training_data</span> <span class="o">=</span> <span class="n">data_trim</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">,</span><span class="s1">&#39;Survival&#39;</span><span class="p">]]</span>
+<span class="n">training_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[34]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+      <th>Adult/Child</th>
+      <th>Gender</th>
+      <th>Survival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>42.0</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>39.0</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Adult</td>
+      <td>Female</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16.0</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>13.0</td>
+      <td>Passenger</td>
+      <td>3rd</td>
+      <td>Child</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21.0</td>
+      <td>Crew</td>
+      <td>Crew</td>
+      <td>Adult</td>
+      <td>Male</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Process-categorical-variables-to-numerical">
+<h3>Process categorical variables to numerical<a class="headerlink" href="#Process-categorical-variables-to-numerical" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [35]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">category_map</span> <span class="o">=</span><span class="p">{}</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span><span class="s1">&#39;Class&#39;</span><span class="p">,</span><span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span><span class="s1">&#39;Gender&#39;</span><span class="p">]:</span>
+    <span class="n">category_map</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">training_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">training_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">training_data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">training_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[36]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Crew/Passenger</th>
+      <th>Class</th>
+      <th>Adult/Child</th>
+      <th>Gender</th>
+      <th>Survival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>42.0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>39.0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>16.0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>13.0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>21.0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [37]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">training_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">training_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of valid records: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">training_data</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total number of valid records: 2449
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Split-to-train-and-test-data">
+<h3>Split to train and test data<a class="headerlink" href="#Split-to-train-and-test-data" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [38]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [39]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">train</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">test</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [40]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of records used for training: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">Total number of records used for testin: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total number of records used for training: 1959
+Total number of records used for testin: 490
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Build-a-decision-tree">
+<h3>Build a decision tree<a class="headerlink" href="#Build-a-decision-tree" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_leaf_nodes</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [45]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[45]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>DecisionTreeClassifier(class_weight=None, criterion=&#39;entropy&#39;, max_depth=None,
+            max_features=None, max_leaf_nodes=20,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter=&#39;best&#39;)
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>class_weight: A dictionary to provide user defined weights for each
+feature</li>
+<li>criterion: The criterion is the method used to decide with label and
+what decision needs to be made. gini impurity and information
+gain/entropy are the two main methods</li>
+<li>max_depth: It determines the maximum depth/layer from the root of
+the tree to the finest leaf</li>
+<li>max_features: if you want you can ask the algorithm to use a limited
+number of features based on their importance. This could be a
+dimension reduction approach that can simplify the tree</li>
+<li>max_leaf_nodes: The max number of end nodes that is another
+stopping criteria for the decision tree</li>
+<li>min_impurity_split: The minimum amount of impurity split percentage
+that result in generating another branch. In case of information
+gain, this will be measured by the amount/percentage of reduction in
+entropy.</li>
+<li>min_samples_leaf: Minimum number of samples that should exist in a
+subset created by a decision. If less than this number, the branch
+gets pruned and the previous level of the tree will be kept</li>
+<li>min_samples_split: Minimum number of samples in a tree level to
+consider further splitting and decision making</li>
+<li>min_weight_fraction_leaf: similar to min_samples_leaf but
+expressed as a fraction of whole data</li>
+<li>random_state, presort and splitter are performance related settings
+and do not affect the algorithm</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[46]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([0.20502926, 0.        , 0.28082862, 0.        , 0.51414211])
+</pre></div>
+</div>
+</div>
+<p>As can be seen above, the importance analysis confirms the result of
+information gain analysis that Gender is the most important feature.</p>
+</div>
+<div class="section" id="Tree-visualization">
+<h3>Tree visualization<a class="headerlink" href="#Tree-visualization" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [47]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">tree</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [48]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s1">&#39;Outputs/Titanic.dot&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">export_graphviz</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">feature_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">],</span> <span class="n">out_file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [49]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># conda install -c conda-forge python-graphviz</span>
+<span class="kn">from</span> <span class="nn">graphviz</span> <span class="k">import</span> <span class="n">Source</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [50]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">Source</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s1">&#39;Outputs/Titanic.dot&#39;</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">render</span><span class="p">()</span> <span class="c1"># saves a pdf file</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[50]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DecisionTree_77_0.svg" src="../_images/notebooks_DecisionTree_77_0.svg" /></div>
+</div>
+</div>
+<div class="section" id="Evaluate-the-tree">
+<h3>Evaluate the tree<a class="headerlink" href="#Evaluate-the-tree" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="Using-train-and-test-data-sets">
+<h4>Using train and test data sets<a class="headerlink" href="#Using-train-and-test-data-sets" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [51]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [52]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [53]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span><span class="n">predictions</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[53]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>0.8224489795918367
+</pre></div>
+</div>
+</div>
+<p>It is possible to tune the decision tree parameters based on the
+accuracy measure. For example the max_leaf_nodes can be tuned to find
+the maximum accuracy.</p>
+</div>
+<div class="section" id="K-fold-cross-validation">
+<h4>K-fold cross validation<a class="headerlink" href="#K-fold-cross-validation" title="Permalink to this headline">¶</a></h4>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [54]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_predict</span><span class="p">,</span> <span class="n">cross_val_score</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [55]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">X</span> <span class="o">=</span> <span class="n">training_data</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">training_data</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [56]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[56]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([0.82244898, 0.81428571, 0.79795918, 0.78367347, 0.81799591])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Ensemble-learning-to-avoid-over-fitting">
+<h2>Ensemble learning to avoid over fitting<a class="headerlink" href="#Ensemble-learning-to-avoid-over-fitting" title="Permalink to this headline">¶</a></h2>
+<p>The ensemble learning relies on using multiple instances of a machine
+learning algorithm (i.e. decision tree) that are trained with different
+subsets of the available training data. Also, the algorithm parameters
+and number of used features may be different for each instance.</p>
+<p>Each instance might be over/under fitted based on used data. However,
+the ensemble response is determined based on a majority rule decision.</p>
+<p>In other words, an ensemble may be defined as a collection of models
+(even different types) that solve the same problem. However, the final
+answer is achieved by a combining the response of all the models.</p>
+<div class="section" id="Random-Forest">
+<h3>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h3>
+<p>A collection of decision trees are built and trained independently and
+the combination provides the final response.</p>
+<ul class="simple">
+<li>Each tree in ensemble is built from a different subset of the
+training set (using Bagging (bootstrap aggregating) technique)</li>
+<li>Each tree in ensemble is built using a different subset of features
+(using random subspace technique)</li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [90]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [91]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="n">clf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[91]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+            max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)
+</pre></div>
+</div>
+</div>
+<p>Most of the parameters are related to settings of a decision tree.
+Settings related to the ensemble learning (i.e. the random forest) are
+explained below.</p>
+<ul class="simple">
+<li>bootstrap: Using the bootstrap technique to randomly select different
+subsets of data for each tree</li>
+<li>n_estimators: number of trees</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [92]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]],</span> <span class="n">y</span><span class="o">=</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]])</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy : </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span> <span class="n">predictions</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy : 0.81
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [93]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">importance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">],</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Importance for </span><span class="si">{}</span><span class="s1"> : </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span><span class="n">importance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Importance for Age : 0.450
+Importance for Crew/Passenger : 0.052
+Importance for Class : 0.185
+Importance for Adult/Child : 0.009
+Importance for Gender : 0.304
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [94]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Using the train/test data</span>
+<span class="k">def</span> <span class="nf">checkAccuracy</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span> <span class="n">criterion</span><span class="o">=</span><span class="s1">&#39;entropy&#39;</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]]</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [95]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result</span> <span class="o">=</span><span class="p">{</span><span class="s1">&#39;Number of trees&#39;</span><span class="p">:[],</span> <span class="s1">&#39;AccuracyScore&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+<span class="k">for</span> <span class="n">n_tree</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Number of trees&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_tree</span><span class="p">)</span>
+    <span class="n">result</span><span class="p">[</span><span class="s1">&#39;AccuracyScore&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">checkAccuracy</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="n">n_tree</span><span class="p">))</span>
+
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="n">result_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[95]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Number of trees</th>
+      <th>AccuracyScore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.773856</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>11</td>
+      <td>0.789191</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>21</td>
+      <td>0.792767</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>31</td>
+      <td>0.789701</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>41</td>
+      <td>0.788175</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [96]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">result_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Number of trees&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;AccuracyScore&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[96]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x14197cd6908&gt;
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DecisionTree_98_1.png" src="../_images/notebooks_DecisionTree_98_1.png" />
+</div>
+</div>
+<p>As can be seen above, adding more trees provides a better classification
+accuracy on average. However, this doe not mean that adding more tress
+will necessarily always result in a better accuracy depending on the
+cross validation population.</p>
+</div>
+<div class="section" id="Gradient-Boosted-Trees">
+<h3>Gradient Boosted Trees<a class="headerlink" href="#Gradient-Boosted-Trees" title="Permalink to this headline">¶</a></h3>
+<p>Each tree is built based on learnings of the previous tree</p>
+<p>Each tree is trained using a different subset of data. However, the
+Boosting + Gradient Descent techniques are used to pool the subsets.
+After the bootstrap for one tree, Gradient Descent adjusts the
+probability of a data point being in the next training set and this
+continues sequentially. In this context, while the first bootstrap is
+based on uniform sampling the next one is modified based on what was
+learned from the previous three classification results. Data points that
+are classified correctly get lower weight for the next bootstrap. In
+this way, the likelihood of picking data that are not classified with
+previous tree increases. Finally, each tree is given a different weight
+for the final weighting for the majority rule decision.</p>
+<p>I random forest, there is a “democracy” that all trees have the same
+voting weights. However, in the gradient boosted approach, trees that
+have a better performance/accuracy get a higher weight. Gradient descent
+is one of the technique that can be used to quantify the probability of
+choosing a data point in the train subset based on the result of the
+previous tree.</p>
+<p>For window installation:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install -c anaconda py-xgboost
+</pre></div>
+</div>
+<p>A rule of thumb is to use a lower number of tree when dealing with a
+small training data set.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [64]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">xgboost.sklearn</span> <span class="k">import</span> <span class="n">XGBClassifier</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [65]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">()</span>
+<span class="n">clf</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[65]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>XGBClassifier(base_score=0.5, booster=&#39;gbtree&#39;, colsample_bylevel=1,
+       colsample_bytree=1, gamma=0, learning_rate=0.1, max_delta_step=0,
+       max_depth=3, min_child_weight=1, missing=None, n_estimators=100,
+       n_jobs=1, nthread=None, objective=&#39;binary:logistic&#39;, random_state=0,
+       reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
+       silent=True, subsample=1)
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li>colsample_bylevel: Fraction of features used by each tree</li>
+<li>learning_rate: Controls the probability manipulation of data records
+based on the previous tree. Increasing this factor results in an
+increased focus on data records that were miss-classified.</li>
+<li>subsample: Fraction of the provided training data set used for each
+tree. Lowering this number results in a more distinct difference
+between training data sets used for each tree</li>
+<li>gamma: Minimum reduction in error to split the tree further</li>
+<li>n_estimators: Number of trees</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [66]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]],</span> <span class="n">y</span><span class="o">=</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]])</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy : </span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Survival&#39;</span><span class="p">],</span> <span class="n">predictions</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Accuracy : 0.82
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [67]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">importance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">],</span><span class="n">clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Importance for </span><span class="si">{}</span><span class="s1"> : </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span><span class="n">importance</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Importance for Age : 0.629
+Importance for Crew/Passenger : 0.057
+Importance for Class : 0.221
+Importance for Adult/Child : 0.000
+Importance for Gender : 0.093
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Hyper-Parameter-Tuning">
+<h3>Hyper Parameter Tuning<a class="headerlink" href="#Hyper-Parameter-Tuning" title="Permalink to this headline">¶</a></h3>
+<p>Considering the different parameters that affect the performance of a
+decision tree and also parameters that control the ensemble learning,
+there are many combinations that should be checked to find the best
+accuracy for the train/test data set. Hyper parameter tuning uses
+optimization technique to find an optimal combination.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [68]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># conda install -c jaikumarm hyperopt</span>
+<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="k">import</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">tpe</span><span class="p">,</span> <span class="n">hp</span><span class="p">,</span> <span class="n">STATUS_OK</span><span class="p">,</span> <span class="n">Trials</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># provide the optimization range/population</span>
+<span class="n">control</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;max_depth&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;min_child_weight&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;min_child_weight&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;subsample&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;subsample&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;colsample_bytree&#39;</span><span class="p">:</span> <span class="n">hp</span><span class="o">.</span><span class="n">quniform</span><span class="p">(</span><span class="s1">&#39;colsample_bytree&#39;</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="p">,</span><span class="s1">&#39;nthread&#39;</span><span class="p">:</span><span class="mi">5</span>
+    <span class="p">,</span><span class="s1">&#39;silent&#39;</span><span class="p">:</span><span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [70]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">scorevalue</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Age&#39;</span><span class="p">,</span> <span class="s1">&#39;Crew/Passenger&#39;</span><span class="p">,</span> <span class="s1">&#39;Class&#39;</span><span class="p">,</span> <span class="s1">&#39;Adult/Child&#39;</span><span class="p">,</span> <span class="s1">&#39;Gender&#39;</span><span class="p">]]</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Survival&#39;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [71]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Define a score that gets minimized and provides what you need</span>
+<span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">])</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;max_depth&#39;</span><span class="p">])</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="n">scorevalue</span><span class="p">(</span><span class="n">clf</span><span class="p">),</span> <span class="s1">&#39;status&#39;</span><span class="p">:</span><span class="n">STATUS_OK</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [72]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">trails</span><span class="o">=</span><span class="n">Trials</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [73]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">best_param_set</span> <span class="o">=</span> <span class="n">fmin</span><span class="p">(</span><span class="n">score</span><span class="p">,</span><span class="n">control</span><span class="p">,</span><span class="n">algo</span><span class="o">=</span><span class="n">tpe</span><span class="o">.</span><span class="n">suggest</span><span class="p">,</span><span class="n">trials</span><span class="o">=</span><span class="n">trails</span><span class="p">,</span><span class="n">max_evals</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [74]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimized parameters: &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">best_param_set</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Optimized parameters:
+colsample_bytree = 1.0
+gamma = 1.0
+learning_rate = 0.2
+max_depth = 10.0
+min_child_weight = 5.0
+n_estimators = 583.0
+subsample = 1.0
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [75]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Optimized Accuracy: </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">score</span><span class="p">(</span><span class="n">best_param_set</span><span class="p">)[</span><span class="s1">&#39;loss&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Optimized Accuracy: 0.816
+</pre></div></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="IncomeDataAnalysis.html" class="btn btn-neutral float-right" title="Statistical Analysis for Income Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PCA-RPCA.html" class="btn btn-neutral" title="Principal Component Analysis (PCA)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mostafa Hadavand.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

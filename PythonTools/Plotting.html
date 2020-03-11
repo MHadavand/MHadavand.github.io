@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Plotting Tools &mdash; PythonTools 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/Python.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PythonTools 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="General Utilities" href="Utilities.html"/>
+        <link rel="prev" title="Connection to a Database" href="ServerConnection.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PythonTools
+          
+
+          
+            
+            <img src="_static/Python.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ServerConnection.html">Connection to a Database</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plotting Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plot-table">plot_table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pdf-plot">pdf_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bv-plot">bv_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#well-trajectory">Well Trajectory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#surface-triangulation">Surface Triangulation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">General Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PythonTools</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Plotting Tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Plotting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="plotting-tools">
+<span id="plotting"></span><h1>Plotting Tools<a class="headerlink" href="#plotting-tools" title="Permalink to this headline">¶</a></h1>
+<p>High quality, accurate and informative visualization is an essential tool for data analysis. A collection of python (mainly Matplotlib) and <a class="reference external" href="https://www.vtk.org/">VTK</a> based visualization tools are provided in PythonTools package.</p>
+<div class="section" id="plot-table">
+<span id="id1"></span><h2>plot_table<a class="headerlink" href="#plot-table" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="PythonTools.Plotting.plot_table">
+<code class="descclassname">Plotting.</code><code class="descname">plot_table</code><span class="sig-paren">(</span><em>data, col_width=3.0, row_height=0.625, fontsize=14, header_color='#40466e', row_colors=['#f1f1f2', 'w'], edge_color='w', bbox=[0, 0, 1, 1], header_columns=0, title=None, titlefont=18, ax=None, axvisible=False, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonTools.Plotting.plot_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function plots a pandas data frame in a table format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>pandas.DataFrame</em>) – Input data frame that will be plotted</li>
+<li><strong>col_width</strong> (<em>float</em>) – Column width for data</li>
+<li><strong>row_height</strong> (<em>float</em>) – Row height in the final plot</li>
+<li><strong>fontsize</strong> (<em>int</em>) – Font size for table records</li>
+<li><strong>header_color</strong> (<em>str</em><em> or </em><em>tuple</em><em>(</em><em>int</em><em>)</em>) – Any permissible matplotlib color</li>
+<li><strong>row_colors</strong> (<em>list</em><em>(</em><em>color</em><em>)</em>) – List of permissible matplotlib colors (for two-color row sets)</li>
+<li><strong>edge_color</strong> (<em>str</em><em> or </em><em>tuple</em><em>(</em><em>int</em><em>)</em>) – Any permissible matplotlib color</li>
+<li><strong>header_columns</strong> (<em>int</em>) – Numbe of header columns for coloring the table</li>
+<li><strong>ax</strong> (<em>Matplotlib.axis</em>) – Matplotlib axis to plot the figure</li>
+<li><strong>axvisible</strong> (<em>bool</em>) – Control ax visibility</li>
+<li><strong>**kwargs</strong> – Optional permissible keyword arguments to pass to matplotlib table plot</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<p>Plotting a data frame:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PythonTools</span><span class="o">.</span><span class="n">plot_table</span><span class="p">(</span><span class="n">DF</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/PlotTable.png" src="_images/PlotTable.png" />
+</dd></dl>
+
+</div>
+<div class="section" id="pdf-plot">
+<span id="id2"></span><h2>pdf_plot<a class="headerlink" href="#pdf-plot" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="PythonTools.Plotting.pdf_plot">
+<code class="descclassname">Plotting.</code><code class="descname">pdf_plot</code><span class="sig-paren">(</span><em>var</em>, <em>wts=None</em>, <em>sigfigs=3</em>, <em>nbins=20</em>, <em>figsize=(8</em>, <em>10)</em>, <em>LW=3</em>, <em>line_color='black'</em>, <em>xlabel='Variable 1'</em>, <em>barcolor='gray'</em>, <em>kde_flag=True</em>, <em>bw=0.2</em>, <em>lw_kde=3</em>, <em>kde_color='blue'</em>, <em>Box=True</em>, <em>stats=True</em>, <em>statsMode='all'</em>, <em>stat_xy=(1</em>, <em>0.95)</em>, <em>cdf=False</em>, <em>fontsize=10</em>, <em>legend=False</em>, <em>ax=None</em>, <em>showfliers=False</em>, <em>labelfont=21</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonTools.Plotting.pdf_plot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Probability density plot based on kernel density estimate. Scipy package is used for kernel density estimation.</dt>
+<dd>kde is based on Gaussian kernels and it has automatic bandwidth determination. If the user sets a negative value for
+bandwidth, it will be determined automatically. The estimation works best for a unimodal distribution; bimodal or
+multi-modal distributions tend to be oversmoothed.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>var</strong> – Tidy (long-form) 1D data where a single column of the variable exists with each row is
+an observation. A pandas dataframe/series or numpy array can be passed.</li>
+<li><strong>wts</strong> – 1D dataframe, series, or numpy array of declustering weights for the data.</li>
+<li><strong>nbins</strong> (<em>int</em>) – Number of bins to use</li>
+<li><strong>figsize</strong> (<em>tuple</em>) – Figure size (width, height)</li>
+<li><strong>LW</strong> (<em>float</em>) – line width for the bar plot</li>
+<li><strong>line_color</strong> (<em>str</em><em>, </em><em>tuple</em>) – Any permissible matplotlib color</li>
+<li><strong>xlabel</strong> (<em>str</em>) – X-axis label</li>
+<li><strong>barcolor</strong> (<em>str</em>) – Any permissible matplotlib color</li>
+<li><strong>kde</strong> (<em>bool</em>) – Option to calculate and plot kde</li>
+<li><strong>bw</strong> (<em>float</em>) – Band width for kernel density estimation</li>
+<li><strong>lw_kde</strong> (<em>float</em>) – Line width for kde line</li>
+<li><strong>kde_color</strong> (<em>str</em><em>, </em><em>tuple</em>) – Any permissible matplotlib color</li>
+<li><strong>Box</strong> (<em>bool</em>) – Option to plot a box for the plot</li>
+<li><strong>stats</strong> (<em>bool</em>) – Option to include a summary statistics</li>
+<li><strong>statsMode</strong> (<em>string</em>) – Summary statsitics shown in the plot (none, minimal, all)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Code author: Mostafa Hadavand 2015-20-7</em></p>
+<p class="rubric">Example</p>
+<p>Plotting a data frame:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DF</span> <span class="o">=</span> <span class="n">PythonTools</span><span class="o">.</span><span class="n">Run_Query</span><span class="p">(</span><span class="n">SQL_Query</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PythonTools</span><span class="o">.</span><span class="n">pdf_plot</span><span class="p">(</span><span class="n">DF</span><span class="p">[</span><span class="s1">&#39;Air Quality Index&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="_images/pdfPlot.png" src="_images/pdfPlot.png" />
+</dd></dl>
+
+</div>
+<div class="section" id="bv-plot">
+<span id="id3"></span><h2>bv_plot<a class="headerlink" href="#bv-plot" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="PythonTools.Plotting.bv_plot">
+<code class="descclassname">Plotting.</code><code class="descname">bv_plot</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>xlabel='Variable 1'</em>, <em>ylabel='Variable 2'</em>, <em>bw=0.2</em>, <em>figsize=(10</em>, <em>10)</em>, <em>cmap='hot_r'</em>, <em>contour=False</em>, <em>ax=None</em>, <em>s_size=100</em>, <em>fontsize=11</em>, <em>label_font_size=11</em>, <em>alpha=1.0</em>, <em>kde_label=True</em>, <em>cbar=True</em>, <em>stat_xy=(1.05</em>, <em>0.99)</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonTools.Plotting.bv_plot" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Bivariate probability plot based on kernel density estimate.  If the user sets a negative value for</dt>
+<dd>bandwidth, it will be determined automatically. The estimation works best for a unimodal distribution; bimodal or
+multi-modal distributions tend to be oversmoothed..</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – Tidy (long-form): Variable 1. 1D data where a single column of the variable exists with each row is
+an observation. A pandas dataframe/series or numpy array can be passed.</li>
+<li><strong>y</strong> – Tidy (long-form): Variable 2. 1D data where a single column of the variable exists with each row is
+an observation. A pandas dataframe/series or numpy array can be passed.</li>
+<li><strong>xlabel</strong> (<em>string</em>) – Lable for the x axis</li>
+<li><strong>ylabel</strong> (<em>string</em>) – Lable for the y axis</li>
+<li><strong>bw</strong> (<em>float</em>) – Bandwidth for kernel density calculation (negative value for automated pick).</li>
+<li><strong>cmap</strong> (<em>'str'</em>) – Matplotlib color map</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><em>Code author: Mostafa Hadavand 2015-18-8</em></p>
+<p class="rubric">Example</p>
+<p>Plotting a bivariate normal distribution:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PythonTools</span><span class="o">.</span><span class="n">bv_plot</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bw</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/BV_Plot.png" src="_images/BV_Plot.png" />
+</dd></dl>
+
+</div>
+<div class="section" id="well-trajectory">
+<span id="trajectory-to-vtk"></span><h2>Well Trajectory<a class="headerlink" href="#well-trajectory" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="PythonTools.Plotting.trajectory_to_vtk">
+<code class="descclassname">Plotting.</code><code class="descname">trajectory_to_vtk</code><span class="sig-paren">(</span><em>data=None</em>, <em>x='X'</em>, <em>y='Y'</em>, <em>z='Z'</em>, <em>var='INCL'</em>, <em>well_id='ID'</em>, <em>vtp_folder='Wells_VTK'</em>, <em>categorical=False</em>, <em>output_file='./Wells.vtm'</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonTools.Plotting.trajectory_to_vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to write a vtk file that can be used to visualize well trajectory</p>
+<p>data (pandas.DataFrame): Pandas dataframe containing array of data values
+x (string): Name of X coordinate column
+y (string): Name of Y coordinate column
+z (string): Name of Z coordinate column
+var (string): Name of variable column
+well_id (string): Name of well id column</p>
+<p class="rubric">Example</p>
+<p>Plotting a collection of horizontal well trajectories:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PythonTools</span><span class="o">.</span><span class="n">trajectory_to_vtk</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">DF</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="s1">&#39;INCL&#39;</span><span class="p">,</span> <span class="n">well_id</span> <span class="o">=</span> <span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/WellVtk.png" src="_images/WellVtk.png" />
+</dd></dl>
+
+</div>
+<div class="section" id="surface-triangulation">
+<span id="surface-to-vtk"></span><h2>Surface Triangulation<a class="headerlink" href="#surface-triangulation" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="PythonTools.Plotting.surface_to_vtk">
+<code class="descclassname">Plotting.</code><code class="descname">surface_to_vtk</code><span class="sig-paren">(</span><em>z</em>, <em>griddef</em>, <em>flname='Surface.vtk'</em>, <em>fmt='%.5f'</em>, <em>centroid_always=True</em><span class="sig-paren">)</span><a class="headerlink" href="#PythonTools.Plotting.surface_to_vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to write a vtk file that can be used to visualize a surface based on triangulation.</p>
+<p>z (long-form): The elevation/depth picks for the surface. 1D data where a single column of the variable exists with each row is an observation. A pandas dataframe/series or numpy array can be passed.
+griddef(pygeostat griddef): A pygeostat object that contains grid specifications.
+flname (string): Name of the output file
+fmt (string): Format to write the vtk file
+centroid_always(bool): an option to determine if the surface was modeled at centroids (i.e. centroid_always = True) or grid corners (i.e. centroid_always = False)</p>
+<p class="rubric">Example</p>
+<p>Plotting a collection of horizontal well trajectories:
+&gt;&gt;&gt; import PythonTools as PT
+&gt;&gt;&gt; grid_model = PT.GridDef([nx, xmn, xsiz, ny, ymn, ysiz,nz, zmn, zsiz])
+&gt;&gt;&gt; PT.surface_to_vtk(z, grid_model, flname=’Surface.vtk’)</p>
+<img alt="_images/Surface.png" src="_images/Surface.png" />
+<img alt="_images/Surface2.png" src="_images/Surface2.png" />
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Utilities.html" class="btn btn-neutral float-right" title="General Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ServerConnection.html" class="btn btn-neutral" title="Connection to a Database" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mostafa Hadavand.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; PythonTools 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/Python.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="PythonTools 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Connection to a Database" href="ServerConnection.html"/>
+        <link rel="prev" title="Welcome" href="welcome.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PythonTools
+          
+
+          
+            
+            <img src="_static/Python.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-installation">Python Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pythontools-installation">PythonTools Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#option-1">Option 1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#option-2">Option 2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ServerConnection.html">Connection to a Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Plotting.html">Plotting Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Utilities.html">General Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PythonTools</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="installation">
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Note that PythonTools requires Python 3.X, preferably 3.4 or higher. You may already have Python 2.X installed on your computer; PythonTools will not likely work without modification. Installing Python 3.X for using PythonTools is recommended.</p>
+<div class="section" id="python-installation">
+<h2>Python Installation<a class="headerlink" href="#python-installation" title="Permalink to this headline">¶</a></h2>
+<p>The Anaconda distribution by Continuum Analytics: <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> is recommended as it includes all dependencies for PythonTools. If unfamiliar with Python and virtual environments, then accepting the defaults of registering with the system and installing to the path are recommended.</p>
+<p>If there is a package that is not installed, you can use conda through command prompt:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ conda intsall -c anaconda sphinx
+</pre></div>
+</div>
+<p>Make sure that C:/Users/user/Anaconda3 and C:/Users/use/Anaconda3/scripts are added to the path system environmental variable. Although Anaconda distribution does not required administration rights, you may need to set the user environmental variables every time you start a new conda prompt if you do not have administration rights.</p>
+<p>Another alternative is to use pip that is a package management system used to install and manage software packages written in Python:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install numba
+</pre></div>
+</div>
+</div>
+<div class="section" id="pythontools-installation">
+<h2>PythonTools Installation<a class="headerlink" href="#pythontools-installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="option-1">
+<h3>Option 1<a class="headerlink" href="#option-1" title="Permalink to this headline">¶</a></h3>
+<p>Download the PythonTools and install the packages:</p>
+<blockquote>
+<div>$ python setup.py install  – Not suitable for version control</div></blockquote>
+</div>
+<div class="section" id="option-2">
+<h3>Option 2<a class="headerlink" href="#option-2" title="Permalink to this headline">¶</a></h3>
+<p>Clone/download the PythonTools to a local directory and point the python environmental variable to that director. This option allows to implement version control and have access to the latest version of the code.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$PYTHONPATH = &#39;D:\Git\PythonTools&#39;
+</pre></div>
+</div>
+<p>Afterwards, PythonTools can be imported to your python codes/notebooks.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$import PythonTools as PT
+</pre></div>
+</div>
+<p>After installing PythonTools, you can use it in your python codes:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">PythonTools</span>
+
+<span class="n">local_connection</span> <span class="o">=</span> <span class="n">PythonTools</span><span class="o">.</span><span class="n">ServerConnect</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="n">database</span> <span class="o">=</span> <span class="s1">&#39;MyDB&#39;</span><span class="p">,</span> <span class="n">uid</span> <span class="o">=</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+<div class="section" id="jupyter-notebook">
+<h2>Jupyter Notebook<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline">¶</a></h2>
+<p>The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and explanatory text. Uses include: data cleaning and transformation, numerical simulation, statistical modeling, machine learning and much more.</p>
+<img alt="_images/jupyter.png" class="align-center" src="_images/jupyter.png" />
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ServerConnection.html" class="btn btn-neutral float-right" title="Connection to a Database" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="welcome.html" class="btn btn-neutral" title="Welcome" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mostafa Hadavand.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

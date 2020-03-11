@@ -1,0 +1,15 @@
+.. mix
+   private start - put any .rst files in here that should be removed from the toctree of the public version
+.. _mastertoc:
+
+Table of Contents
+=================
+
+.. toctree::
+   :maxdepth: 4
+
+   welcome.rst
+   installation.rst
+   ServerConnection.rst
+   Plotting.rst
+   Utilities.rst
