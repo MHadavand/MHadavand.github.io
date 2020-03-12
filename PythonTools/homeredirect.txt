@@ -1,3 +1,0 @@
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-<a href="../Home.html">Back to Home Page</a>
