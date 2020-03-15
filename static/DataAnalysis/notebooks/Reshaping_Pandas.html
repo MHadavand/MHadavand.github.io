@@ -1,0 +1,1359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reshaping in Pandas - Pivot, Pivot-Table, Stack and Unstack &mdash; DataScience 0.0.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/DA.ico"/>
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Summary Statistics for Well Data" href="Data_Review.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DataScience
+          
+
+          
+            
+            <img src="../_static/DA.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PCA-RPCA.html">Principal Component Analysis (PCA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DecisionTree.html">Decision Tree and Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="IncomeDataAnalysis.html">Statistical Analysis for Income Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Hydat_Analysis.html">National Water Data: HYDAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Dijkstra_Algorithm.html">Simple Implementation of Dijkstra Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Data_Review.html">Summary Statistics for Well Data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reshaping in Pandas - Pivot, Pivot-Table, Stack and Unstack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Pivot">Pivot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pivoting-By-Multiple-Columns">Pivoting By Multiple Columns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Common-Mistake-in-Pivoting">Common Mistake in Pivoting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Pivot-Table">Pivot Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Stack/Unstack">Stack/Unstack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Stack">Stack</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DataScience</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Reshaping in Pandas - Pivot, Pivot-Table, Stack and Unstack</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/notebooks/Reshaping_Pandas.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Reshaping-in-Pandas---Pivot,-Pivot-Table,-Stack-and-Unstack">
+<h1>Reshaping in Pandas - Pivot, Pivot-Table, Stack and Unstack<a class="headerlink" href="#Reshaping-in-Pandas---Pivot,-Pivot-Table,-Stack-and-Unstack" title="Permalink to this headline">¶</a></h1>
+<p>By Nikolay Grozev (<a class="reference external" href="http://nikgrozev.com/">http://nikgrozev.com/</a>)</p>
+<p>Pandas is a popular python library for data analysis. It provides a
+façade on top of libraries like numpy and matplotlib, which makes it
+easier to read and transform data. It provides the abstractions of
+DataFrames and Series, similar to those in R.</p>
+<p>In Pandas data reshaping means the transformation of the structure of a
+table or vector (i.e. DataFrame or Series) to make it suitable for
+further analysis. Some of Pandas reshaping capabilities do not readily
+exist in other environments (e.g. SQL or bare bone R) and can be tricky
+for a beginner.</p>
+<p>In this notebook, some of the most common Pandas reshaping functions are
+explained.</p>
+<div class="section" id="Pivot">
+<h2>Pivot<a class="headerlink" href="#Pivot" title="Permalink to this headline">¶</a></h2>
+<p>The pivot function is used to create a new derived table out of a given
+one. Pivot takes 3 arguements with the following names: index, columns,
+and values. As a value for each of these parameters you need to specify
+a column name in the original table. Then the pivot function will create
+a new table, whose row and column indices are the unique values of the
+respective parameters. The cell values of the new table are taken from
+column given as the values parameter.</p>
+<p>A bit foggy? Let’s give an example. Assume that we are given the
+following small table:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">table</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">((</span>
+    <span class="p">(</span><span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item1&#39;</span><span class="p">,</span> <span class="s1">&#39;Item1&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;CType&#39;</span><span class="p">,[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">,</span> <span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="s1">&#39;1$&#39;</span><span class="p">,</span> <span class="s1">&#39;2$&#39;</span><span class="p">,</span> <span class="s1">&#39;3$&#39;</span><span class="p">,</span> <span class="s1">&#39;4$&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;EU&#39;</span><span class="p">,</span>   <span class="p">[</span><span class="s1">&#39;1€&#39;</span><span class="p">,</span> <span class="s1">&#39;2€&#39;</span><span class="p">,</span> <span class="s1">&#39;3€&#39;</span><span class="p">,</span> <span class="s1">&#39;4€&#39;</span><span class="p">])</span>
+<span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Item</th>
+      <th>CType</th>
+      <th>USD</th>
+      <th>EU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Item0</td>
+      <td>Gold</td>
+      <td>1$</td>
+      <td>1€</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Item0</td>
+      <td>Bronze</td>
+      <td>2$</td>
+      <td>2€</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Item1</td>
+      <td>Gold</td>
+      <td>3$</td>
+      <td>3€</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Item1</td>
+      <td>Silver</td>
+      <td>4$</td>
+      <td>4€</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;CType&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>CType</th>
+      <th>Bronze</th>
+      <th>Gold</th>
+      <th>Silver</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Item0</th>
+      <td>2$</td>
+      <td>1$</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Item1</th>
+      <td>None</td>
+      <td>3$</td>
+      <td>4$</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>As can be seen above, the value of USD for every row in the original
+table has been transferred to the new table, where its row and column
+match the Item and CType of its original row. Cells in the new table
+which do not have a matching entry in the original one are set with NaN.</p>
+<p>As an example the following lines perform equivalent queries on the
+original and pivoted tables:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Original DataFrame: Access the USD cost of Item0 for Gold customers</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">d</span><span class="p">[(</span><span class="n">d</span><span class="o">.</span><span class="n">Item</span><span class="o">==</span><span class="s1">&#39;Item0&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">CType</span><span class="o">==</span><span class="s1">&#39;Gold&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">USD</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># Pivoted DataFrame: Access the USD cost of Item0 for Gold customers</span>
+<span class="nb">print</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">index</span><span class="o">==</span><span class="s1">&#39;Item0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Gold</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;1$&#39;]
+[&#39;1$&#39;]
+</pre></div></div>
+</div>
+<p>Note that in this example the pivoted table does not contain any
+information about the EU column! Indeed, we can’t see those euro symbols
+anywhere! Thus, the pivoted table is a simplified version of the
+original data and only contains information about the columns we
+specified as parameters to the pivot method.</p>
+</div>
+<div class="section" id="Pivoting-By-Multiple-Columns">
+<h2>Pivoting By Multiple Columns<a class="headerlink" href="#Pivoting-By-Multiple-Columns" title="Permalink to this headline">¶</a></h2>
+<p>Now what if we want to extend the previous example to have the EU cost
+for each item on its row as well? This is actually easy - we just have
+to omit the values parameter as follows:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;CType&#39;</span><span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">USD</th>
+      <th colspan="3" halign="left">EU</th>
+    </tr>
+    <tr>
+      <th>CType</th>
+      <th>Bronze</th>
+      <th>Gold</th>
+      <th>Silver</th>
+      <th>Bronze</th>
+      <th>Gold</th>
+      <th>Silver</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Item0</th>
+      <td>2$</td>
+      <td>1$</td>
+      <td>None</td>
+      <td>2€</td>
+      <td>1€</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Item1</th>
+      <td>None</td>
+      <td>3$</td>
+      <td>4$</td>
+      <td>None</td>
+      <td>3€</td>
+      <td>4€</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>As shown above, Pandas will create a hierarchical column index
+(MultiIndex) for the new table. You can think of a hierarchical index as
+a set of trees of indices. Each indexed column/row is identified by a
+unique sequence of values defining the “path” from the topmost index to
+the bottom index. The first level of the column index defines all
+columns that we have not specified in the pivot invocation - in this
+case USD and EU. The second level of the index defines the unique value
+of the corresponding column.</p>
+<p>We can use this hierarchical column index to filter the values of a
+single column from the original table. For example p.USD returns a
+pivoted DataFrame with the USD values only and it is equivalent to the
+pivoted DataFrame from the previous section.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span><span class="o">.</span><span class="n">USD</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>CType</th>
+      <th>Bronze</th>
+      <th>Gold</th>
+      <th>Silver</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Item0</th>
+      <td>2$</td>
+      <td>1$</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th>Item1</th>
+      <td>None</td>
+      <td>3$</td>
+      <td>4$</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">p</span><span class="o">.</span><span class="n">USD</span><span class="o">.</span><span class="n">Bronze</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[6]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Item
+Item0      2$
+Item1    None
+Name: Bronze, dtype: object
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Original DataFrame: Access the USD cost of Item0 for Gold customers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">[(</span><span class="n">d</span><span class="o">.</span><span class="n">Item</span><span class="o">==</span><span class="s1">&#39;Item0&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">CType</span><span class="o">==</span><span class="s1">&#39;Gold&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">USD</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># Pivoted DataFrame: p.USD gives a &quot;sub-DataFrame&quot; with the USD values only</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">USD</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">USD</span><span class="o">.</span><span class="n">index</span><span class="o">==</span><span class="s1">&#39;Item0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Gold</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;1$&#39;]
+[&#39;1$&#39;]
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Common-Mistake-in-Pivoting">
+<h2>Common Mistake in Pivoting<a class="headerlink" href="#Common-Mistake-in-Pivoting" title="Permalink to this headline">¶</a></h2>
+<p>As we saw the pivot method takes at least 2 column names as parameters -
+the index and the columns named parameters. What will happen if we have
+multiple rows with the same values for these columns? How will the pivot
+method determine the value of the corresponding cell in the pivoted
+table? The following diagram depicts the problem:</p>
+<div class="figure">
+<img alt="Duplicates and pivot" src="../_images/Pivot1.png" />
+</div>
+<p>Hence, before calling pivot we need to ensure that our data does not
+have rows with duplicate values for the specified columns. If we can’t
+ensure this we may have to use the pivot_table method instead.</p>
+<p>The example below fails with the following error:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">((</span>
+    <span class="p">(</span><span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item1&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;CType&#39;</span><span class="p">,[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">,</span> <span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span>  <span class="s1">&#39;2&#39;</span><span class="p">,</span>  <span class="s1">&#39;3&#39;</span><span class="p">,</span>  <span class="s1">&#39;4&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;EU&#39;</span><span class="p">,</span>   <span class="p">[</span><span class="s1">&#39;1€&#39;</span><span class="p">,</span> <span class="s1">&#39;2€&#39;</span><span class="p">,</span> <span class="s1">&#39;3€&#39;</span><span class="p">,</span> <span class="s1">&#39;4€&#39;</span><span class="p">])</span>
+<span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;CType&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>ValueError: Index contains duplicate entries, cannot reshape</strong></p>
+</div>
+<div class="section" id="Pivot-Table">
+<h2>Pivot Table<a class="headerlink" href="#Pivot-Table" title="Permalink to this headline">¶</a></h2>
+<p>The pivot_table method comes to solve this problem. It works like
+pivot, but it aggregates the values from rows with duplicate entries for
+the specified columns. In other words, in the previous example we could
+have used the mean, the median or another aggregation function to
+compute a single value from the conflicting entries. This is depicted in
+the example below.</p>
+<div class="figure">
+<img alt="Pivottable and aggregation" src="../_images/Pivot2.png" />
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">table</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">((</span>
+    <span class="p">(</span><span class="s2">&quot;Item&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item0&#39;</span><span class="p">,</span> <span class="s1">&#39;Item1&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;CType&#39;</span><span class="p">,[</span><span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Bronze&#39;</span><span class="p">,</span> <span class="s1">&#39;Gold&#39;</span><span class="p">,</span> <span class="s1">&#39;Silver&#39;</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s1">&#39;EU&#39;</span><span class="p">,</span>   <span class="p">[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">])</span>
+<span class="p">))</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Item&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;CType&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;USD&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>CType</th>
+      <th>Bronze</th>
+      <th>Gold</th>
+      <th>Silver</th>
+    </tr>
+    <tr>
+      <th>Item</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Item0</th>
+      <td>2</td>
+      <td>4</td>
+      <td>--</td>
+    </tr>
+    <tr>
+      <th>Item1</th>
+      <td>--</td>
+      <td>--</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>In essence pivot_table is a generalisation of pivot, which allows you
+to aggregate multiple values with the same destination in the pivoted
+table.</p>
+</div>
+<div class="section" id="Stack/Unstack">
+<h2>Stack/Unstack<a class="headerlink" href="#Stack/Unstack" title="Permalink to this headline">¶</a></h2>
+<p>In fact pivoting a table is a special case of stacking a DataFrame. Let
+us assume we have a DataFrame with MultiIndices on the rows and columns.
+Stacking a DataFrame means moving (also rotating or pivoting) the
+innermost column index to become the innermost row index. The inverse
+operation is called unstacking. It means moving the innermost row index
+to become the innermost column index. The following diagram depicts the
+operations:</p>
+<div class="figure">
+<img alt="Stack/unstack" src="../_images/stack.png" />
+</div>
+<p>In this example, we look at a DataFrame with 2-level hierarchical
+indices on both axes. Stacking takes the most-inner column index (i.e.
+c00, c01, c10), makes it the most inner row index and reshuffles the
+cell values accordingly. Inversely, unstacking moves the most-inner row
+indices (i.e. r00, r01) to the columns.</p>
+<p>Typically, stacking makes the DataFrame taller, as it is “stacking” data
+in fewer columns and more rows. Similarly, unstacking usually makes it
+shorter and wider or broader. The following reproduces the example:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Row Multi-Index</span>
+<span class="n">row_idx_arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;r0&#39;</span><span class="p">,</span> <span class="s1">&#39;r0&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;r-00&#39;</span><span class="p">,</span> <span class="s1">&#39;r-01&#39;</span><span class="p">]))</span>
+<span class="n">row_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span><span class="n">row_idx_arr</span><span class="p">)</span>
+
+<span class="c1"># Column Multi-Index</span>
+<span class="n">col_idx_arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;c0&#39;</span><span class="p">,</span> <span class="s1">&#39;c0&#39;</span><span class="p">,</span> <span class="s1">&#39;c1&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c-00&#39;</span><span class="p">,</span> <span class="s1">&#39;c-01&#39;</span><span class="p">,</span> <span class="s1">&#39;c-10&#39;</span><span class="p">]))</span>
+<span class="n">col_idx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span><span class="n">col_idx_arr</span><span class="p">)</span>
+
+<span class="c1"># Create the DataFrame</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_idx</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">d</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="2" halign="left">c0</th>
+      <th>c1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th></th>
+      <th>c-00</th>
+      <th>c-01</th>
+      <th>c-10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">r0</th>
+      <th>r-00</th>
+      <td>(0, 0)</td>
+      <td>(0, 1)</td>
+      <td>(0, 2)</td>
+    </tr>
+    <tr>
+      <th>r-01</th>
+      <td>(1, 0)</td>
+      <td>(1, 1)</td>
+      <td>(1, 2)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="section" id="Stack">
+<h3>Stack<a class="headerlink" href="#Stack" title="Permalink to this headline">¶</a></h3>
+<p>Note that you can use the level to choose the index level: for the
+example above: level=-1 chooses the inner most column level and pivot
+that while level=-2 chooses the level above that as shown below:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>c0</th>
+      <th>c1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="6" valign="top">r0</th>
+      <th rowspan="3" valign="top">r-00</th>
+      <th>c-00</th>
+      <td>(0, 0)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c-01</th>
+      <td>(0, 1)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c-10</th>
+      <td>NaN</td>
+      <td>(0, 2)</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">r-01</th>
+      <th>c-00</th>
+      <td>(1, 0)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c-01</th>
+      <td>(1, 1)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c-10</th>
+      <td>NaN</td>
+      <td>(1, 2)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>c-00</th>
+      <th>c-01</th>
+      <th>c-10</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">r0</th>
+      <th rowspan="2" valign="top">r-00</th>
+      <th>c0</th>
+      <td>(0, 0)</td>
+      <td>(0, 1)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>(0, 2)</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">r-01</th>
+      <th>c0</th>
+      <td>(1, 0)</td>
+      <td>(1, 1)</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>(1, 2)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Unstack</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">u</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="4" halign="left">c0</th>
+      <th colspan="2" halign="left">c1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">c-00</th>
+      <th colspan="2" halign="left">c-01</th>
+      <th colspan="2" halign="left">c-10</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>r-00</th>
+      <th>r-01</th>
+      <th>r-00</th>
+      <th>r-01</th>
+      <th>r-00</th>
+      <th>r-01</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>r0</th>
+      <td>(0, 0)</td>
+      <td>(1, 0)</td>
+      <td>(0, 1)</td>
+      <td>(1, 1)</td>
+      <td>(0, 2)</td>
+      <td>(1, 2)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">u</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">u</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">c0</th>
+      <th>c1</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>c-00</th>
+      <th>c-01</th>
+      <th>c-10</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>r0</th>
+      <th>r0</th>
+      <th>r0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>r-00</th>
+      <td>(0, 0)</td>
+      <td>(0, 1)</td>
+      <td>(0, 2)</td>
+    </tr>
+    <tr>
+      <th>r-01</th>
+      <td>(1, 0)</td>
+      <td>(1, 1)</td>
+      <td>(1, 2)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>In fact Pandas allows us to stack/unstack on any level of the index so
+our previous explanation was a bit simplified :). Thus, in the previous
+example we could have stacked on the outermost index level as well!
+However, the default (and most typical case) is to stack/unstack on the
+innermost index level.</p>
+<p>Stacking and unstacking can also be applied to data with flat (i.e.
+non-hierchical) indices. In this case, one of the indices is de facto
+removed (the columns index if stacking, and the rows if unstacking) and
+its values are nested in the other index, which is now a MultiIndex.
+Therefore, the result is always a Series with a hierarchical index. The
+following example demonstrates this:</p>
+<div class="figure">
+<img alt="Stack/unstack" src="../_images/stack2.png" />
+</div>
+<p>In this example we take a DataFrame similar to the one from the
+beginning. Instead of pivoting, this time we stack it, and we get a
+Series with a MultiIndex composed of the initial index as first level,
+and the table columns as a second. Unstacking can help us get back to
+our original data structure.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="Data_Review.html" class="btn btn-neutral" title="Summary Statistics for Well Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Mostafa Hadavand.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
