@@ -13,7 +13,7 @@
 
   
   
-    <link rel="shortcut icon" href="../_static/DA.ico"/>
+    <link rel="shortcut icon" href="../static/DA.ico"/>
   
   
   
@@ -26,14 +26,14 @@
 
   
 
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Summary Statistics for Well Data" href="Data_Review.html" /> 
 
   
-  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -54,7 +54,7 @@
 
           
             
-            <img src="../_static/DA.png" class="logo" alt="Logo"/>
+            <img src="../static/DA.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -156,7 +156,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/notebooks/Reshaping_Pandas.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../sources/notebooks/Reshaping_Pandas.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -775,7 +775,7 @@ multiple rows with the same values for these columns? How will the pivot
 method determine the value of the corresponding cell in the pivoted
 table? The following diagram depicts the problem:</p>
 <div class="figure">
-<img alt="Duplicates and pivot" src="../_images/Pivot1.png" />
+<img alt="Duplicates and pivot" src="../images/Pivot1.png" />
 </div>
 <p>Hence, before calling pivot we need to ensure that our data does not
 have rows with duplicate values for the specified columns. If we can’t
@@ -802,7 +802,7 @@ have used the mean, the median or another aggregation function to
 compute a single value from the conflicting entries. This is depicted in
 the example below.</p>
 <div class="figure">
-<img alt="Pivottable and aggregation" src="../_images/Pivot2.png" />
+<img alt="Pivottable and aggregation" src="../images/Pivot2.png" />
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre>
@@ -889,7 +889,7 @@ operation is called unstacking. It means moving the innermost row index
 to become the innermost column index. The following diagram depicts the
 operations:</p>
 <div class="figure">
-<img alt="Stack/unstack" src="../_images/stack.png" />
+<img alt="Stack/unstack" src="../images/stack.png" />
 </div>
 <p>In this example, we look at a DataFrame with 2-level hierarchical
 indices on both axes. Stacking takes the most-inner column index (i.e.
@@ -1281,7 +1281,7 @@ its values are nested in the other index, which is now a MultiIndex.
 Therefore, the result is always a Series with a hierarchical index. The
 following example demonstrates this:</p>
 <div class="figure">
-<img alt="Stack/unstack" src="../_images/stack2.png" />
+<img alt="Stack/unstack" src="../images/stack2.png" />
 </div>
 <p>In this example we take a DataFrame similar to the one from the
 beginning. Instead of pivoting, this time we stack it, and we get a
@@ -1340,14 +1340,14 @@ our original data structure.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="../_static/jquery.js"></script>
-      <script type="text/javascript" src="../_static/underscore.js"></script>
-      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../static/jquery.js"></script>
+      <script type="text/javascript" src="../static/underscore.js"></script>
+      <script type="text/javascript" src="../static/doctools.js"></script>
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
+  <script type="text/javascript" src="../static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
