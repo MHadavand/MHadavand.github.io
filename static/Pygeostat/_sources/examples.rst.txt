@@ -12,7 +12,7 @@ Introduction
 
 .. raw:: html
 
-     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="../../../examples/Introduction.html" frameborder="0" allowFullScreen="true"></iframe></div>
+     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="_static/Introduction.html" frameborder="0" allowFullScreen="true"></iframe></div>
 
 |
 
@@ -21,7 +21,7 @@ Kriging
 
 .. raw:: html
 
-     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="../../../examples/Kriging2.html" frameborder="0" allowFullScreen="true"></iframe></div>
+     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="_static/Kriging2.html" frameborder="0" allowFullScreen="true"></iframe></div>
 
 |
 
@@ -30,7 +30,7 @@ Boundary Modeling
 
 .. raw:: html
 
-     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="../../../examples/BoundaryModeling.html" frameborder="0" allowFullScreen="true"></iframe></div>
+     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="_static/BoundaryModeling.html" frameborder="0" allowFullScreen="true"></iframe></div>
 
 
 |
@@ -40,4 +40,4 @@ Structural Modeling
 
 .. raw:: html
 
-     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="../../../examples/StructuralModeling.html" frameborder="0" allowFullScreen="true"></iframe></div>
+     <div class="field-item even" property="content:encoded"><iframe width="100%" height="600" src="_static/StructuralModeling.html" frameborder="0" allowFullScreen="true"></iframe></div>
