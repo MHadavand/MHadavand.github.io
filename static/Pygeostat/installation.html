@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; pygeostat 1.0.6 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Files" href="data.html" />
+    <link rel="prev" title="Welcome" href="welcome.html" />
+    <link href="_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pygeostat
+          
+
+          
+            
+            <img src="_static/pygeostat_logo_notxt.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-installation">Python Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pygeostat-installation"><strong>pygeostat</strong> Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-virtual-environments">Create Virtual Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-r-from-python">Using R from Python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="griddef.html">Grid Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistics.html">Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programs.html">Scripting CCG Executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformations.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformations.html#module-pygeostat.transformations.rotations">Rotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pygeostat</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="installation"></span><div class="section" id="id1">
+<h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Note that pygeostat requires Python 3.6+. Pygeostat will likely require modification to work with
+any other version of python. Pygeostat is also dependent on the suite of curated python
+packages provided with the Anaconda Python distribution. It is highly recommended to install this
+prior to pygeostat installation.</p>
+<div class="section" id="python-installation">
+<h2>Python Installation<a class="headerlink" href="#python-installation" title="Permalink to this headline">¶</a></h2>
+<p>The Anaconda distribution by Continuum Analytics: <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a> is recommended. If unfamiliar with Python and virtual environments,
+then accepting the defaults of registering with the system and installing to the path are
+recommended.</p>
+</div>
+<div class="section" id="pygeostat-installation">
+<h2><strong>pygeostat</strong> Installation<a class="headerlink" href="#pygeostat-installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install pygeostat
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-virtual-environments">
+<h2>Create Virtual Environments<a class="headerlink" href="#create-virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>Python environments can be used to isolate different projects with different dependencies. The following code snippets can be used to setup a python environment using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/index.html/">conda</a> package manager.</p>
+<ol class="arabic simple">
+<li><p>Creat the environment</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda env create -n &lt;environment_name&gt; -f environment.yml
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Activate the environment</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda activate &lt;environment_name&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Install pygeostat on the new environment that is activate</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install pygeostat
+</pre></div>
+</div>
+<p>The nexs step is to lunch your favorite IDE for python (e.g. Jupyter).</p>
+<div class="section" id="using-r-from-python">
+<h3>Using R from Python<a class="headerlink" href="#using-r-from-python" title="Permalink to this headline">¶</a></h3>
+<p>Consider:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>rpy2 - a Python library providing a low-level interface to R from Python -
+<a class="reference external" href="http://rpy.sourceforge.net/">http://rpy.sourceforge.net/</a></p></li>
+<li><p>Matrix - a R library - <a class="reference external" href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/matrix.html">https://stat.ethz.ch/R-manual/R-devel/library/base/html/matrix.html</a></p></li>
+</ul>
+</div></blockquote>
+<p>To allow interfacing between Python and R, rpy2 is required. Currently, only the utility gs.nearpd()
+uses rpy2 which also requires the R library “Matrix” to be installed through R. Installing rpy2 can
+be temperamental. The following installation instructions for rpy2 should do the trick:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Download the rpy2 wheel file (e.g., rpy2-2.6.0-cp34-none-win_amd64) from:
+<a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#rpy2">http://www.lfd.uci.edu/~gohlke/pythonlibs/#rpy2</a></p></li>
+<li><p>From the command prompt, install the wheel file by using the command</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">rpy2</span><span class="o">-</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">cp34</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Add the path to the folder containing R.dll to the environment variable PATH
+(e.g., C:Program FilesRR-3.1.2/bini386)</p></li>
+<li><p>Add an environment variable R_HOME pointing to R (e.g., C:Program FilesRR-3.1.2)</p></li>
+<li><p>Add an environment variable R_USER that is your windows user name</p></li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data.html" class="btn btn-neutral float-right" title="Data Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="welcome.html" class="btn btn-neutral float-left" title="Welcome" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2020, Center for Computational Geostatistics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

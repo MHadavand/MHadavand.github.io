@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scripting CCG Executables &mdash; pygeostat 1.0.6 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Transformations" href="transformations.html" />
+    <link rel="prev" title="Plotting Functions" href="plotting.html" />
+    <link href="_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pygeostat
+          
+
+          
+            
+            <img src="_static/pygeostat_logo_notxt.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="griddef.html">Grid Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistics.html">Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Scripting CCG Executables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#program-class">Program Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-parameter-file">Get Parameter File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-program">Run Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-parameter-file">Write Parameter File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-programs-in-parallel">Run Programs in Parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#misc-program-utilities">Misc Program Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="transformations.html">Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformations.html#module-pygeostat.transformations.rotations">Rotations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pygeostat</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Scripting CCG Executables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/programs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="programs"></span><div class="section" id="scripting-ccg-executables">
+<h1>Scripting CCG Executables<a class="headerlink" href="#scripting-ccg-executables" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="program-class">
+<h2>Program Class<a class="headerlink" href="#program-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygeostat.programs.programs.Program">
+<em class="property">class </em><code class="descclassname">pygeostat.programs.programs.</code><code class="descname">Program</code><span class="sig-paren">(</span><em>program=None</em>, <em>parstr=None</em>, <em>parfile='temp'</em>, <em>getpar=None</em>, <em>nogetarg=False</em>, <em>defaultdict={}</em>, <em>scriptnotifier=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.programs.Program" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class containing routines for running GSLIB programs</p>
+</dd></dl>
+
+<div class="section" id="get-parameter-file">
+<h3>Get Parameter File<a class="headerlink" href="#get-parameter-file" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.programs.programs.Program.getparfile">
+<code class="descclassname">Program.</code><code class="descname">getparfile</code><span class="sig-paren">(</span><em>quiet=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.programs.Program.getparfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the parfile from this program by copying to the clipboard or
+printing the parfile. This replaces the need to pre-execute a program
+to get the parfile, but relies on CCG programs being properly configured
+to generate the correct parfile upon first execution.</p>
+<p>This function requires <cite>pyperclip</cite>. This is a dependency of pygeostat, but
+can be installed with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pyperclip</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>quiet</strong> (<em>bool</em>) – The function will copy the parameter file to the
+clipboard with the block quotes as default (quiet = True)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="run-program">
+<h3>Run Program<a class="headerlink" href="#run-program" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.programs.programs.Program.run">
+<code class="descclassname">Program.</code><code class="descname">run</code><span class="sig-paren">(</span><em>parstr=None</em>, <em>parfile=None</em>, <em>program=None</em>, <em>nogetarg=None</em>, <em>filehandle=None</em>, <em>logfile=None</em>, <em>testfilename=None</em>, <em>pardict=None</em>, <em>quiet=False</em>, <em>liveoutput=None</em>, <em>chdirpath=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.programs.Program.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a GSLIB style program using the subprocess module and prints the
+output. On an error, the output is printed and an exception is raised</p>
+<p>The only required parameters are <cite>program</cite> and <cite>parstr</cite>, all other
+parameters are optional.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parstr</strong> (<em>str</em>) – parameters, taken from self if None</p></li>
+<li><p><strong>parfile</strong> (<em>str</em><em> or </em><em>callable</em>) – name of parameter file to create, or a callable function
+that returns a unique path/parfile.par string to use for this parfile.</p></li>
+<li><p><strong>program</strong> (<em>str</em>) – name of GSLIB/CCG program to run, taken from self if None</p></li>
+<li><p><strong>nogetarg</strong> – uses a pipe + communicate for the call instead of arguments</p></li>
+<li><p><strong>filehandle</strong> – handle for file to write program output to</p></li>
+<li><p><strong>logfile</strong> (<em>str</em>) – filename for a log file to write program output to. If file already
+exists it will overwrite the file. If filehandle is passed then logfile will
+be ignored.</p></li>
+<li><p><strong>testfilename</strong> (<em>list</em>) – name(s) to check for availability prior to
+executing the program</p></li>
+<li><p><strong>quiet</strong> – if quiet, don’t print to let the user know it is calling</p></li>
+<li><p><strong>liveoutput</strong> (<em>bool</em>) – live update the ipython notebook or calling
+script with the output of the called program</p></li>
+<li><p><strong>chdirpath</strong> (<em>str</em>) – Some programs have files they use which prevent
+running multiple instances of the same program from the same
+directory. This can be used to chang the path the program is
+called from to prevent conflicts like this (for example, with kt3d_lva)</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>An example for setting up a few key words and running histplt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">histpltpar</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;                  Parameters for HISTPLT</span>
+<span class="gp">... </span><span class="s1">          **********************</span>
+<span class="gp">...</span><span class="s1"></span>
+<span class="gp">... </span><span class="s1">START OF PARAMETERS:</span>
+<span class="gp">... </span><span class="si">{datafl}</span><span class="s1">          -file with data</span>
+<span class="gp">... </span><span class="si">{varcol}</span><span class="s1">   0                        -   columns for variable and weight</span>
+<span class="gp">... </span><span class="s1">-1.0     1.0e21              -   trimming limits</span>
+<span class="gp">... </span><span class="si">{outfl}</span><span class="s1">                   -file for PostScript output</span>
+<span class="gp">... </span><span class="s1"> 0.0      -20.0               -attribute minimum and maximum</span>
+<span class="gp">... </span><span class="s1">-1.0                         -frequency maximum (&lt;0 for automatic)</span>
+<span class="gp">... </span><span class="s1">20                           -number of classes</span>
+<span class="gp">... </span><span class="s1">0                            -0=arithmetic, 1=log scaling</span>
+<span class="gp">... </span><span class="s1">0                            -0=frequency,  1=cumulative histogram</span>
+<span class="gp">... </span><span class="s1">0                            -   number of cum. quantiles (&lt;0 for all)</span>
+<span class="gp">... </span><span class="s1">3                            -number of decimal places (&lt;0 for auto.)</span>
+<span class="gp">... </span><span class="si">{varname}</span><span class="s1">                                                    -title</span>
+<span class="gp">... </span><span class="s1">1.5                          -positioning of stats (L to R: -1 to 1)</span>
+<span class="gp">... </span><span class="s1">-1.1e21                      -reference value for box plot</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">histplt</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Program</span><span class="p">(</span><span class="n">program</span><span class="o">=</span><span class="s1">&#39;histplt&#39;</span><span class="p">,</span> <span class="n">parfile</span><span class="o">=</span><span class="s1">&#39;histplt.par&#39;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">histplt</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parstr</span><span class="o">=</span><span class="n">histpltpar</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datafl</span><span class="o">=</span><span class="n">datafl</span><span class="o">.</span><span class="n">flname</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">varcol</span><span class="o">=</span><span class="n">datafl</span><span class="o">.</span><span class="n">gscol</span><span class="p">(</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">),</span>
+<span class="gp">... </span>                                     <span class="n">varname</span><span class="o">=</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">outfl</span><span class="o">=</span><span class="s1">&#39;histplt_bitumen.ps&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>..codeauthor: pygeostat development team 2014-02-13</p>
+</dd></dl>
+
+</div>
+<div class="section" id="write-parameter-file">
+<h3>Write Parameter File<a class="headerlink" href="#write-parameter-file" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.programs.programs.Program.writepar">
+<code class="descclassname">Program.</code><code class="descname">writepar</code><span class="sig-paren">(</span><em>parstr=None</em>, <em>parfile=None</em>, <em>pardict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.programs.Program.writepar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out the parameter file without running the program, which can be
+helpful for checking</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parstr</strong> (<em>str</em>) – This is the parameter file string initiated with the program.</p></li>
+<li><p><strong>parfile</strong> (<em>str</em>) – file name or path to save the parameter file to.</p></li>
+<li><p><strong>pardict</strong> (<em>dict</em>) – Dictionary for the variables in the parameter file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="run-programs-in-parallel">
+<h2>Run Programs in Parallel<a class="headerlink" href="#run-programs-in-parallel" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.runparallel">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">runparallel</code><span class="sig-paren">(</span><em>gslibprogram</em>, <em>kwargslist</em>, <em>nprocess=None</em>, <em>mute=False</em>, <em>progressbar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.runparallel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a set of gslib program calls in parallel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gslibprogram</strong> (<a class="reference internal" href="#pygeostat.programs.programs.Program" title="pygeostat.programs.programs.Program"><em>Program</em></a>) – name of GSLIB/CCG program to run</p></li>
+<li><p><strong>kwargslist</strong> (<em>list of dictionaries</em>) – list of keyword arguments which will be used to call
+gslibprogram.run(kwarg)</p></li>
+<li><p><strong>nprocess</strong> (<em>int</em>) – number of threads to spawn.  Drawn from Parameters[‘config.nprocess’] if None.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Setting up the calling parameters. This example is based off the example used in
+<a class="reference internal" href="#pygeostat.programs.programs.Program" title="pygeostat.programs.programs.Program"><code class="xref py py-func docutils literal notranslate"><span class="pre">gs.Program()</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">callpars</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># For each variable we want to run in parallel, assemble a dictionary of parameters and</span>
+<span class="gp">... </span><span class="c1"># append to callpars</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">variable</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span><span class="s1">&#39;Fines&#39;</span><span class="p">,</span><span class="s1">&#39;Chlorides&#39;</span><span class="p">]:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># Establish the parameter file for this variable</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">mypars</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;datafl&#39;</span><span class="p">:</span><span class="n">datafl</span><span class="o">.</span><span class="n">flname</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s1">&#39;varcol&#39;</span><span class="p">:</span><span class="n">datafl</span><span class="o">.</span><span class="n">gscol</span><span class="p">(</span><span class="n">variable</span><span class="p">),</span>
+<span class="gp">... </span>              <span class="s1">&#39;varname&#39;</span><span class="p">:</span><span class="n">variable</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s1">&#39;outfl&#39;</span><span class="p">:</span><span class="s1">&#39;histplt_&#39;</span><span class="o">+</span><span class="n">variable</span><span class="o">+</span><span class="s1">&#39;.ps&#39;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="c1"># Assemble the arguments for the GSLIB call and add the arguments to the list of calls</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">callpars</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;parstr&#39;</span><span class="p">:</span><span class="n">histpltpar</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">mypars</span><span class="p">),</span>
+<span class="gp">... </span>                    <span class="s1">&#39;parfile&#39;</span><span class="p">:</span><span class="s1">&#39;histplt_&#39;</span><span class="o">+</span><span class="n">variable</span><span class="o">+</span><span class="s1">&#39;.par&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="s1">&#39;testfilename&#39;</span><span class="p">:</span><span class="n">datafl</span><span class="o">.</span><span class="n">flname</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>Now run in parallel</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">histplt</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Program</span><span class="p">(</span><span class="n">program</span><span class="o">=</span><span class="s1">&#39;histplt&#39;</span><span class="p">,</span> <span class="n">parfile</span><span class="o">=</span><span class="s1">&#39;histplt.par&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">runparallel</span><span class="p">(</span><span class="n">histplt</span><span class="p">,</span> <span class="n">callpars</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>..codeauthor: pygeostat development team 2014-02-13</p>
+</dd></dl>
+
+</div>
+<div class="section" id="misc-program-utilities">
+<h2>Misc Program Utilities<a class="headerlink" href="#misc-program-utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.parallel_function">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">parallel_function</code><span class="sig-paren">(</span><em>function</em>, <em>arglist=None</em>, <em>kwarglist=None</em>, <em>nprocess=None</em>, <em>returnvals=False</em>, <em>progressbar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.parallel_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quickly parallelize a function with a set of arguments or keyword arguments. If the function
+returns something (as oppose to writes out values to files), set returnvals=True to get the
+dictionary that can be used to collect the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<em>func</em>) – a callable function <strong>DEFINED IN A .py FILE</strong>. The function must be imported
+from a module since it has to be pickled to be parallelized. Defining the function in
+the jupyter notebook doesnt seem to work.</p></li>
+<li><p><strong>arglist</strong> (<em>list</em><em> or </em><em>tuples</em>) – a list of <strong>tuple</strong> arguments to pass to the function, see
+examples</p></li>
+<li><p><strong>kwarglist</strong> (<em>list</em>) – a list of keyword dictionaries to pass to the functions, i.e.
+[{‘arg1’: value, ‘arg2’: value}, {‘arg1’: value, ‘arg2’: value}, etc]</p></li>
+<li><p><strong>nprocess</strong> (<em>int</em>) – the number of parallel processes to run. Drawn from Parameters[‘config.nprocess’]
+if None.</p></li>
+<li><p><strong>returnvals</strong> (<em>bool</em>) – if the function returns something, collect it in a dictionary, you can
+use the .get() method of the parallel result to collect the required data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>optionally return a dictionary of parallel processing results</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>res (dict)</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<p>For a function that takes a single argument, setup arglist in this way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arglist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arglist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">arg</span><span class="p">,))</span>
+</pre></div>
+</div>
+<p>OR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arglist</span> <span class="o">=</span> <span class="p">[(</span><span class="n">arg</span><span class="p">,)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nparallel</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Alternatively the argument tuple may take several arguments:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arglist</span> <span class="o">=</span> <span class="p">[(</span><span class="n">args</span><span class="p">,</span> <span class="k">for</span><span class="p">,</span> <span class="n">function</span><span class="p">),</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="k">for</span><span class="p">,</span> <span class="n">function</span><span class="p">),</span> <span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="k">for</span><span class="p">,</span> <span class="n">function</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Detailed usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">arglist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sr</span> <span class="ow">in</span> <span class="n">series</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">arglist</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">&#39;keyout.out&#39;</span><span class="p">,</span> <span class="n">rbfpath</span> <span class="o">+</span> <span class="s1">&#39;keyout</span><span class="si">%s</span><span class="s1">.out&#39;</span> <span class="o">%</span> <span class="n">sr</span><span class="p">,</span> <span class="n">griddef</span><span class="p">,</span>
+<span class="gp">... </span>                    <span class="n">griddefs</span><span class="p">[</span><span class="n">sr</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">parallel_function</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">changegrid</span><span class="p">,</span> <span class="n">arglist</span><span class="o">=</span><span class="n">arglist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OR:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">kwarglist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">sr</span> <span class="ow">in</span> <span class="n">series</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">kwarglist</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;infl&#39;</span><span class="p">:</span> <span class="s1">&#39;keyout.out&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                      <span class="s1">&#39;outfl&#39;</span><span class="p">:</span> <span class="n">rbfpath</span> <span class="o">+</span> <span class="s1">&#39;keyout</span><span class="si">%s</span><span class="s1">.out&#39;</span> <span class="o">%</span> <span class="n">sr</span><span class="p">,</span>
+<span class="gp">... </span>                      <span class="s1">&#39;ingrid&#39;</span><span class="p">:</span> <span class="n">griddef</span><span class="p">,</span>
+<span class="gp">... </span>                      <span class="s1">&#39;outgrid&#39;</span><span class="p">:</span> <span class="n">griddefs</span><span class="p">[</span><span class="n">sr</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="s1">&#39;avmethods&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">... </span>                      <span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">parallel_function</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">changegrid</span><span class="p">,</span> <span class="n">kwarglist</span><span class="o">=</span><span class="n">kwarglist</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>..codeauthor:: pygeostat development team 2017-02-23</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.rseed">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">rseed</code><span class="sig-paren">(</span><em>prng=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.rseed" title="Permalink to this definition">¶</a></dt>
+<dd><p>A random seed generator object, callable, to replace gs.rseed, to generate more unique
+random seeds</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.rseed_list">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">rseed_list</code><span class="sig-paren">(</span><em>nseeds</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.rseed_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of ACORNI (GSLIB-suitable) random number seeds. A initial seed can be passed
+ensureing the same list of seeds is returned to a script that is rerun.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nseeds</strong> (<em>int</em>) – Number of seeds to return</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Initialization seed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of random number seeds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>seeds (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.parstr_kwargs">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">parstr_kwargs</code><span class="sig-paren">(</span><em>parstr</em>, <em>fmt='pars'</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.parstr_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a formatted list of kwargs found in the parfile. Tested and working for the {} style
+string formatting, found in the gamsim_ave parfile found below this function (for exampel).
+This is mostly used for being lazy and not writing out the kwargs you just entered into the
+parfile…. can also be helpful if you define the parfile elsewhere and you cant remember what
+kwargs you setup !</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parstr</strong> (<em>str</em>) – the par string with the {} formatted parameters</p></li>
+<li><p><strong>fmt</strong> (<em>str</em>) – the output format, permissible arguments are <cite>pars</cite> or <cite>dict</cite></p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Get the formatted parfile</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parstr</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;          Parameters for GAMSIM_AVE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">            *************************</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">START OF PARAMETERS:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{lithfl}</span><span class="s1">        -file with lithology information</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{lithcol}</span><span class="s1">   </span><span class="si">{lithcode}</span><span class="s1">                        -   lithology column (0=not used), code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{datafl}</span><span class="s1">       -file with data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">....</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">print_parfile_kwargs</span><span class="p">(</span><span class="n">parstr</span><span class="p">)</span>
+<span class="gp">... </span><span class="n">lithfl</span><span class="o">=</span><span class="p">,</span> <span class="n">lithcol</span><span class="o">=</span><span class="p">,</span> <span class="n">lithcode</span><span class="o">=</span><span class="p">,</span> <span class="n">datafl</span><span class="o">=</span><span class="p">,</span> <span class="o">...</span>
+</pre></div>
+</div>
+<p><em>Code author: pygeostat development team 2017-04-18</em></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeostat.programs.program_utils.dedent_parstr">
+<code class="descclassname">pygeostat.programs.program_utils.</code><code class="descname">dedent_parstr</code><span class="sig-paren">(</span><em>indented_parstr</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.program_utils.dedent_parstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove leading indents on each line from a parameter file. This is automatically called by
+<a class="reference internal" href="#pygeostat.programs.programs.Program.run" title="pygeostat.programs.programs.Program.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">Program.run()</span></code></a> so that parfiles may be tabbed to permit better
+structuring of python code.</p>
+<p class="rubric">Examples</p>
+<p>An un-tabbed parstr:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parstr</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;          Parameters for GAMSIM_AVE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">            *************************</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">START OF PARAMETERS:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{lithfl}</span><span class="s1">        -file with lithology information</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{lithcol}</span><span class="s1">   </span><span class="si">{lithcode}</span><span class="s1">                        -   lithology column (0=not used), code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="si">{datafl}</span><span class="s1">       -file with data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">....</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<p>A tabbed parstr:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parstr</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;          Parameters for GAMSIM_AVE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">                *************************</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">    START OF PARAMETERS:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">    </span><span class="si">{lithfl}</span><span class="s1">        -file with lithology information</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">    </span><span class="si">{lithcol}</span><span class="s1">   </span><span class="si">{lithcode}</span><span class="s1">                        -   lithology column (0=not used), code</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">    </span><span class="si">{datafl}</span><span class="s1">       -file with data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">    ....</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeostat.programs.programs.ScriptCrash">
+<code class="descclassname">pygeostat.programs.programs.</code><code class="descname">ScriptCrash</code><span class="sig-paren">(</span><em>errormsg</em>, <em>notifier</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.programs.programs.ScriptCrash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print an error that the script has crashed using the ScriptNotifier Class</p>
+<p><em>Code author: pygeostat development team 2017</em></p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="transformations.html" class="btn btn-neutral float-right" title="Transformations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plotting.html" class="btn btn-neutral float-left" title="Plotting Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015-2020, Center for Computational Geostatistics
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
