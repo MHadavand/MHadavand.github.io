@@ -16,15 +16,15 @@ def run_notebook_once(book, outpath="./"):
         # read the notebook relative to this dir
         with open(book) as f:
             nb = nbformat.read(f, as_version=4)
-        ep = ExecutePreprocessor(timeout=99999, kernel_name="python3")
-        # run the notebook in the outdir
-        ep.preprocess(nb, {"metadata": {"path": outpath}, 
-                                        "kernelspec": { "display_name": "Python",
-                                                        "language": "python",
-                                                        "name": "python3"
-                                                        }
-                                        }
-                        )
+        # ep = ExecutePreprocessor(timeout=99999, kernel_name="python3")
+        # # run the notebook in the outdir
+        # ep.preprocess(nb, {"metadata": {"path": outpath}, 
+        #                                 "kernelspec": { "display_name": "Python",
+        #                                                 "language": "python",
+        #                                                 "name": "python3"
+        #                                                 }
+        #                                 }
+        #                 )
         # write a temporary notebook
         tempbook = str(random.randint(1000, size=1)[0]) + book
         with open(tempbook, 'wt') as f:
