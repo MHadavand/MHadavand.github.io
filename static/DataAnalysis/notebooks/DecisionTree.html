@@ -13,40 +13,46 @@
 
   
   
-    <link rel="shortcut icon" href="../static/DA.ico"/>
+    <link rel="shortcut icon" href="../_static/DA.ico"/>
   
   
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  <link rel="stylesheet" href="../static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Statistical Analysis for Income Data" href="IncomeDataAnalysis.html" />
     <link rel="prev" title="Principal Component Analysis (PCA)" href="PCA-RPCA.html" /> 
-
-  
-  <script src="../static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -55,7 +61,7 @@
 
           
             
-            <img src="../static/DA.png" class="logo" alt="Logo"/>
+            <img src="../_static/DA.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -190,7 +196,7 @@
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../sources/notebooks/DecisionTree.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notebooks/DecisionTree.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -208,16 +214,16 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput,
-div.nbinput div.prompt,
-div.nbinput div.input_area,
-div.nbinput div[class*=highlight],
-div.nbinput div[class*=highlight] pre,
-div.nboutput,
-div.nbinput div.prompt,
-div.nbinput div.output_area,
-div.nboutput div[class*=highlight],
-div.nboutput div[class*=highlight] pre {
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
     background: none;
     border: none;
     padding: 0 0;
@@ -226,13 +232,13 @@ div.nboutput div[class*=highlight] pre {
 }
 
 /* avoid gaps between output lines */
-div.nboutput div[class*=highlight] pre {
+div.nboutput.container div[class*=highlight] pre {
     line-height: normal;
 }
 
 /* input/output containers */
-div.nbinput,
-div.nboutput {
+div.nbinput.container,
+div.nboutput.container {
     display: -webkit-flex;
     display: flex;
     align-items: flex-start;
@@ -240,92 +246,91 @@ div.nboutput {
     width: 100%;
 }
 @media (max-width: 540px) {
-    div.nbinput,
-    div.nboutput {
+    div.nbinput.container,
+    div.nboutput.container {
         flex-direction: column;
     }
 }
 
 /* input container */
-div.nbinput {
+div.nbinput.container {
     padding-top: 5px;
 }
 
 /* last container */
-div.nblast {
+div.nblast.container {
     padding-bottom: 5px;
 }
 
 /* input prompt */
-div.nbinput div.prompt pre {
-    color: #303F9F;
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
 }
 
 /* output prompt */
-div.nboutput div.prompt pre {
-    color: #D84315;
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
 }
 
 /* all prompts */
-div.nbinput div.prompt,
-div.nboutput div.prompt {
-    min-width: 8ex;
-    padding-top: 0.4em;
-    padding-right: 0.4em;
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
     text-align: right;
     flex: 0;
 }
 @media (max-width: 540px) {
-    div.nbinput div.prompt,
-    div.nboutput div.prompt {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
         text-align: left;
         padding: 0.4em;
     }
-    div.nboutput div.prompt.empty {
+    div.nboutput.container div.prompt.empty {
         padding: 0;
     }
 }
 
 /* disable scrollbars on prompts */
-div.nbinput div.prompt pre,
-div.nboutput div.prompt pre {
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
     overflow: hidden;
 }
 
 /* input/output area */
-div.nbinput div.input_area,
-div.nboutput div.output_area {
-    padding: 0.4em;
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
     -webkit-flex: 1;
     flex: 1;
     overflow: auto;
 }
 @media (max-width: 540px) {
-    div.nbinput div.input_area,
-    div.nboutput div.output_area {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
         width: 100%;
     }
 }
 
 /* input area */
-div.nbinput div.input_area {
-    border: 1px solid #cfcfcf;
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f7f7f7;
+    background: #f5f5f5;
 }
 
 /* override MathJax center alignment in output cells */
-div.nboutput div[class*=MathJax] {
+div.nboutput.container div[class*=MathJax] {
     text-align: left !important;
 }
 
-/* override sphinx.ext.pngmath center alignment in output cells */
-div.nboutput div.math p {
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
     text-align: left;
 }
 
 /* standard error */
-div.nboutput div.output_area.stderr {
+div.nboutput.container div.output_area.stderr {
     background: #fdd;
 }
 
@@ -369,26 +374,85 @@ div.nboutput div.output_area.stderr {
 .ansi-bold { font-weight: bold; }
 .ansi-underline { text-decoration: underline; }
 
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -405,18 +469,10 @@ div.nboutput div.output_area.stderr {
 <h1>Decision Tree and Ensemble Learning<a class="headerlink" href="#Decision-Tree-and-Ensemble-Learning" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="Decision-Tree">
 <h2>Decision Tree<a class="headerlink" href="#Decision-Tree" title="Permalink to this headline">¶</a></h2>
-<p>A decision tree may be described as a set of decisions/categorization
-steps that help you to classify your data into predefined classes. This
-helps you to solve a classification problem.</p>
-<p>For example, consider the following data set related to playing tennis
-in a specific day based on weather condition parameters. Based on the
-provided parameters, we are need to come up with a decision tree that
-helps us to decide whether the player plays tennis on a specific day
-based on four weather related parameters including outlook, temperature,
-humidity and wind condition.</p>
+<p>A decision tree may be described as a set of decisions/categorization steps that help you to classify your data into predefined classes. This helps you to solve a classification problem.</p>
+<p>For example, consider the following data set related to playing tennis in a specific day based on weather condition parameters. Based on the provided parameters, we are need to come up with a decision tree that helps us to decide whether the player plays tennis on a specific day based on four weather related parameters including outlook, temperature, humidity and wind condition.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -433,11 +489,10 @@ humidity and wind condition.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -580,19 +635,12 @@ humidity and wind condition.</p>
 </table>
 </div></div>
 </div>
-<p>The following decision three helps us to use a set of decisions to solve
-our classification problem. <img alt="alt text" src="../images/DT1.jpg" /></p>
+<p>The following decision three helps us to use a set of decisions to solve our classification problem. <img alt="alt text" src="../_images/DT1.jpg" /></p>
 <div class="section" id="Order-of-decision;-why-Outlook-is-the-first-question/decision?">
 <h3>Order of decision; why Outlook is the first question/decision?<a class="headerlink" href="#Order-of-decision;-why-Outlook-is-the-first-question/decision?" title="Permalink to this headline">¶</a></h3>
-<p>The main question is why outlook was chosen as the first decision level.
-The answer is that the amount of <strong>Information Grain</strong> that is resolved
-by this decision is higher that the other decisions. This can be
-quantified using entropy which is a measure of randomness. Higher
-entropy means higher randomness and the amount of reduction in
-randomness based on a decision is called information gain.</p>
+<p>The main question is why outlook was chosen as the first decision level. The answer is that the amount of <strong>Information Grain</strong> that is resolved by this decision is higher that the other decisions. This can be quantified using entropy which is a measure of randomness. Higher entropy means higher randomness and the amount of reduction in randomness based on a decision is called information gain.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-latex notranslate"><div class="highlight"><pre>
@@ -609,11 +657,9 @@ Entropy = <span class="s">$</span><span class="o">-</span><span class="nv">\sum<
 <div class="math notranslate nohighlight">
 Entropy = $-\sum_{i=1}^{n} P_i\times Log_b(P_i)$</div></div>
 </div>
-<p>Note: corresponding units of entropy are the bits for b = 2, nats for b
-= e, and bans for b = 10 where b is the base of the logarithm function</p>
+<p>Note: corresponding units of entropy are the bits for b = 2, nats for b = e, and bans for b = 10 where b is the base of the logarithm function</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -631,8 +677,7 @@ Entropy = $-\sum_{i=1}^{n} P_i\times Log_b(P_i)$</div></div>
 <h3>Entropy of the entire system<a class="headerlink" href="#Entropy-of-the-entire-system" title="Permalink to this headline">¶</a></h3>
 <p>Entropy of the entire system: 14 observations: 9 Yes and 5 No</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -658,14 +703,11 @@ Entire syetems entropy is 0.940 bits
 </div>
 <div class="section" id="Information-Gain">
 <h3>Information Gain<a class="headerlink" href="#Information-Gain" title="Permalink to this headline">¶</a></h3>
-<p>Lets calculate reduction in entropy for each decision. For each
-decision, entropy is calculated for each case under that decision and
-the a probability weighted average is calculated.</p>
+<p>Lets calculate reduction in entropy for each decision. For each decision, entropy is calculated for each case under that decision and the a probability weighted average is calculated.</p>
 <div class="section" id="Outlook-decision">
 <h4>Outlook decision<a class="headerlink" href="#Outlook-decision" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -689,8 +731,7 @@ For outlook:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -727,8 +768,7 @@ Information gain is 0.247
 <div class="section" id="Temperature-Decision">
 <h4>Temperature Decision<a class="headerlink" href="#Temperature-Decision" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -752,8 +792,7 @@ For temperature:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -790,8 +829,7 @@ Information gain is 0.029
 <div class="section" id="Wind-Decision">
 <h4>Wind Decision<a class="headerlink" href="#Wind-Decision" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -814,8 +852,7 @@ For wind:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -851,8 +888,7 @@ Information gain is 0.048
 <div class="section" id="Humidity-Decision">
 <h4>Humidity Decision<a class="headerlink" href="#Humidity-Decision" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -875,8 +911,7 @@ For humidity:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -908,17 +943,14 @@ Entropy at Humidity decision level is 0.788
 Information gain is 0.152
 </pre></div></div>
 </div>
-<p>As shown above, by choosing outlook as the first decision/question, the
-highest reduction in entropy/randomness is achieved that corresponds to
-the highest <strong>Information Gain</strong></p>
+<p>As shown above, by choosing outlook as the first decision/question, the highest reduction in entropy/randomness is achieved that corresponds to the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 </div>
 <div class="section" id="Titanic-Example">
 <h2>Titanic Example<a class="headerlink" href="#Titanic-Example" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -926,7 +958,7 @@ the highest <strong>Information Gain</strong></p>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">certifi</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
@@ -935,8 +967,7 @@ the highest <strong>Information Gain</strong></p>
 <div class="section" id="Loading-data-using-BeautifulSoup-and-urlib3-as-the-htm-client">
 <h3>Loading data using BeautifulSoup and urlib3 as the htm client<a class="headerlink" href="#Loading-data-using-BeautifulSoup-and-urlib3-as-the-htm-client" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -945,8 +976,7 @@ the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -956,8 +986,7 @@ the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -966,8 +995,7 @@ the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -979,11 +1007,10 @@ the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1073,8 +1100,7 @@ the highest <strong>Information Gain</strong></p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1084,11 +1110,10 @@ the highest <strong>Information Gain</strong></p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1156,11 +1181,9 @@ the highest <strong>Information Gain</strong></p>
 </div>
 <div class="section" id="Processing-data">
 <h3>Processing data<a class="headerlink" href="#Processing-data" title="Permalink to this headline">¶</a></h3>
-<p>Special characters are removed and then the age is change to float and
-ages below 1 year are converted to a representative float number</p>
+<p>Special characters are removed and then the age is change to float and ages below 1 year are converted to a representative float number</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1176,8 +1199,7 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1186,11 +1208,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1258,8 +1279,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Categorize-passengers-and-crews">
 <h4>Categorize passengers and crews<a class="headerlink" href="#Categorize-passengers-and-crews" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1274,11 +1294,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1353,8 +1372,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Check-passenger-ticket-class">
 <h4>Check passenger ticket class<a class="headerlink" href="#Check-passenger-ticket-class" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1369,11 +1387,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1454,8 +1471,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Check-Adult/Child">
 <h4>Check Adult/Child<a class="headerlink" href="#Check-Adult/Child" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1470,11 +1486,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1561,8 +1576,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Check-Gender">
 <h4>Check Gender<a class="headerlink" href="#Check-Gender" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1580,11 +1594,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1674,8 +1687,7 @@ ages below 1 year are converted to a representative float number</p>
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1690,11 +1702,10 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -1794,8 +1805,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Check-the-importance-of-each-feature">
 <h3>Check the importance of each feature<a class="headerlink" href="#Check-the-importance-of-each-feature" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1809,8 +1819,7 @@ ages below 1 year are converted to a representative float number</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1832,8 +1841,7 @@ ages below 1 year are converted to a representative float number</p>
 <div class="section" id="Information-gain-analysis">
 <h3>Information gain analysis<a class="headerlink" href="#Information-gain-analysis" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1852,8 +1860,7 @@ Initial entropy: 0.815
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1875,8 +1882,7 @@ Information gain analysis for Crew/Passenger
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [31]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1900,8 +1906,7 @@ Information gain analysis for Class
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [32]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1923,8 +1928,7 @@ Information gain analysis for Adult/Child
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1949,8 +1953,7 @@ Information gain analysis for Gender
 <div class="section" id="Pick-features-and-lable-to-construct-the-decision-tree">
 <h3>Pick features and lable to construct the decision tree<a class="headerlink" href="#Pick-features-and-lable-to-construct-the-decision-tree" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1960,11 +1963,10 @@ Information gain analysis for Gender
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[34]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2045,8 +2047,7 @@ Information gain analysis for Gender
 <div class="section" id="Process-categorical-variables-to-numerical">
 <h3>Process categorical variables to numerical<a class="headerlink" href="#Process-categorical-variables-to-numerical" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [35]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2058,8 +2059,7 @@ Information gain analysis for Gender
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2068,11 +2068,10 @@ Information gain analysis for Gender
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[36]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2150,8 +2149,7 @@ Information gain analysis for Gender
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [37]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2173,18 +2171,16 @@ Total number of valid records: 2449
 <div class="section" id="Split-to-train-and-test-data">
 <h3>Split to train and test data<a class="headerlink" href="#Split-to-train-and-test-data" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [38]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2195,8 +2191,7 @@ Total number of valid records: 2449
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2217,18 +2212,16 @@ Total number of records used for testin: 490
 <div class="section" id="Build-a-decision-tree">
 <h3>Build a decision tree<a class="headerlink" href="#Build-a-decision-tree" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [41]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="k">import</span> <span class="n">DecisionTreeClassifier</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [42]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2238,8 +2231,7 @@ Total number of records used for testin: 490
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [43]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2248,8 +2240,7 @@ Total number of records used for testin: 490
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2258,8 +2249,7 @@ Total number of records used for testin: 490
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2268,50 +2258,33 @@ Total number of records used for testin: 490
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[45]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[45]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>DecisionTreeClassifier(class_weight=None, criterion=&#39;entropy&#39;, max_depth=None,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+DecisionTreeClassifier(class_weight=None, criterion=&#39;entropy&#39;, max_depth=None,
             max_features=None, max_leaf_nodes=20,
             min_impurity_decrease=0.0, min_impurity_split=None,
             min_samples_leaf=1, min_samples_split=2,
             min_weight_fraction_leaf=0.0, presort=False, random_state=None,
             splitter=&#39;best&#39;)
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <ul class="simple">
-<li>class_weight: A dictionary to provide user defined weights for each
-feature</li>
-<li>criterion: The criterion is the method used to decide with label and
-what decision needs to be made. gini impurity and information
-gain/entropy are the two main methods</li>
-<li>max_depth: It determines the maximum depth/layer from the root of
-the tree to the finest leaf</li>
-<li>max_features: if you want you can ask the algorithm to use a limited
-number of features based on their importance. This could be a
-dimension reduction approach that can simplify the tree</li>
-<li>max_leaf_nodes: The max number of end nodes that is another
-stopping criteria for the decision tree</li>
-<li>min_impurity_split: The minimum amount of impurity split percentage
-that result in generating another branch. In case of information
-gain, this will be measured by the amount/percentage of reduction in
-entropy.</li>
-<li>min_samples_leaf: Minimum number of samples that should exist in a
-subset created by a decision. If less than this number, the branch
-gets pruned and the previous level of the tree will be kept</li>
-<li>min_samples_split: Minimum number of samples in a tree level to
-consider further splitting and decision making</li>
-<li>min_weight_fraction_leaf: similar to min_samples_leaf but
-expressed as a fraction of whole data</li>
-<li>random_state, presort and splitter are performance related settings
-and do not affect the algorithm</li>
+<li><p>class_weight: A dictionary to provide user defined weights for each feature</p></li>
+<li><p>criterion: The criterion is the method used to decide with label and what decision needs to be made. gini impurity and information gain/entropy are the two main methods</p></li>
+<li><p>max_depth: It determines the maximum depth/layer from the root of the tree to the finest leaf</p></li>
+<li><p>max_features: if you want you can ask the algorithm to use a limited number of features based on their importance. This could be a dimension reduction approach that can simplify the tree</p></li>
+<li><p>max_leaf_nodes: The max number of end nodes that is another stopping criteria for the decision tree</p></li>
+<li><p>min_impurity_split: The minimum amount of impurity split percentage that result in generating another branch. In case of information gain, this will be measured by the amount/percentage of reduction in entropy.</p></li>
+<li><p>min_samples_leaf: Minimum number of samples that should exist in a subset created by a decision. If less than this number, the branch gets pruned and the previous level of the tree will be kept</p></li>
+<li><p>min_samples_split: Minimum number of samples in a tree level to consider further splitting and decision making</p></li>
+<li><p>min_weight_fraction_leaf: similar to min_samples_leaf but expressed as a fraction of whole data</p></li>
+<li><p>random_state, presort and splitter are performance related settings and do not affect the algorithm</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2320,33 +2293,29 @@ and do not affect the algorithm</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([0.20502926, 0.        , 0.28082862, 0.        , 0.51414211])
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.20502926, 0.        , 0.28082862, 0.        , 0.51414211])
+</pre></div></div>
 </div>
-</div>
-<p>As can be seen above, the importance analysis confirms the result of
-information gain analysis that Gender is the most important feature.</p>
+<p>As can be seen above, the importance analysis confirms the result of information gain analysis that Gender is the most important feature.</p>
 </div>
 <div class="section" id="Tree-visualization">
 <h3>Tree visualization<a class="headerlink" href="#Tree-visualization" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [47]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[47]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">tree</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [48]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[48]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2356,19 +2325,17 @@ information gain analysis that Gender is the most important feature.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [49]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># conda install -c conda-forge python-graphviz</span>
-<span class="kn">from</span> <span class="nn">graphviz</span> <span class="k">import</span> <span class="n">Source</span>
+<span class="kn">from</span> <span class="nn">graphviz</span> <span class="kn">import</span> <span class="n">Source</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2379,12 +2346,11 @@ information gain analysis that Gender is the most important feature.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[50]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[50]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
-<img alt="../images/notebooks_DecisionTree_77_0.svg" src="../images/notebooks_DecisionTree_77_0.svg" /></div>
+<img alt="../_images/notebooks_DecisionTree_77_0.svg" src="../_images/notebooks_DecisionTree_77_0.svg" /></div>
 </div>
 </div>
 <div class="section" id="Evaluate-the-tree">
@@ -2392,18 +2358,16 @@ information gain analysis that Gender is the most important feature.</p>
 <div class="section" id="Using-train-and-test-data-sets">
 <h4>Using train and test data sets<a class="headerlink" href="#Using-train-and-test-data-sets" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [51]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[51]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [52]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[52]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2412,8 +2376,7 @@ information gain analysis that Gender is the most important feature.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2422,34 +2385,29 @@ information gain analysis that Gender is the most important feature.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[53]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[53]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>0.8224489795918367
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+0.8224489795918367
+</pre></div></div>
 </div>
-</div>
-<p>It is possible to tune the decision tree parameters based on the
-accuracy measure. For example the max_leaf_nodes can be tuned to find
-the maximum accuracy.</p>
+<p>It is possible to tune the decision tree parameters based on the accuracy measure. For example the max_leaf_nodes can be tuned to find the maximum accuracy.</p>
 </div>
 <div class="section" id="K-fold-cross-validation">
 <h4>K-fold cross validation<a class="headerlink" href="#K-fold-cross-validation" title="Permalink to this headline">¶</a></h4>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [54]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[54]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_predict</span><span class="p">,</span> <span class="n">cross_val_score</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span><span class="p">,</span> <span class="n">cross_val_score</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [55]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[55]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2459,8 +2417,7 @@ the maximum accuracy.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2469,52 +2426,40 @@ the maximum accuracy.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[56]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[56]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>array([0.82244898, 0.81428571, 0.79795918, 0.78367347, 0.81799591])
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.82244898, 0.81428571, 0.79795918, 0.78367347, 0.81799591])
+</pre></div></div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="Ensemble-learning-to-avoid-over-fitting">
 <h2>Ensemble learning to avoid over fitting<a class="headerlink" href="#Ensemble-learning-to-avoid-over-fitting" title="Permalink to this headline">¶</a></h2>
-<p>The ensemble learning relies on using multiple instances of a machine
-learning algorithm (i.e. decision tree) that are trained with different
-subsets of the available training data. Also, the algorithm parameters
-and number of used features may be different for each instance.</p>
-<p>Each instance might be over/under fitted based on used data. However,
-the ensemble response is determined based on a majority rule decision.</p>
-<p>In other words, an ensemble may be defined as a collection of models
-(even different types) that solve the same problem. However, the final
-answer is achieved by a combining the response of all the models.</p>
+<p>The ensemble learning relies on using multiple instances of a machine learning algorithm (i.e. decision tree) that are trained with different subsets of the available training data. Also, the algorithm parameters and number of used features may be different for each instance.</p>
+<p>Each instance might be over/under fitted based on used data. However, the ensemble response is determined based on a majority rule decision.</p>
+<p>In other words, an ensemble may be defined as a collection of models (even different types) that solve the same problem. However, the final answer is achieved by a combining the response of all the models.</p>
 <div class="section" id="Random-Forest">
 <h3>Random Forest<a class="headerlink" href="#Random-Forest" title="Permalink to this headline">¶</a></h3>
-<p>A collection of decision trees are built and trained independently and
-the combination provides the final response.</p>
+<p>A collection of decision trees are built and trained independently and the combination provides the final response.</p>
 <ul class="simple">
-<li>Each tree in ensemble is built from a different subset of the
-training set (using Bagging (bootstrap aggregating) technique)</li>
-<li>Each tree in ensemble is built using a different subset of features
-(using random subspace technique)</li>
+<li><p>Each tree in ensemble is built from a different subset of the training set (using Bagging (bootstrap aggregating) technique)</p></li>
+<li><p>Each tree in ensemble is built using a different subset of features (using random subspace technique)</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [90]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[90]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [91]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2524,32 +2469,27 @@ training set (using Bagging (bootstrap aggregating) technique)</li>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[91]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[91]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
             max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
             min_impurity_decrease=0.0, min_impurity_split=None,
             min_samples_leaf=1, min_samples_split=2,
             min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
             oob_score=False, random_state=None, verbose=0,
             warm_start=False)
-</pre></div>
+</pre></div></div>
 </div>
-</div>
-<p>Most of the parameters are related to settings of a decision tree.
-Settings related to the ensemble learning (i.e. the random forest) are
-explained below.</p>
+<p>Most of the parameters are related to settings of a decision tree. Settings related to the ensemble learning (i.e. the random forest) are explained below.</p>
 <ul class="simple">
-<li>bootstrap: Using the bootstrap technique to randomly select different
-subsets of data for each tree</li>
-<li>n_estimators: number of trees</li>
+<li><p>bootstrap: Using the bootstrap technique to randomly select different subsets of data for each tree</p></li>
+<li><p>n_estimators: number of trees</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [92]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[92]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2568,8 +2508,7 @@ Accuracy : 0.81
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [93]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[93]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2591,8 +2530,7 @@ Importance for Gender : 0.304
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [94]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[94]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2606,8 +2544,7 @@ Importance for Gender : 0.304
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [95]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2622,11 +2559,10 @@ Importance for Gender : 0.304
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[95]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[95]:
 </pre></div>
 </div>
-<div class="output_area docutils container">
+<div class="output_area rendered_html docutils container">
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -2680,8 +2616,7 @@ Importance for Gender : 0.304
 </div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [96]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2690,66 +2625,45 @@ Importance for Gender : 0.304
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[96]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[96]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x14197cd6908&gt;
-</pre></div>
-</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.axes._subplots.AxesSubplot at 0x14197cd6908&gt;
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../images/notebooks_DecisionTree_98_1.png" src="../images/notebooks_DecisionTree_98_1.png" />
+<img alt="../_images/notebooks_DecisionTree_98_1.png" src="../_images/notebooks_DecisionTree_98_1.png" />
 </div>
 </div>
-<p>As can be seen above, adding more trees provides a better classification
-accuracy on average. However, this doe not mean that adding more tress
-will necessarily always result in a better accuracy depending on the
-cross validation population.</p>
+<p>As can be seen above, adding more trees provides a better classification accuracy on average. However, this doe not mean that adding more tress will necessarily always result in a better accuracy depending on the cross validation population.</p>
 </div>
 <div class="section" id="Gradient-Boosted-Trees">
 <h3>Gradient Boosted Trees<a class="headerlink" href="#Gradient-Boosted-Trees" title="Permalink to this headline">¶</a></h3>
 <p>Each tree is built based on learnings of the previous tree</p>
-<p>Each tree is trained using a different subset of data. However, the
-Boosting + Gradient Descent techniques are used to pool the subsets.
-After the bootstrap for one tree, Gradient Descent adjusts the
-probability of a data point being in the next training set and this
-continues sequentially. In this context, while the first bootstrap is
-based on uniform sampling the next one is modified based on what was
-learned from the previous three classification results. Data points that
-are classified correctly get lower weight for the next bootstrap. In
-this way, the likelihood of picking data that are not classified with
-previous tree increases. Finally, each tree is given a different weight
-for the final weighting for the majority rule decision.</p>
-<p>I random forest, there is a “democracy” that all trees have the same
-voting weights. However, in the gradient boosted approach, trees that
-have a better performance/accuracy get a higher weight. Gradient descent
-is one of the technique that can be used to quantify the probability of
-choosing a data point in the train subset based on the result of the
-previous tree.</p>
+<p>Each tree is trained using a different subset of data. However, the Boosting + Gradient Descent techniques are used to pool the subsets. After the bootstrap for one tree, Gradient Descent adjusts the probability of a data point being in the next training set and this continues sequentially. In this context, while the first bootstrap is based on uniform sampling the next one is modified based on what was learned from the previous three classification results. Data points that are classified
+correctly get lower weight for the next bootstrap. In this way, the likelihood of picking data that are not classified with previous tree increases. Finally, each tree is given a different weight for the final weighting for the majority rule decision.</p>
+<p>I random forest, there is a “democracy” that all trees have the same voting weights. However, in the gradient boosted approach, trees that have a better performance/accuracy get a higher weight. Gradient descent is one of the technique that can be used to quantify the probability of choosing a data point in the train subset based on the result of the previous tree.</p>
 <p>For window installation:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install -c anaconda py-xgboost
 </pre></div>
 </div>
-<p>A rule of thumb is to use a lower number of tree when dealing with a
-small training data set.</p>
+<p>A rule of thumb is to use a lower number of tree when dealing with a small training data set.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [64]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[64]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">xgboost.sklearn</span> <span class="k">import</span> <span class="n">XGBClassifier</span>
+<span></span><span class="kn">from</span> <span class="nn">xgboost.sklearn</span> <span class="kn">import</span> <span class="n">XGBClassifier</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2759,34 +2673,28 @@ small training data set.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>Out[65]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[65]:
 </pre></div>
 </div>
-<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
-<span></span>XGBClassifier(base_score=0.5, booster=&#39;gbtree&#39;, colsample_bylevel=1,
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+XGBClassifier(base_score=0.5, booster=&#39;gbtree&#39;, colsample_bylevel=1,
        colsample_bytree=1, gamma=0, learning_rate=0.1, max_delta_step=0,
        max_depth=3, min_child_weight=1, missing=None, n_estimators=100,
        n_jobs=1, nthread=None, objective=&#39;binary:logistic&#39;, random_state=0,
        reg_alpha=0, reg_lambda=1, scale_pos_weight=1, seed=None,
        silent=True, subsample=1)
-</pre></div>
-</div>
+</pre></div></div>
 </div>
 <ul class="simple">
-<li>colsample_bylevel: Fraction of features used by each tree</li>
-<li>learning_rate: Controls the probability manipulation of data records
-based on the previous tree. Increasing this factor results in an
-increased focus on data records that were miss-classified.</li>
-<li>subsample: Fraction of the provided training data set used for each
-tree. Lowering this number results in a more distinct difference
-between training data sets used for each tree</li>
-<li>gamma: Minimum reduction in error to split the tree further</li>
-<li>n_estimators: Number of trees</li>
+<li><p>colsample_bylevel: Fraction of features used by each tree</p></li>
+<li><p>learning_rate: Controls the probability manipulation of data records based on the previous tree. Increasing this factor results in an increased focus on data records that were miss-classified.</p></li>
+<li><p>subsample: Fraction of the provided training data set used for each tree. Lowering this number results in a more distinct difference between training data sets used for each tree</p></li>
+<li><p>gamma: Minimum reduction in error to split the tree further</p></li>
+<li><p>n_estimators: Number of trees</p></li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [66]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[66]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2805,8 +2713,7 @@ Accuracy : 0.82
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [67]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[67]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2830,25 +2737,19 @@ Importance for Gender : 0.093
 </div>
 <div class="section" id="Hyper-Parameter-Tuning">
 <h3>Hyper Parameter Tuning<a class="headerlink" href="#Hyper-Parameter-Tuning" title="Permalink to this headline">¶</a></h3>
-<p>Considering the different parameters that affect the performance of a
-decision tree and also parameters that control the ensemble learning,
-there are many combinations that should be checked to find the best
-accuracy for the train/test data set. Hyper parameter tuning uses
-optimization technique to find an optimal combination.</p>
+<p>Considering the different parameters that affect the performance of a decision tree and also parameters that control the ensemble learning, there are many combinations that should be checked to find the best accuracy for the train/test data set. Hyper parameter tuning uses optimization technique to find an optimal combination.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [68]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[68]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1"># conda install -c jaikumarm hyperopt</span>
-<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="k">import</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">tpe</span><span class="p">,</span> <span class="n">hp</span><span class="p">,</span> <span class="n">STATUS_OK</span><span class="p">,</span> <span class="n">Trials</span>
+<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="kn">import</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">tpe</span><span class="p">,</span> <span class="n">hp</span><span class="p">,</span> <span class="n">STATUS_OK</span><span class="p">,</span> <span class="n">Trials</span>
 </pre></div>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [69]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2868,8 +2769,7 @@ optimization technique to find an optimal combination.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [70]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[70]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2881,8 +2781,7 @@ optimization technique to find an optimal combination.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [71]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[71]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2896,8 +2795,7 @@ optimization technique to find an optimal combination.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [72]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[72]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2906,8 +2804,7 @@ optimization technique to find an optimal combination.</p>
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [73]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[73]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2916,8 +2813,7 @@ optimization technique to find an optimal combination.</p>
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [74]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[74]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2943,8 +2839,7 @@ subsample = 1.0
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
-<span></span>In [75]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[75]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -2975,7 +2870,7 @@ Optimized Accuracy: 0.816
         <a href="IncomeDataAnalysis.html" class="btn btn-neutral float-right" title="Statistical Analysis for Income Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="PCA-RPCA.html" class="btn btn-neutral" title="Principal Component Analysis (PCA)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="PCA-RPCA.html" class="btn btn-neutral float-left" title="Principal Component Analysis (PCA)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2984,7 +2879,7 @@ Optimized Accuracy: 0.816
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Mostafa Hadavand.
+        &copy; Copyright 2018, Mostafa Hadavand
 
     </p>
   </div>
@@ -3001,33 +2896,16 @@ Optimized Accuracy: 0.816
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../',
-            VERSION:'0.0.1',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../static/jquery.js"></script>
-      <script type="text/javascript" src="../static/underscore.js"></script>
-      <script type="text/javascript" src="../static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  <script type="text/javascript" src="../static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

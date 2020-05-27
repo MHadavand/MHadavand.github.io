@@ -1,7 +1,7 @@
 @ECHO OFF
 
 REM Pygeostat Document
-REM CALL conda activate Geostat
+CALL conda activate Geostat
 
 REM ECHO Building Pygeostat documentation...
 
