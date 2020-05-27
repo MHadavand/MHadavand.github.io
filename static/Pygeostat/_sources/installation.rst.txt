@@ -7,7 +7,7 @@ Installation
 
 Note that pygeostat requires Python 3.6+. Pygeostat will likely require modification to work with
 any other version of python. Pygeostat is also dependent on the suite of curated python
-packages provided with the Anaconda Python distribution. It is highly recommended to install this
+packages provided with the Anaconda Python distribution. It is recommended to install this
 prior to pygeostat installation.
 
 
@@ -18,8 +18,10 @@ The Anaconda distribution by Continuum Analytics: https://www.continuum.io/downl
 then accepting the defaults of registering with the system and installing to the path are
 recommended.
 
-**pygeostat** Installation
+pygeostat Installation
 --------------------------
+
+`Pygeostat <https://pypi.org/project/pygeostat/>`_ can be installed from python package index (PyPI) repository.
 
 .. code-block:: shell
 

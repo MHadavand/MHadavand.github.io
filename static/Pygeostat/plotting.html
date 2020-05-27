@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Plotting Functions &mdash; pygeostat 1.0.10 documentation</title>
+  <title>Plotting Functions &mdash; pygeostat 1.0.2 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                1.0.10
+                1.0.2
               </div>
             
           
@@ -113,12 +113,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#histogram-plot-simulation-check">Histogram Plot (Simulation Check)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#slice-plot">Slice Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scatter-plot">Scatter Plot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Slice Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Slice Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#slice-plot-grids">Slice Plot (Grids)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scatter-plot-multivariate">Scatter Plot (Multivariate)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scatter-plot-multivariate-comparison">Scatter Plot (Multivariate-Comparison)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#correlation-matrix-plot">Correlation Matrix Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#drill-plot">Drill Plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pit-plot">Pit Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quantile-quantile-plot">Quantile-Quantile Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#probability-plot">Probability Plot</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#validation-plot">Validation Plot</a></li>
@@ -132,6 +133,7 @@
 <li class="toctree-l1"><a class="reference internal" href="transformations.html">Transformations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformations.html#module-pygeostat.transformations.rotations">Rotations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">Contribution</a></li>
 </ul>
 
             
@@ -231,7 +233,7 @@ causing the bold to be selected by default. A fix can be found <a class="referen
 <div class="section" id="selection-of-colormaps-and-colour-palettes">
 <h3>Selection of Colormaps and Colour Palettes<a class="headerlink" href="#selection-of-colormaps-and-colour-palettes" title="Permalink to this headline">¶</a></h3>
 <p><strong>Continuous Colormaps</strong></p>
-<p>While the selection of colormaps may appear to based on personal preference, there are many factors
+<p>While the selection of colormaps may appear to be based on personal preference, there are many factors
 that must be accounted for when selecting a colormap. Will your figures be viewed by colour blind
 individuals? Will the figure possibly be printed in black and white? Is the colormap perceived by our
 minds as intended?</p>
@@ -284,7 +286,7 @@ changed within a python session or permanently within the matplotlibrc file. For
 </div>
 <div class="section" id="dealing-with-memory-leaks-from-plotting">
 <h3>Dealing with Memory Leaks from Plotting<a class="headerlink" href="#dealing-with-memory-leaks-from-plotting" title="Permalink to this headline">¶</a></h3>
-<p>As HDF5 functionality is enhanced within pygoestat (see <a class="reference internal" href="data.html#pygeostat.data.data.DataFile" title="pygeostat.data.data.DataFile"><code class="xref py py-func docutils literal notranslate"><span class="pre">gs.DataFile()</span></code></a>), loading large datasets into memory will become a viable option. Some plotting functions are beginning updated to be able to handle these file types, such as <code class="xref py py-func docutils literal notranslate"><span class="pre">gs.histpltsim()</span></code>. If numerous plots are being generated in a loop, you may also notice that your systems physical memory is increasing without being dumped. This is a particular problem if large datasets are being loaded into memory.</p>
+<p>As HDF5 functionality is enhanced within pygoestat (see <a class="reference internal" href="data.html#pygeostat.data.data.DataFile" title="pygeostat.data.data.DataFile"><code class="xref py py-func docutils literal notranslate"><span class="pre">gs.DataFile()</span></code></a>), loading large datasets into memory will become a viable option. Some plotting functions are being updated to be able to handle these file types, such as <code class="xref py py-func docutils literal notranslate"><span class="pre">gs.histogram_plot_simulation()</span></code>. If numerous plots are being generated in a loop, you may also notice that your systems physical memory is increasing without being dumped. This is a particular problem if large datasets are being loaded into memory.</p>
 <p>Not sure as to the reason, but even if you reuse a name space, the old data attached to it is not removed until your systems memory is maxed out. Matplotlib also stores figures in a loop. The module <a class="reference external" href="https://docs.python.org/2/library/gc.html">gc</a> has a function <code class="docutils literal notranslate"><span class="pre">gc.collect()</span></code> that will dump data not connected to a namespace in python.</p>
 <p>The function <code class="xref py py-func docutils literal notranslate"><span class="pre">gs.clrmplmem()</span></code> dumps figure objects currently loaded and clears unused data from memory.</p>
 </div>
@@ -295,7 +297,7 @@ changed within a python session or permanently within the matplotlibrc file. For
 <dt id="pygeostat.plotting.accuracy_plot">
 <code class="descclassname">pygeostat.plotting.</code><code class="descname">accuracy_plot</code><span class="sig-paren">(</span><em>truth=None</em>, <em>reals=None</em>, <em>mik_thresholds=None</em>, <em>acctype='sim'</em>, <em>probability_increment=0.05</em>, <em>figsize=None</em>, <em>title=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>stat_blk='standard'</em>, <em>stat_xy=(0.95</em>, <em>0.05)</em>, <em>stat_fontsize=None</em>, <em>ms=5</em>, <em>grid=None</em>, <em>axis_xy=None</em>, <em>ax=None</em>, <em>plot_style=None</em>, <em>custom_style=None</em>, <em>output_file=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.plotting.accuracy_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accuracy plot based on probability intervals quantified using an estimation technique e.g kriging.
-Currently, this plotting tool works base don using realizations to quantify the distrbution of estimation.</p>
+Currently, this plotting tool works based on using realizations to quantify the distrbution of estimation.</p>
 <p>Two statistics block sets are available: <code class="docutils literal notranslate"><span class="pre">'minimal'</span></code> and the default <code class="docutils literal notranslate"><span class="pre">'standard'</span></code>. The
 statistics block can be customized to a user defined list and order. Available statistics are
 as follows:</p>
@@ -763,7 +765,7 @@ being an observation.</p></li>
 <li><p>List containing location(s) of realization file(s).</p></li>
 <li><p>String containing the location of a folder containing realization files. All files in
 the folder are read in this case.Can contain</p></li>
-<li><p>String with a wild card search(s) (e.g., ‘./data/sgsim_real_*.out’)</p></li>
+<li><p>String with a wild card search(s) (e.g., ‘./data/realizations/<a href="#id1"><span class="problematic" id="id2">*</span></a>.out’)</p></li>
 <li><p>Python generator object that yields a 1-D numpy array.</p></li>
 </ol>
 </div></blockquote>
@@ -794,7 +796,7 @@ as follows:</p>
 </div>
 <p>Please review the documentation of the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">gs.set_style()</span></code> and
-<code class="xref py py-func docutils literal notranslate"><span class="pre">gs.exportimg()</span></code> functions for details on their
+<code class="xref py py-func docutils literal notranslate"><span class="pre">gs.export_image()</span></code> functions for details on their
 parameters so that their use in this function can be understood.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -820,7 +822,7 @@ the amount of realizations plotted (i.e., the first <code class="docutils litera
 <li><p><strong>n_subsample</strong> (<em>int</em>) – Required if sub-sampling is used. The number of sub-samples to draw.</p></li>
 <li><p><strong>ax</strong> (<em>mpl.axis</em>) – Matplotlib axis to plot the figure</p></li>
 <li><p><strong>figsize</strong> (<em>tuple</em>) – Figure size (width, height)</p></li>
-<li><p><strong>xlim</strong> (<em>float tubple</em>) – Minimum and maximum limits of data along the x axis</p></li>
+<li><p><strong>xlim</strong> (<em>float tuple</em>) – Minimum and maximum limits of data along the x axis</p></li>
 <li><p><strong>title</strong> (<em>str</em>) – Title for the plot</p></li>
 <li><p><strong>xlabel</strong> (<em>str</em>) – X-axis label</p></li>
 <li><p><strong>stat_blk</strong> (<em>str</em><em> or </em><em>list</em>) – Indicate what preset statistics block to write or a specific list</p></li>
@@ -837,7 +839,7 @@ to turn it off</p></li>
 <li><p><strong>custom_style</strong> (<em>dict</em>) – Alter some of the predefined parameters in the <code class="docutils literal notranslate"><span class="pre">plot_style</span></code> selected</p></li>
 <li><p><strong>output_file</strong> (<em>str</em>) – Output figure file name and location</p></li>
 <li><p><strong>out_kws</strong> (<em>dict</em>) – Optional dictionary of permissible keyword arguments to pass to
-<code class="xref py py-func docutils literal notranslate"><span class="pre">gs.exportimg()</span></code></p></li>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">gs.export_image()</span></code></p></li>
 <li><p><strong>sim_kws</strong> – Optional dictionary of permissible keyword arguments to pass to
 <code class="xref py py-func docutils literal notranslate"><span class="pre">gs.histogram_plot()</span></code> for plotting realization
 histograms and by extension, matplotlib’s plot function if the keyword passed is not
@@ -1128,8 +1130,8 @@ scatter function</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="id1">
-<h2>Slice Plot<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>Slice Plot<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt>
 <code class="descclassname">pygeostat.plotting.</code><code class="descname">slice_plot</code><span class="sig-paren">(</span><em>data</em>, <em>griddef=None</em>, <em>var=None</em>, <em>catdata=None</em>, <em>pointdata=None</em>, <em>pointvar=None</em>, <em>pointtol=None</em>, <em>pointkws=None</em>, <em>pointcmap=None</em>, <em>orient='xy'</em>, <em>slice_number=0</em>, <em>ax=None</em>, <em>figsize=None</em>, <em>vlim=None</em>, <em>clim=None</em>, <em>title=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>unit=None</em>, <em>rotateticks=None</em>, <em>cbar=True</em>, <em>cbar_label=None</em>, <em>catdict=None</em>, <em>cbar_label_pad=None</em>, <em>cax=None</em>, <em>sigfigs=3</em>, <em>cmap=None</em>, <em>interp='none'</em>, <em>aspect=None</em>, <em>grid=None</em>, <em>axis_xy=None</em>, <em>rasterize=False</em>, <em>plot_style=None</em>, <em>custom_style=None</em>, <em>output_file=None</em>, <em>out_kws=None</em>, <em>return_cbar=False</em>, <em>return_plot=False</em>, <em>slice_thickness=None</em>, <em>cbar_nticks=5</em>, <em>plotformat_dict=None</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
@@ -1272,12 +1274,12 @@ ax, plot, cbar: default False</p>
 <dl class="function">
 <dt id="pygeostat.plotting.grid_slice_plot">
 <code class="descclassname">pygeostat.plotting.</code><code class="descname">grid_slice_plot</code><span class="sig-paren">(</span><em>data</em>, <em>griddef=None</em>, <em>super_xlabel=True</em>, <em>super_ylabel=True</em>, <em>super_title=None</em>, <em>ncol=None</em>, <em>nrow=None</em>, <em>start_slice=None</em>, <em>end_slice=None</em>, <em>figsize=None</em>, <em>n_slice=None</em>, <em>slice_title=True</em>, <em>unit=None</em>, <em>plot_style=None</em>, <em>custom_style=None</em>, <em>output_file=None</em>, <em>out_kws=None</em>, <em>cbar_label=None</em>, <em>axpad=0.15</em>, <em>cbar_cats=None</em>, <em>ntickbins=None</em>, <em>axfuncs=None</em>, <em>label_mode='L'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.plotting.grid_slice_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>grid_slice_plot can be used to automatically generate <code class="docutils literal notranslate"><span class="pre">beautiful</span></code> plotem style set of slices
+<dd><p>grid_slice_plot can be used to automatically generate set of slices
 through a 3D gridded realization. Given some target number of rows, columns, orientation and
 slice ranges through the realization, this function will automatically generate the slice_plot
 slices and arrange them according to the specified dimensions. It is possible to pass keyword
 arguments for slice_plot to this function in order to specify the format of the slice_plots. So,
-Adding data locations, different colormaps, and other slice_plot formatting is permitted for
+adding data locations, different colormaps, and other slice_plot formatting is permitted for
 all subplots by passing those slice_plot arguments to this function. See
 <a class="reference internal" href="#pygeostat.plotting.slice_plot" title="pygeostat.plotting.slice_plot"><code class="xref py py-func docutils literal notranslate"><span class="pre">gs.slice_plot()</span></code></a> for the full list of permissable kwargs.</p>
 <p>Updates April 2016 - use a ImageGrid subplots to get the job done</p>
@@ -1834,6 +1836,92 @@ depth is plotted and not elevation)</p></li>
 <div class="figure align-center">
 <img alt="_images/plotting-29.png" src="_images/plotting-29.png" />
 </div>
+</dd></dl>
+
+</div>
+<div class="section" id="pit-plot">
+<h2>Pit Plot<a class="headerlink" href="#pit-plot" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pygeostat.plotting.pit_plot">
+<code class="descclassname">pygeostat.plotting.</code><code class="descname">pit_plot</code><span class="sig-paren">(</span><em>arr</em>, <em>griddef</em>, <em>ax=None</em>, <em>orient='xz'</em>, <em>slice_number=0</em>, <em>lineweight=1</em>, <em>color='k'</em>, <em>iso=0.5</em>, <em>linestyle='solid'</em>, <em>figsize=None</em>, <em>xlim=None</em>, <em>ylim=None</em>, <em>title=None</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>unit=None</em>, <em>rotateticks=None</em>, <em>randomize=False</em>, <em>grid=None</em>, <em>axis_xy=None</em>, <em>cust_style=None</em>, <em>label=None</em>, <em>output_file=None</em>, <em>out_kws=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.plotting.pit_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>This funcion will take an array of indicators (from lg3d) and an orientation, and plot the
+pit shell lines for a given cross section view.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function can only deal with 1 realization in the file
+so if you have multiple realizations you need to either pass a slice to this function or copy 1
+realization to a separate file.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>Array</em>) – Array (DataFrame Column) passed to the program with indicator
+values (i.e. 0 &amp; 1)</p></li>
+<li><p><strong>ax</strong> (<em>mpl.axis</em>) – Matplotlib axis to plot the figure</p></li>
+<li><p><strong>orient</strong> (<em>str</em>) – Orientation to slice data. ‘xy’, ‘xz’, ‘yz’ are the only accepted values</p></li>
+<li><p><strong>slice_number</strong> (<em>int</em>) – Location of slice to plot</p></li>
+<li><p><strong>lineweight</strong> (<em>float</em>) – Any Matplotlib line weight</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – Any Matplotlib color</p></li>
+<li><p><strong>iso</strong> (<em>float</em>) – Inside or Outside of Pit limit (i.e. if greater than 0.5 inside of pit)</p></li>
+<li><p><strong>linestyle</strong> (<em>str</em>) – Any Matplotlib linestyle</p></li>
+<li><p><strong>randomize</strong> (<em>bool</em>) – True or False… obviously</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em>) – Figure size (width, height)</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – Title for the plot</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em>) – X-axis label</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em>) – Y-axis label</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – Unit to place inside the axis label parentheses</p></li>
+<li><p><strong>rotateticks</strong> (<em>bool tuple</em>) – Indicate if the axis tick labels should be rotated (x, y)</p></li>
+<li><p><strong>grid</strong> (<em>bool</em>) – Plots the major grid lines if True. Based on Parameters[‘plotting.grid’]
+if None.</p></li>
+<li><p><strong>axis_xy</strong> (<em>bool</em>) – converts the axis to GSLIB-style axis visibility (only left and bottom
+visible) if axis_xy is True. Based on Parameters[‘plotting.axis_xy’] if None.</p></li>
+<li><p><strong>label</strong> (<em>str</em>) – Legend label to be added to Matplotlib axis artist</p></li>
+<li><p><strong>output_file</strong> (<em>str</em>) – Output figure file name and location</p></li>
+<li><p><strong>out_kws</strong> (<em>dict</em>) – Optional dictionary of permissible keyword arguments to pass to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">gs.export_image()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Matplotlib figure instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>fig (fig)</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>A simple call:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">pit_plot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">griddef</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pit Outline Using LG3D output&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/pitplot.png" src="_images/pitplot.png" />
+<p>In order to plot multiple pits (say from a file with multiple realizations) you have can
+plot to the same matplotlib axis. For multiple realizations using a loop is the easiest
+as shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sim</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;SGS.lg3d&#39;</span><span class="p">,</span> <span class="n">griddef</span><span class="o">=</span><span class="n">grid_5m</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Loop through the SGSIM LG3D output file</p>
+<p>First plot the first realization and grab the matplotlib axis</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplt</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">... </span><span class="n">rmin</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">... </span><span class="n">rmax</span> <span class="o">=</span> <span class="n">pit</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="gp">... </span><span class="n">fig</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">pit_plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">rmin</span><span class="p">:</span><span class="n">rmax</span><span class="p">],</span> <span class="n">sim</span><span class="o">.</span><span class="n">griddef</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pit Outline Using LG3D output</span>
+<span class="gp">... </span>                <span class="k">with</span> <span class="n">Multiple</span> <span class="n">Realizations</span><span class="s1">&#39;)</span>
+<span class="gp">... </span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then loop through the rest of the realizations (Say 50) and plot them on current axis</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">rmin</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">pit</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">rmax</span> <span class="o">=</span> <span class="n">rmin</span> <span class="o">+</span> <span class="n">pit</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">gs</span><span class="o">.</span><span class="n">pit_plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">rmin</span><span class="p">:</span><span class="n">rmax</span><span class="p">],</span> <span class="n">sim</span><span class="o">.</span><span class="n">griddef</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Save the figure</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">export_image</span><span class="p">(</span><span class="s1">&#39;pitplot_mr.png&#39;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/pitplot_mr.png" src="_images/pitplot_mr.png" />
 </dd></dl>
 
 </div>

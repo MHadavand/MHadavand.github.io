@@ -1,0 +1,12 @@
+.. _contribution:
+
+Contribution
+##################
+
+We are always looking for contributions to pygeostat.
+
+|github|
+
+.. |github| image:: https://github.githubassets.com/images/modules/logos_page/Octocat.png
+    :target: https://github.com/CcgAlberta/pygeostat
+    :alt: Github Repository

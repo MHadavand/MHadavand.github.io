@@ -16,7 +16,7 @@ Cumulative Distribution Function
 --------------------------------
 .. autofunction:: pygeostat.statistics.cdf.cdf
 
-PErcentile from CDF
+Percentile from CDF
 -------------------------
 .. autofunction:: pygeostat.statistics.cdf.percentile_from_cdf
 

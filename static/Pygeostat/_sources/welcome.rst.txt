@@ -6,7 +6,7 @@
 
 |
 
-|integration_test| |docs| 
+|integration_test| |docs| |PyPi| |Python36| |Python37| |Python38|
 
 Welcome
 =======
@@ -312,10 +312,25 @@ http://www.ccgalberta.com/software-terms-of-use/
 
 
 
-.. |integration_test| image:: https://github.com/MHadavand/pygeostat_public/workflows/Integration/badge.svg?branch=master
+.. |integration_test| image:: https://github.com/MHadavand/pygeostat_public/workflows/IntegrationCheck/badge.svg?branch=master
     :alt: Integration
     :target: https://github.com/MHadavand/pygeostat_public
 
 .. |docs| image:: https://github.com/MHadavand/pygeostat_public/workflows/Documentation/badge.svg?branch=master
     :alt: Documentation Status
     :target: https://github.com/MHadavand/pygeostat_public
+
+.. |PyPi| image:: https://badge.fury.io/py/pygeostat.svg
+    :target: https://badge.fury.io/py/pygeostat
+
+.. |Python36| image:: https://img.shields.io/badge/python-3.6-cyan.svg
+    :target: https://www.python.org/downloads/release/python-360
+    :alt: Python Version
+
+.. |Python37| image:: https://img.shields.io/badge/python-3.7-red.svg
+    :target: https://www.python.org/downloads/release/python-370
+    :alt: Python Version
+
+.. |Python38| image:: https://img.shields.io/badge/python-3.8-black.svg
+    :target: https://www.python.org/downloads/release/python-380
+    :alt: Python Version
