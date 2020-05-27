@@ -1,15 +1,23 @@
 @ECHO OFF
 
-CALL conda activate Geostat
+REM CALL conda activate Geostat
 
-ECHO Building Pygeostat documentation...
+REM ECHO Building Pygeostat documentation...
 
-CALL ..\pygeostat_public\doc\make.bat clean
+REM CALL ..\pygeostat_public\doc\make.bat clean
 
-CALL ..\pygeostat_public\doc\make.bat html
+REM CALL ..\pygeostat_public\doc\make.bat html
 
 ECHO Copying Pygeostat documentation...
 
 xcopy /s/e/y ..\pygeostat_public\doc\build\html .\static\Pygeostat
+
+git checkout master
+
+git add .
+
+git commit -am "Updated pygeostat documentation"
+
+git push
 
 ECHO Done
