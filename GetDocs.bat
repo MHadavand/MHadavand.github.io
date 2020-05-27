@@ -3,23 +3,23 @@
 REM Pygeostat Document
 CALL conda activate Geostat
 
-REM ECHO Building Pygeostat documentation...
+ECHO Building Pygeostat documentation...
 
-REM CALL ..\pygeostat_public\doc\make.bat clean
+CALL ..\pygeostat_public\doc\make.bat clean
 
-REM CALL ..\pygeostat_public\doc\make.bat html
+CALL ..\pygeostat_public\doc\make.bat html
 
-REM ECHO Copying Pygeostat documentation...
+ECHO Copying Pygeostat documentation...
 
-REM xcopy /s/e/y ..\pygeostat_public\doc\build\html .\static\Pygeostat
+xcopy /s/e/y ..\pygeostat_public\doc\build\html .\static\Pygeostat
 
-REM git checkout master
+git checkout master
 
-REM git add .
+git add .
 
-REM git commit -am "Updated pygeostat documentation"
+git commit -am "Updated pygeostat documentation"
 
-REM git push
+git push
 
 
 REM Data Analysis Documents
