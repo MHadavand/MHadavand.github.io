@@ -67,6 +67,14 @@ p.lead {
   margin-right: 1rem;
 }
 
+.azure-icon {
+  background: url('./img/microsoft-azure-icon.png');
+  height: 5px;
+  width: 5px;
+  display: block;
+  /* Other styles here */
+}
+
 .social-icons a:last-child {
   margin-right: 0;
 }
@@ -160,7 +168,7 @@ section.resume-section .resume-item .resume-date {
 }
 
 .bg-primary {
-  background-color: #3380FF !important;
+  background-color: #707B7C !important;
 }
 
 .text-primary {
