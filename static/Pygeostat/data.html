@@ -1,0 +1,1803 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Files &mdash; pygeostat 1.0.6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0.6',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Grid Definitions" href="griddef.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+    <link href="_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pygeostat
+          
+
+          
+            
+            <img src="_static/pygeostat_logo_notxt.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#datafile-class">DataFile Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datafile-attributes">DataFile Attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#columns">Columns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#num-variables">Num Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#locations">Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shape">Shape</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#head">Head</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rename-columns">Rename Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drop-columns">Drop Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-for-duplicate-columns">Check for Duplicate Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-columns">Set Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-variable-columns">Set Variable Columns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set-categorical-dictionary">Set Categorical Dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-datafile">Check DataFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-coord">Add Coord</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apply-dictionary">Apply Dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#describe-datafile">Describe DataFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#infer-grid-definition">Infer Grid Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-name-string">File Name String</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-dictionary">Generate Dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gslib-column">GSLIB Column</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#truncate-nan-s">Truncate NaN’s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unique-categories">Unique Categories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-file">Write file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-spacing">Data Spacing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example-data">Example Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pygeostat.data.iotools">Input/Ouput Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-file">Read File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-csv">Read CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-gslib-python">Read GSLIB Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-gslib-python">Write GSLIB Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-csv">Write CSV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-vtk">Write VTK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-hdf5-vtk">Write HDF5 VTK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#count-lines-in-file">Count Lines in File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-ccg-gmm">Write CCG GMM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hdf5-i-o">HDF5 I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#write-hdf5">Write HDF5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-hdf5">Read HDF5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-hdf5">Is HDF5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combine-datasets-from-multiple-paths">Combine Datasets from Multiple Paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pygeostat-hdf5-class">Pygeostat HDF5 Class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#write-data">Write Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-data">Read Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#print-contents-of-hdf5-file">Print Contents of HDF5 File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#close-the-hdf5-file">Close the HDF5 File</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#datasets-in-h5-store">Datasets in H5 Store</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generate-iterator">Generate Iterator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dictfile-class">DictFile Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-dictionary">Read Dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-dictionary">Write Dictionary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="griddef.html">Grid Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistics.html">Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programs.html">Scripting CCG Executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">Core Development Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html#id1">Contribution</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pygeostat</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data Files</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-files">
+<span id="data"></span><h1>Data Files<a class="headerlink" href="#data-files" title="Permalink to this headline">¶</a></h1>
+<p>The core class in pygeostat is the <code class="docutils literal"><span class="pre">DataFile</span></code> class which contains a Pandas DataFrame with the
+data values and column names in addition to metadata, such as the name of the x, y and z coordinates
+or grid definition.</p>
+<div class="section" id="datafile-class">
+<span id="datafile"></span><h2>DataFile Class<a class="headerlink" href="#datafile-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygeostat.data.data.DataFile">
+<em class="property">class </em><code class="descclassname">pygeostat.data.data.</code><code class="descname">DataFile</code><span class="sig-paren">(</span><em>flname=None</em>, <em>readfl=None</em>, <em>fltype=None</em>, <em>dftype=None</em>, <em>data=None</em>, <em>columns=None</em>, <em>null=None</em>, <em>title='data'</em>, <em>griddef=None</em>, <em>dh=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>ifrom=None</em>, <em>ito=None</em>, <em>weights=None</em>, <em>cat=None</em>, <em>catdict=None</em>, <em>variables=None</em>, <em>notvariables=None</em>, <em>delimiter='\s+'</em>, <em>headeronly=False</em>, <em>h5path=None</em>, <em>h5datasets=None</em>, <em>nreals=-1</em>, <em>tmin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class stores geostatistical data values and metadata.</p>
+<p>DataFile classes may be created on initialization, or generated
+using pygeostat functions. This is the primary class for pygeostat
+and is used for reading and writing GSLIB, CSV, VTK, and HDF5 file formats.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>flname</strong> (<em>str</em>) – Path (or name) of file to read</li>
+<li><strong>readfl</strong> (<em>bool</em>) – True if the data file should be read on class initialization</li>
+<li><strong>fltype</strong> (<em>str</em>) – Type of data file: either <code class="docutils literal"><span class="pre">csv</span></code>, <code class="docutils literal"><span class="pre">gslib</span></code> or <code class="docutils literal"><span class="pre">hdf5</span></code></li>
+<li><strong>dftype</strong> (<em>str</em>) – Data file type as either ‘point’ or ‘grid’ used for writing out VTK files
+for visualization</li>
+<li><strong>data</strong> (<em>pandas.DataFrame</em>) – Pandas dataframe containing array of data values</li>
+<li><strong>dicts</strong> (<em>List</em><em>[</em><em>dict</em><em>] or </em><em>dict</em>) – List of dictionaries or dictionary for converting alphanumeric
+to numeric data</li>
+<li><strong>null</strong> (<em>float</em>) – Null value for missing values in the data file</li>
+<li><strong>title</strong> (<em>str</em>) – Title, or name, of the data file</li>
+<li><strong>griddef</strong> (<em>pygeostat.GridDef</em>) – Grid definition for a gridded data file</li>
+<li><strong>dh</strong> (<em>str</em>) – Name of drill hole variable</li>
+<li><strong>x</strong> (<em>str</em>) – Name of X coordinate column</li>
+<li><strong>y</strong> (<em>str</em>) – Name of Y coordinate column</li>
+<li><strong>z</strong> (<em>str</em>) – Name of Z coordinate column</li>
+<li><strong>ifrom</strong> (<em>str</em>) – Name of ‘from’ columns</li>
+<li><strong>ito</strong> (<em>str</em>) – Name of ‘to’ columns</li>
+<li><strong>weights</strong> (<em>str</em><em> or </em><em>list</em>) – Name of declustering weight column(s)</li>
+<li><strong>cat</strong> (<em>str</em>) – Name of categorical (e.g., rock type or facies) column</li>
+<li><strong>catdict</strong> (<em>dict</em>) – Set a dictionary for the categories, which should be formatted as:
+<code class="docutils literal"><span class="pre">catdict</span> <span class="pre">=</span> <span class="pre">{catcode:catname}</span></code></li>
+<li><strong>variables</strong> (<em>str</em><em> or </em><em>list</em>) – Name of continuous variable(s), which if unspecified, are the
+columns not assigned to the above attributes (via kwargs or inference)</li>
+<li><strong>notvariables</strong> (<em>str</em><em> or </em><em>list</em>) – Name of column(s) to exclude from variables</li>
+<li><strong>delimiter</strong> (<em>str</em>) – Delimiter used in data file (ie: comma or space)</li>
+<li><strong>headeronly</strong> (<em>bool</em>) – True to just read header + 1 line of data file This is useful for
+getting column numbers of large files OR if reading hdf5 files will only read in the
+hdf5 store information</li>
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+read the dataset(s) specified by the argument <code class="docutils literal"><span class="pre">datasets</span></code> from. The dataset name
+cannot be passed using this argument, it is interpreted as a group name only. A
+value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root directory of the HDF5 file. A value
+of <code class="docutils literal"><span class="pre">False</span></code> loads a blank pd.DataFrame().</li>
+<li><strong>h5datasets</strong> (<em>str</em><em> or </em><em>list</em>) – Name of the dataset(s) to read from the group specified by
+<code class="docutils literal"><span class="pre">h5path</span></code>. Does nothing if <code class="docutils literal"><span class="pre">h5path</span></code> points to a dataset.</li>
+<li><strong>columns</strong> (<em>list</em>) – List of column labels to use for the resulting <code class="docutils literal"><span class="pre">data</span></code> pd.DataFrame</li>
+<li><strong>nreals</strong> (<em>int</em>) – number of realizations to read in. -1 will read all</li>
+<li><strong>tmin</strong> (<em>float</em>) – If a number is provided, values less than this number (e.g., trimmed
+or null values) are convernted to NaN. May be useful since NaN’s are
+more easily handled within python, matplotlib and pandas. Set to None
+to disable.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Quickly reading in a GeoEAS data file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;../data/oilsands.dat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To read in a GeoEAS datafile and assign attributes</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Point Data Example</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;../data/oilsands.dat&#39;</span><span class="p">,</span><span class="n">readfl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">dh</span><span class="o">=</span><span class="s1">&#39;Drillhole Number&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;East&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;North&#39;</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="s1">&#39;Elevation&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Gridded Data Example</span>
+<span class="n">griddef</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">GridDef</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;10 0.5 1</span>
+<span class="s1">10 0.5 1</span>
+<span class="s1">10 0.5 1&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;../data/3DDecor.dat&#39;</span><span class="p">,</span> <span class="n">griddef</span><span class="o">=</span><span class="n">griddef</span><span class="p">)</span>
+
+<span class="c1"># To view grid definition string</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">griddef</span><span class="p">())</span>
+<span class="c1"># Access some Grid Deffinition attributes</span>
+<span class="n">data_file</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c1"># returns number of blocks in grid</span>
+<span class="n">data_file</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">extents</span><span class="p">()</span> <span class="c1"># returns an array of the extents for all directions</span>
+<span class="n">data_file</span><span class="o">.</span><span class="n">griddef</span><span class="o">.</span><span class="n">nx</span> <span class="c1"># returns nunmber of blocks in x direction</span>
+</pre></div>
+</div>
+<p><strong>HDF5</strong></p>
+<p>Using the HDF5 file format has its own positive features. For one it reads and writes much
+faster then using the ASCII format. Attributes (like the grid definition) can also be saved
+within the file. All files for a single project can also be saved in the same file. Please
+refer to the <a class="reference internal" href="#hdf5"><span class="std std-ref">introduction on HDF5 files</span></a> for more information</p>
+<p>This class currently only searches for and loads a grid definition.</p>
+<p class="rubric">Examples</p>
+<p>HDF5 file simple read example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;../data/oilsands_out.hdf5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To view the HDF5 header information (tables stored in the file):</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data_file</span><span class="o">.</span><span class="n">store</span>
+</pre></div>
+</div>
+<p>If you have a HDF5 file with multiple tables and you just want to read in the file
+information to view what tables are in the file and any attributes saved to the file you
+can do a header style only read:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;../data/oilsands_out.hdf5&#39;</span><span class="p">,</span> <span class="n">dftype</span><span class="o">=</span><span class="s1">&#39;hdf5&#39;</span><span class="p">,</span> <span class="n">headeronly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then to see what tables are written in the hdf5 file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">data_file</span><span class="o">.</span><span class="n">store</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="section" id="datafile-attributes">
+<h3>DataFile Attributes<a class="headerlink" href="#datafile-attributes" title="Permalink to this headline">¶</a></h3>
+<p>Attributes of a <code class="docutils literal"><span class="pre">datafile</span></code> object are accessed with <code class="docutils literal"><span class="pre">datafile.&lt;attribute&gt;</span></code>.</p>
+<div class="section" id="columns">
+<h4>Columns<a class="headerlink" href="#columns" title="Permalink to this headline">¶</a></h4>
+<p>Access the <code class="docutils literal"><span class="pre">columns</span></code> of the datafile. Wrapper for <code class="docutils literal"><span class="pre">datafile.data.columns</span></code>.</p>
+</div>
+<div class="section" id="num-variables">
+<h4>Num Variables<a class="headerlink" href="#num-variables" title="Permalink to this headline">¶</a></h4>
+<p>Access the <code class="docutils literal"><span class="pre">nvar</span></code> of the datafile. e.g., the <code class="docutils literal"><span class="pre">len(datafile.variables)</span></code></p>
+</div>
+<div class="section" id="locations">
+<h4>Locations<a class="headerlink" href="#locations" title="Permalink to this headline">¶</a></h4>
+<p>Access the <code class="docutils literal"><span class="pre">locations</span></code> stored in the datafile. Wrapper for <code class="docutils literal"><span class="pre">datafile[datafile.xyz]</span></code>.</p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">datafile</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="s2">&quot;somefile.out&quot;</span><span class="p">)</span>  <span class="c1"># this file has an x, y[, z] attribute that is found</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datafile</span><span class="o">.</span><span class="n">locations</span>
+<span class="gp">... </span><span class="n">dataframe</span> <span class="n">of</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="n">locations</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shape">
+<h4>Shape<a class="headerlink" href="#shape" title="Permalink to this headline">¶</a></h4>
+<p>Access the <code class="docutils literal"><span class="pre">shape</span></code> of the data stored in the datafile. Wrapper for <code class="docutils literal"><span class="pre">datafile.data.shape</span></code></p>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">datafile</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="s2">&quot;somefile.out&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">datafile</span><span class="o">.</span><span class="n">shape</span>
+<span class="gp">... </span><span class="n">shape</span> <span class="n">of</span> <span class="n">datafile</span><span class="o">.</span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="head">
+<h3>Head<a class="headerlink" href="#head" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.head">
+<code class="descclassname">DataFile.</code><code class="descname">head</code><span class="sig-paren">(</span><em>n=5</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.head" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the first n rows of the data, accessing self.data.head()</p>
+</dd></dl>
+
+</div>
+<div class="section" id="rename-columns">
+<h3>Rename Columns<a class="headerlink" href="#rename-columns" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.rename">
+<code class="descclassname">DataFile.</code><code class="descname">rename</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a dictionary to alter self.DataFrame column names. This applies the DataFrame.rename
+function, but updates any special attributes (dh, x, y, etc.) with the new name, if previously
+set to the old name. Users should consider using the self.columns property if changing all
+column names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>columns</strong> (<em>dict</em>) – formatted as {oldname1: newname1, oldname2:newname2}, etc, where the old and
+new names are strings. The old names must be present in data.columns.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="drop-columns">
+<h3>Drop Columns<a class="headerlink" href="#drop-columns" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.drop">
+<code class="descclassname">DataFile.</code><code class="descname">drop</code><span class="sig-paren">(</span><em>columns</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This applies the DataFrame.drop function, where axis=1, inplace=True and columns is
+used in place of the labels. It also updates any special attributes (dh, x, y, etc.),
+setting them to None if dropped. Similarly, if any variables are dropped, they are
+removed from self.variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>columns</strong> (<em>str</em><em> or </em><em>list</em>) – column names to drop</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="check-for-duplicate-columns">
+<h3>Check for Duplicate Columns<a class="headerlink" href="#check-for-duplicate-columns" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.check_for_duplicate_cols">
+<code class="descclassname">DataFile.</code><code class="descname">check_for_duplicate_cols</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.check_for_duplicate_cols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a quick check on the column names to see if any of them are duplicated. If they
+are duplicated then print a Warning and rename the columns</p>
+</dd></dl>
+
+</div>
+<div class="section" id="set-columns">
+<h3>Set Columns<a class="headerlink" href="#set-columns" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.setcol">
+<code class="descclassname">DataFile.</code><code class="descname">setcol</code><span class="sig-paren">(</span><em>colattr</em>, <em>colname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.setcol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a specialized column attribute (<code class="docutils literal"><span class="pre">dh,</span> <span class="pre">ifrom,</span> <span class="pre">ito,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">cat</span> <span class="pre">or</span> <span class="pre">weights</span></code>) for the
+<code class="docutils literal"><span class="pre">DataFile</span></code>, where <code class="docutils literal"><span class="pre">DataFile.data</span></code> must be initialized. If colname is None, then the
+attribute will be set if a common name for it is detected in <code class="docutils literal"><span class="pre">DataFile.data</span></code>.columns
+(e.g., if <code class="docutils literal"><span class="pre">colattr='dh'</span></code> and <code class="docutils literal"><span class="pre">colname=None</span></code>, and <code class="docutils literal"><span class="pre">'DHID'</span></code> is found in
+<code class="docutils literal"><span class="pre">DataFile.data</span></code>, then <code class="docutils literal"><span class="pre">DataFile.dh='DHID'</span></code>. The attribute will be None if none of the
+common names are detected. If colname is not None, then the provided string will be
+assigned to the attribute, e.g. DataFile.colattr=colname. Note, however, that an error
+will be thrown if colname is not None and colname is not in <code class="docutils literal"><span class="pre">DataFile.data</span></code>.columns.
+This is used on DataFile initialization, but may also be useful for calling after
+specialized columns are altered.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>colattr</strong> (<em>str</em>) – must match one of: <code class="docutils literal"><span class="pre">'dh'</span></code>, <code class="docutils literal"><span class="pre">'ifrom'</span></code>, <code class="docutils literal"><span class="pre">'ito'</span></code>, <code class="docutils literal"><span class="pre">'x'</span></code>, <code class="docutils literal"><span class="pre">'y'</span></code>,
+<code class="docutils literal"><span class="pre">'z'</span></code>, <code class="docutils literal"><span class="pre">'cat'</span></code> or <code class="docutils literal"><span class="pre">'weights'</span></code></li>
+<li><strong>colname</strong> (<em>str</em><em> or </em><em>list</em>) – if not None, must be the name(s) of a column in <code class="docutils literal"><span class="pre">DataFile.data</span></code>.
+List is only valid if <code class="docutils literal"><span class="pre">colattr=weights</span></code></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Set the x attribute (dat.x) based on a specified value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">setcol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;Easting&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Set the x attribute (dat.x), where the function checks common names for x:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">setcol</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="set-variable-columns">
+<h3>Set Variable Columns<a class="headerlink" href="#set-variable-columns" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.setvarcols">
+<code class="descclassname">DataFile.</code><code class="descname">setvarcols</code><span class="sig-paren">(</span><em>variables=None</em>, <em>notvariables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.setvarcols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the variables for the DataFile. If provided, the function checks that the
+variables are present in the DataFrame. If not provided, the function assigns columns
+that are not specified as the variables (<code class="docutils literal"><span class="pre">dh,</span> <span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z,</span> <span class="pre">rt,</span> <span class="pre">weights</span></code>), as well as a list of
+user specified notvariables.</p>
+<p>This is used on DataFile initialization, but may also be useful for calling after
+variables are added or removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>variables</strong> (<em>list</em><em> or </em><em>str</em>) – list of strings</li>
+<li><strong>notvariables</strong> (<em>list</em><em> or </em><em>str</em>) – list of strings</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Set the variables based on a specified list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">setvarcols</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Au&#39;</span><span class="p">,</span> <span class="s1">&#39;Carbon&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Set the variables based on the function excluding specialized columns (dh, x, y, etc.):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">setvarcols</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Set the variables based on the function excluding specialized columns (dh, x, y, etc.),
+as well as a user specified list of what is not a variable:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">setvarcols</span><span class="p">(</span><span class="n">notvariables</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Data Spacing&#39;</span><span class="p">,</span> <span class="n">Keyout</span><span class="s1">&#39;])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="set-categorical-dictionary">
+<h3>Set Categorical Dictionary<a class="headerlink" href="#set-categorical-dictionary" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.setcatdict">
+<code class="descclassname">DataFile.</code><code class="descname">setcatdict</code><span class="sig-paren">(</span><em>catdict</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.setcatdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a dictionary for the categories, which should be formatted as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catdict</span> <span class="o">=</span> <span class="p">{</span><span class="n">catcode</span><span class="p">:</span><span class="n">catname</span><span class="p">}</span>
+</pre></div>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">catdict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;Mudstone&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Sandstone&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">setcatdict</span><span class="p">(</span><span class="n">catdict</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="check-datafile">
+<h3>Check DataFile<a class="headerlink" href="#check-datafile" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.check_datafile">
+<code class="descclassname">DataFile.</code><code class="descname">check_datafile</code><span class="sig-paren">(</span><em>flname</em>, <em>variables</em>, <em>sep</em>, <em>fltype</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.check_datafile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run some quick checks on the DataFile before writing and grab info if not provided</p>
+</dd></dl>
+
+</div>
+<div class="section" id="add-coord">
+<h3>Add Coord<a class="headerlink" href="#add-coord" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.addcoord">
+<code class="descclassname">DataFile.</code><code class="descname">addcoord</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.addcoord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only use on DataFile classes containing GSLIB style gridded data.</p>
+<p>If x, y, or z coordinate column(s) do not exist they are created. If the created or current
+columns only have null values, they are populated based on the GridDef class pass to the
+DataFile class.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>A griddef must be assigned to the DataFile class either at read in like here</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="n">flname</span><span class="o">=</span><span class="s1">&#39;test.out&#39;</span><span class="p">,</span> <span class="n">griddef</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or later such it can be manually assigned such as here</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">griddef</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">GridDef</span><span class="p">(</span><span class="n">gridstr</span><span class="o">=</span><span class="n">my_grid_str</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="apply-dictionary">
+<h3>Apply Dictionary<a class="headerlink" href="#apply-dictionary" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.applydict">
+<code class="descclassname">DataFile.</code><code class="descname">applydict</code><span class="sig-paren">(</span><em>origvar</em>, <em>outvar</em>, <em>mydict</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.applydict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a dictionary to the original variable to get a new variable.</p>
+<p>This is particularly useful for alphanumeric drill hole IDs
+which cannot be used in GSLIB software.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>origvar</strong> (<em>str</em>) – Name of original variable.</li>
+<li><strong>outvar</strong> (<em>str</em>) – Name of output variable.</li>
+<li><strong>mydict</strong> (<em>dict</em>) – Dictionary of values to apply.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">applydict</span><span class="p">(</span><span class="s1">&#39;Drillhole&#39;</span><span class="p">,</span> <span class="s1">&#39;Drillhole-mod&#39;</span><span class="p">,</span> <span class="n">mydict</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="describe-datafile">
+<h3>Describe DataFile<a class="headerlink" href="#describe-datafile" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.describe">
+<code class="descclassname">DataFile.</code><code class="descname">describe</code><span class="sig-paren">(</span><em>variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describe a data set using pandas describe(), but exclude special variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><strong>variables</strong> (<em>List</em><em>(</em><em>str</em><em>)</em>) – List of variables to describe.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Pandas description of variables.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">self.data[variables]<a class="reference internal" href="#pygeostat.data.data.DataFile.describe" title="pygeostat.data.data.DataFile.describe">describe</a>()</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Describe all none special variables in the DataFrame (will exclued columns set as dh ID,
+coordinate columns, etc.)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Or describe specific variables</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">describe</span><span class="p">([</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span> <span class="s1">&#39;Fines&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="infer-grid-definition">
+<h3>Infer Grid Definition<a class="headerlink" href="#infer-grid-definition" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.infergriddef">
+<code class="descclassname">DataFile.</code><code class="descname">infergriddef</code><span class="sig-paren">(</span><em>blksize=None</em>, <em>databuffer=5</em>, <em>nblk=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.infergriddef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Infer a grid definition with the specified dimensions to cover the set of data values. The
+function operates with two primary options:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Provide a block size (node spacing), the function infers the required number
+of blocks (grid nodes) to cover the data</li>
+<li>Provide the number of blocks, the function infers the required block size</li>
+</ol>
+</div></blockquote>
+<p>A data buffer may be used for expanding the grid beyond the data extents. Basic integer
+rounding is also used for attempting to provide a ‘nice’ grid in terms of the origin
+alignment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>blksize</strong> (<em>float</em><em> or </em><em>3-tuple</em>) – provides (xsiz, ysiz, zsiz). If blksize is not None,
+nblk must be None. Set zsiz None if the grid is 2-D. A float may also be provided,
+where xsiz = ysiz = zsiz = float is assumed.</li>
+<li><strong>databuffer</strong> (<em>float</em><em> or </em><em>3-tuple</em>) – buffer between the data and the edge of the model,
+optionally for each direction</li>
+<li><strong>nblk</strong> (<em>int</em><em> or </em><em>3-tuple</em>) – provides (nx, ny, nz). If blksize is not None,
+nblk must be None. Set nz to None or 1 if the grid is 2-D. An int may also be provided,
+where nx = ny = nz = int is assumed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">this function returns the grid definition object as well as
+assigns the griddef to the current <cite>gs.DataFile</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">griddef (<a class="reference internal" href="griddef.html#pygeostat.data.grid_definition.GridDef" title="pygeostat.data.grid_definition.GridDef">GridDef</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this function assumes things are either 3D or 2D along the xy plane. If nx == 1
+or ny == 1, nonsense will result!</p>
+</div>
+<p>Usage:</p>
+<blockquote>
+<div><p>First, import a datafile using gs.DataFile(), make sure to assign the correct columns
+to x, y and z:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">datfl</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span><span class="p">(</span><span class="s1">&#39;test.dat&#39;</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now create the griddef from the data contained within the dataframe:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">blksize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">databuffer</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># buffer in the x, y and z directions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">griddef</span> <span class="o">=</span> <span class="n">datfl</span><span class="o">.</span><span class="n">infergriddef</span><span class="p">(</span><span class="n">blksize</span><span class="p">,</span> <span class="n">databuffer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check by printing out the resulting griddef:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">griddef</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="file-name-string">
+<h3>File Name String<a class="headerlink" href="#file-name-string" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.__str__">
+<code class="descclassname">DataFile.</code><code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the data file if asked to ‘print’ the data file… or use the datafile
+in a string!</p>
+</dd></dl>
+
+</div>
+<div class="section" id="generate-dictionary">
+<h3>Generate Dictionary<a class="headerlink" href="#generate-dictionary" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.gendict">
+<code class="descclassname">DataFile.</code><code class="descname">gendict</code><span class="sig-paren">(</span><em>var</em>, <em>outvar=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.gendict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dictionary with unique IDs from alphanumeric IDs.
+This is particularly useful for alphanumeric drill hole IDs
+which cannot be used in GSLIB software.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>var</strong> (<em>str</em>) – Variable to generate a dictionary for</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>outvar</strong> (<em>str</em>) – Variable to generate using generated dictionary.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dictionary of alphanumerics to numeric ids.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">newdict (dict)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>A simple call</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">gendict</span><span class="p">(</span><span class="s1">&#39;Drillhole&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>OR</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dh_dict</span> <span class="o">=</span> <span class="n">data_file</span><span class="o">.</span><span class="n">gendict</span><span class="p">(</span><span class="s1">&#39;Drillhole&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="gslib-column">
+<h3>GSLIB Column<a class="headerlink" href="#gslib-column" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.gscol">
+<code class="descclassname">DataFile.</code><code class="descname">gscol</code><span class="sig-paren">(</span><em>variables</em>, <em>string=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.gscol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the GSLIB (1-ordered) column given a (list of) variable(s).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variables</strong> (<em>str</em><em> or </em><em>List</em><em>(</em><em>str</em><em>)</em>) – Path, or name, of the data file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>string</strong> (<em>bool</em>) – If True returns the columns as a string.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">GSLIB 1-ordered column(s).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">cols (int or List(int) or string)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">None input returns a 0, which may be necessary, for example, with 2-D
+data:
+&gt;&gt;&gt; data.xyz
+… [‘East’, ‘North’, None]
+&gt;&gt;&gt; data.gscol(data.xyz)
+… ‘2 3 0’</p>
+</div>
+<p class="rubric">Examples</p>
+<p>Some simple calls</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">gscol</span><span class="p">(</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="mi">5</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">gscol</span><span class="p">([</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span> <span class="s1">&#39;Fines&#39;</span><span class="p">])</span>
+<span class="gp">... </span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">gscol</span><span class="p">([</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">,</span> <span class="s1">&#39;Fines&#39;</span><span class="p">],</span> <span class="n">string</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="s1">&#39;5 6&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="truncate-nan-s">
+<h3>Truncate NaN’s<a class="headerlink" href="#truncate-nan-s" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.truncatenans">
+<code class="descclassname">DataFile.</code><code class="descname">truncatenans</code><span class="sig-paren">(</span><em>variable</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.truncatenans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a truncated list with nans removed for a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<em>str</em>) – Name of original variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Truncated values.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">truncated (values)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>A simple call that will return the list</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">truncatenans</span><span class="p">(</span><span class="s1">&#39;Bitumen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="unique-categories">
+<h3>Unique Categories<a class="headerlink" href="#unique-categories" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.unique_cats">
+<code class="descclassname">DataFile.</code><code class="descname">unique_cats</code><span class="sig-paren">(</span><em>variable</em>, <em>truncatenans=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.unique_cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a sorted list of the unique categories given a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>variable</strong> (<em>str</em>) – Name of original variable.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><strong>truncatenans</strong> (<em>bool</em>) – Truncates missing values if True.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Sorted, list of set(object).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pygeostat.data.data.DataFile.unique_cats" title="pygeostat.data.data.DataFile.unique_cats">unique_cats</a> (List(object))</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>A simple call that</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">unique_cats</span><span class="p">(</span><span class="s1">&#39;Drillhole&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or to save the list</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">unique_dh_list</span> <span class="o">=</span> <span class="n">data_file</span><span class="o">.</span><span class="n">unique_cats</span><span class="p">(</span><span class="s1">&#39;Drillhole&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="write-file">
+<h3>Write file<a class="headerlink" href="#write-file" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.write_file">
+<code class="descclassname">DataFile.</code><code class="descname">write_file</code><span class="sig-paren">(</span><em>flname</em>, <em>title=None</em>, <em>variables=None</em>, <em>fmt=None</em>, <em>sep=None</em>, <em>fltype=None</em>, <em>data=None</em>, <em>h5path=None</em>, <em>griddef=None</em>, <em>null=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.write_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out a GSLIB-style, VTK, CSV, Excel (XLSX), HDF5 data file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flname</strong> (<em>str</em>) – Path (or name) of file to write out.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) – Title for output file.</li>
+<li><strong>variables</strong> (<em>List</em><em>(</em><em>str</em><em>)</em>) – List of variables to write out if only a subset is desired.</li>
+<li><strong>fmt</strong> (<em>str</em>) – Format to use for floating point numbers.</li>
+<li><strong>sep</strong> (<em>str</em>) – Delimiter to use for file output, generally don’t need to change.</li>
+<li><strong>fltype</strong> (<em>str</em>) – Type of file to write either <code class="docutils literal"><span class="pre">gslib</span></code>, <code class="docutils literal"><span class="pre">vtk</span></code>, <code class="docutils literal"><span class="pre">csv</span></code>, <code class="docutils literal"><span class="pre">xlsx</span></code>,
+or <code class="docutils literal"><span class="pre">hdf5</span></code>.</li>
+<li><strong>data</strong> (<em>str</em>) – Subset of data to write out - cannot be used with variables
+option!</li>
+<li><strong>h5path</strong> (<em>str</em>) – The h5 group path to write data to (H5 filetype)</li>
+<li><strong>griddef</strong> (<em>obj</em>) – a gslib griddef object</li>
+<li><strong>null</strong> (<em>float</em>) – If a number is provided, NaN numbers are converted to this value
+prior to writing. May be useful since NaN’s are more easily handled
+within python and pandas than null values, but are not valid
+in GSLIB. Set to None to disable (but NaN’s must be handled prior to
+this function call if so).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>pygeostat.write_file is saved for backwards compatibility or as an overloaded class method.
+Current write functions can be called seperately with the functions listed below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygeostat</span> <span class="k">as</span> <span class="nn">gs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_gslib</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_csv</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_hdf5</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_vtk</span><span class="p">(</span><span class="n">gs</span><span class="o">.</span><span class="n">DataFile</span> <span class="ow">or</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following calls are equivalent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data_file</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="s1">&#39;testgslib.out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_gslib</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="s1">&#39;testgslib.out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and similar to:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_gslib</span><span class="p">(</span><span class="n">data_file</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;testgslib.out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="data-spacing">
+<h3>Data Spacing<a class="headerlink" href="#data-spacing" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DataFile.spacing">
+<code class="descclassname">DataFile.</code><code class="descname">spacing</code><span class="sig-paren">(</span><em>n_nearest</em>, <em>var=None</em>, <em>inplace=True</em>, <em>dh=None</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DataFile.spacing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates data spacing in the xy plane, based on the average distance to the nearest
+n_nearest neighbours. The x, y coordinates of 3-D data may be provided in combination
+with a dh (drill hole or well), in which case the mean x, y of each dh is calculated
+before performing the calculation. If a dh is not provided in combination with 3-D xy’s,
+then calculation is applied to all data and may create memory issues if greater than
+~5000-10000 records are provided. A var specifier allows for the calculation to only
+applied where var is not NaN.</p>
+<p>If <code class="docutils literal"><span class="pre">inplace==True</span></code>:</p>
+<blockquote>
+<div>The output is concatenated as a ‘Data Spacing ({Parameters[‘plotting.unit’]})’ column
+if <code class="docutils literal"><span class="pre">inplace=False</span></code> (or ‘Data Spacing’ if Parameters[‘plotting.unit’] is None). If var is
+used, then the calculation is only performed where DataFile[var] is not NaN, and
+the output is concatenated as ‘{var} Data Spacing ({Parameters[‘plotting.unit’]})’.</div></blockquote>
+<p>If <code class="docutils literal"><span class="pre">inplace==False</span></code>:</p>
+<blockquote>
+<div>The funciton returns dspace as a numpy array if dspace.shape[0] is equal to
+DataFile.shape[0], meaning that dh and var functionality was not used, or did
+not lead to differences in the length of dspace and DataFile (so that the x and
+y in DataFile can be used for plotting dspace in map view).
+The function returns a tuple of the form (dspace, dh, x, y), if dh is not None and
+dspace.shape[0] is not equal to DataFile.shape[0]. The function returns a tuple of
+the form (dspace, x, y) if dh is None and and var is not None and dspace.shape[0]
+is not equal to DataFile.shape[0].</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_nearest</strong> (<em>int</em>) – number of nearest neighbours to consider in data spacing
+calculation</li>
+<li><strong>var</strong> (<em>str</em>) – variable for calculating data spacing, where the calculation is only
+applied to locations where var is not NaN.  If None, the calculation is
+to all locations.</li>
+<li><strong>inplace</strong> (<em>bool</em>) – if True, the output data spacing is concatenated</li>
+<li><strong>dh</strong> (<em>str</em>) – dh name, which can override self.dh</li>
+<li><strong>x</strong> (<em>str</em>) – x coordinate name, which can override self.x</li>
+<li><strong>y</strong> (<em>str</em>) – y coordinate name, which can override self.y</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Calculate data spacing without consideration of underlying variables, based on the
+nearest 8 neighbours.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dat</span><span class="o">.</span><span class="n">spacing</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output as a numpy array rather than concatenating a column:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dspace</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">spacing</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Only consider values where Au is non NaN for the calculation:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">dspace</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">spacing</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="n">Au</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="example-data">
+<h2>Example Data<a class="headerlink" href="#example-data" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pygeostat.data.data.ExampleData">
+<code class="descclassname">pygeostat.data.data.</code><code class="descname">ExampleData</code><span class="sig-paren">(</span><em>testfile</em>, <em>griddef=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.ExampleData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an example pygeostat DataFile</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>testfile</strong> (<em>str</em>) – one of the available pygeostat test files, listed below</td>
+</tr>
+</tbody>
+</table>
+<p>Test files available in pygeostat include:</p>
+<blockquote>
+<div><ul class="simple">
+<li>“point2d_ind”: 2d indicator dataset</li>
+<li>“point2d_surf”: 2d point dataset sampling a surface</li>
+<li>“grid2d_surf”: ‘Thickness’ from ‘point2d_surf’ interpolated on the grid</li>
+<li>“point3d_ind_mv”: 3d multivariate and indicator dataset</li>
+<li>“oilsands”: 3D Oil sands data set</li>
+<li>“accuracy_plot”: Simulated realizations to test accuracy plot</li>
+<li>“location_plot”: 2D data set to test location plot</li>
+<li>“3d_grid”: 3D gridded data set</li>
+<li>“point2d_mv” : 2D multivariate data set</li>
+<li>“cluster”: GSLIB datafile (data with declustering weights)</li>
+<li>“97data”: GSLIB datafile (the first 97 rows of cluster datafile)</li>
+<li>“data”: GSLIB datafile (2D data set of primary and secondary variable)</li>
+<li>“parta”: GSLIB datafile (small 2D dataset part A)</li>
+<li>“partb”: GSLIB datafile (small 2D dataset part B)</li>
+<li>“partc”: GSLIB datafile (small 2D dataset part C)</li>
+<li>“true”: GSLIB datafile (Primary secondary data pairs)</li>
+<li>“ydata”: GSLIB datafile (2D spatial seondary data with some primary data)</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pygeostat.data.iotools">
+<span id="input-ouput-tools"></span><span id="iotools"></span><h2>Input/Ouput Tools<a class="headerlink" href="#module-pygeostat.data.iotools" title="Permalink to this headline">¶</a></h2>
+<p>iotools.py: Contains input/output utilities/functions for pygeostat. Many of which
+are based off of Pandas builtin functions.</p>
+<div class="section" id="read-file">
+<h3>Read File<a class="headerlink" href="#read-file" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.read_file">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">read_file</code><span class="sig-paren">(</span><em>flname</em>, <em>fltype=None</em>, <em>headeronly=False</em>, <em>delimiter='\\s*'</em>, <em>h5path=None</em>, <em>h5datasets=None</em>, <em>columns=None</em>, <em>ireal=1</em>, <em>griddef=None</em>, <em>tmin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in a GSLIB-style Geo-EAS data file, CSV, or HDF5 data files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flname</strong> (<em>str</em>) – Path (or name) of file to read.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>fltype</strong> (<em>str</em>) – Type of file to read: either <code class="docutils literal"><span class="pre">csv</span></code>, <code class="docutils literal"><span class="pre">gslib</span></code>, or <code class="docutils literal"><span class="pre">hdf5</span></code>.</li>
+<li><strong>headeronly</strong> (<em>bool</em>) – If True, only reads in the 1st line from the data file
+which is useful for just getting column numbers or testing. OR
+it allows you to open a hdf5 object with Pandas HDFStore functionality</li>
+<li><strong>delimiter</strong> (<em>str</em>) – Delimiter specified instead of sniffing</li>
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+read the dataset(s) specified by the argument <code class="docutils literal"><span class="pre">datasets</span></code> from. The dataset name
+cannot be passed using this argument, it is interpreted as a group name only. A
+value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root directory of the HDF5 file. A value
+of <code class="docutils literal"><span class="pre">False</span></code> loads a blank pd.DataFrame().</li>
+<li><strong>h5datasets</strong> (<em>str</em><em> or </em><em>list</em>) – Name of the dataset(s) to read from the group specified by
+<code class="docutils literal"><span class="pre">h5path</span></code>. Does nothing if <code class="docutils literal"><span class="pre">h5path</span></code> points to a dataset.</li>
+<li><strong>column</strong> (<em>list</em>) – List of column labels to use for resulting frame</li>
+<li><strong>ireal</strong> (<em>int</em>) – Number of realizaitons in the file</li>
+<li><strong>griddef</strong> (<a class="reference internal" href="griddef.html#pygeostat.data.grid_definition.GridDef" title="pygeostat.data.grid_definition.GridDef"><em>GridDef</em></a>) – griddef for the realization</li>
+<li><strong>tmin</strong> (<em>float</em>) – values less than this number are convernted to NaN, since NaN’s are
+natural handled within matplotlib, pandas, numpy, etc. If None, set to
+pygeostat.Parameters[‘data.tmin’].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas DataFrame object with input data.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">data (pandas.DataFrame)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Functions can also be called seperately with the following code</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pygeostat</span><span class="o">.</span><span class="n">read_gslib</span><span class="p">(</span><span class="n">flname</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pygeostat</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">flname</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pygeostat</span><span class="o">.</span><span class="n">read_h5</span><span class="p">(</span><span class="n">flname</span><span class="p">,</span> <span class="n">h5path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">pygeostat</span><span class="o">.</span><span class="n">open_hdf5</span><span class="p">(</span><span class="n">flname</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="read-csv">
+<h3>Read CSV<a class="headerlink" href="#read-csv" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.read_csv">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">read_csv</code><span class="sig-paren">(</span><em>flname</em>, <em>headeronly=False</em>, <em>tmin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.read_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in a GSLIB-style CSV data file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flname</strong> (<em>str</em>) – Path (or name) of file to read.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>headeronly</strong> (<em>bool</em>) – If True, only reads in the 1st line from the data file
+which is useful for just getting column numbers or testing</li>
+<li><strong>delimiter</strong> (<em>str</em>) – Delimiter specified instead of sniffing</li>
+<li><strong>tmin</strong> (<em>float</em>) – values less than this number are convernted to NaN, since NaN’s are
+natural handled within matplotlib, pandas, numpy, etc. If None, set to
+pygeostat.Parameters[‘data.tmin’].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas DataFrame object with input data.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">data (pandas.DataFrame)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="read-gslib-python">
+<h3>Read GSLIB Python<a class="headerlink" href="#read-gslib-python" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.read_gslib">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">read_gslib</code><span class="sig-paren">(</span><em>flname</em>, <em>headeronly=False</em>, <em>delimiter='\\s*'</em>, <em>tmin=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.read_gslib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in a GSLIB-style Geo-EAS data file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>flname</strong> (<em>str</em>) – Path (or name) of file to read.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>headeronly</strong> (<em>bool</em>) – If True, only reads in the 1st line from the data file
+which is useful for just getting column numbers or testing</li>
+<li><strong>delimiter</strong> (<em>str</em>) – Delimiter specified instead of sniffing</li>
+<li><strong>tmin</strong> (<em>float</em>) – values less than this number are convernted to NaN, since NaN’s are
+natural handled within matplotlib, pandas, numpy, etc. If None, set to
+pygeostat.Parameters[‘data.tmin’].</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Pandas DataFrame object with input data.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">data (pandas.DataFrame)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="write-gslib-python">
+<h3>Write GSLIB Python<a class="headerlink" href="#write-gslib-python" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.write_gslib">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">write_gslib</code><span class="sig-paren">(</span><em>data</em>, <em>flname</em>, <em>title=None</em>, <em>variables=None</em>, <em>fmt=None</em>, <em>sep=' '</em>, <em>null=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.write_gslib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out a GSLIB-style data file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pygeostat.DataFile</em><em> or </em><em>pandas.DataFrame</em>) – data to write out</li>
+<li><strong>flname</strong> (<em>str</em>) – Path (or name) of file to write out.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>str</em>) – Title for output file.</li>
+<li><strong>variables</strong> (<em>List</em><em>(</em><em>str</em><em>)</em>) – List of variables to write out if only a subset is desired.</li>
+<li><strong>fmt</strong> (<em>str</em>) – Format to use for floating point numbers.</li>
+<li><strong>sep</strong> (<em>str</em>) – Delimiter to use for file output, generally don’t need to change.</li>
+<li><strong>null</strong> (<em>float</em>) – NaN numbers are converted to this value prior to writing. If None, set
+to data.null. If data.Null is None, set to pygeostat.Parameters[‘data.null’].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="write-csv">
+<h3>Write CSV<a class="headerlink" href="#write-csv" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.write_csv">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">write_csv</code><span class="sig-paren">(</span><em>data</em>, <em>flname</em>, <em>variables=None</em>, <em>fmt='%.5f'</em>, <em>sep='</em>, <em>'</em>, <em>fltype='csv'</em>, <em>null=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.write_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out a CSV or Excel (XLSX) data file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pygeostat.DataFile</em><em> or </em><em>pandas.DataFrame</em>) – data to write out</li>
+<li><strong>flname</strong> (<em>str</em>) – Path (or name) of file to write out.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>variables</strong> (<em>List</em><em>(</em><em>str</em><em>)</em>) – List of variables to write out if only a subset is desired.</li>
+<li><strong>fmt</strong> (<em>str</em>) – Format to use for floating point numbers.</li>
+<li><strong>sep</strong> (<em>str</em>) – Delimiter to use for file output, generally don’t need to change.</li>
+<li><strong>fltype</strong> (<em>str</em>) – Type of file to write either <code class="docutils literal"><span class="pre">csv</span></code> or <code class="docutils literal"><span class="pre">xlsx</span></code>.</li>
+<li><strong>null</strong> (<em>float</em>) – NaN numbers are converted to this value prior to writing. If None, set
+to data.null. If data.Null is None, set to pygeostat.Parameters[‘data.null’].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="write-vtk">
+<h3>Write VTK<a class="headerlink" href="#write-vtk" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.write_vtk">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">write_vtk</code><span class="sig-paren">(</span><em>data</em>, <em>flname</em>, <em>dftype=None</em>, <em>x=None</em>, <em>y=None</em>, <em>z=None</em>, <em>variables=None</em>, <em>griddef=None</em>, <em>null=None</em>, <em>vdtype=None</em>, <em>cdtype=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.write_vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out an XML VTK data file. A required dependency is pyevtk, which may be installed using
+the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyevtk</span>
+</pre></div>
+</div>
+<p>Users are also recommended to install the latest Paraview, as versions from 2017 were
+observed to have odd precision bugs with the XML format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>pygeostat.DataFile</em>) – data to write out</li>
+<li><strong>flname</strong> (<em>str</em>) – Path (or name) of file to write out (without extension)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>dftype</strong> (<em>str</em>) – type of datafile options <code class="docutils literal"><span class="pre">grid</span></code> or <code class="docutils literal"><span class="pre">point</span></code>, which if None,
+is drawn from data.dftype</li>
+<li><strong>x</strong> (<em>str</em>) – name of the x-coordinate, which is used if <code class="docutils literal"><span class="pre">point</span></code>. Drawn
+from data.x if the kwarg=None. If not provided by these means for <code class="docutils literal"><span class="pre">`sgrid`</span></code>,
+calculated via <code class="docutils literal"><span class="pre">sim.griddef.get_coordinates()</span></code>.</li>
+<li><strong>y</strong> (<em>str</em>) – name of the y-coordinate, which is used if <code class="docutils literal"><span class="pre">point</span></code>. Drawn
+from data.y if the kwarg=None. If not provided by these means for <code class="docutils literal"><span class="pre">`sgrid`</span></code>,
+calculated via sim.griddef.get_coordinates().</li>
+<li><strong>z</strong> (<em>str</em>) – name of the z-coordinate, which is used if <code class="docutils literal"><span class="pre">point</span></code>. Drawn
+from data.z if the kwarg=None. If not provided by these means for <code class="docutils literal"><span class="pre">`sgrid`</span></code>,
+calculated via sim.griddef.get_coordinates().</li>
+<li><strong>griddef</strong> (<em>pygeostat.GridDef</em>) – grid definition, which is required if <code class="docutils literal"><span class="pre">grid</span></code>.
+Drawn from data.griddef if the kwarg=None.</li>
+<li><strong>variables</strong> (<em>list</em><em> or </em><em>str</em>) – List or string of variables to write out. If None, then all
+columns aside from coordinates are written out by default.</li>
+<li><strong>null</strong> (<em>float</em>) – NaNs are converted to this value prior to writing. If None, set to
+pygeostat.Parameters[‘data.null_vtk’].</li>
+<li><strong>vdtype</strong> (<em>dict</em><em>(</em><em>str</em><em>)</em>) – Dictionary of the format {‘varname’: dtype}, where dtype is
+a numpy data format. May be used for reducing file size, by
+specifying <code class="docutils literal"><span class="pre">int</span></code>, <code class="docutils literal"><span class="pre">float32</span></code>, etc. If a format string is provided instead
+of a dictionary, that format is applied to all variables. This is not applied
+to coordinate variables (if applicable). If None, the value is drawn from
+Parameters[‘data.write_vtk.vdtype’].</li>
+<li><strong>cdtype</strong> (<em>str</em>) – Numpy format to use for the output of coordinates, where valid formats
+are <code class="docutils literal"><span class="pre">float64</span></code> (default) and <code class="docutils literal"><span class="pre">float32</span></code>. The later is recommended for reducing
+file sizes, but may not provide the requisite precision for UTM coordinates. If None,
+the value is drawn from Parameters[‘data.write_vtk.cdtype’].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal"><span class="pre">dftype</span></code> should be one of:</p>
+<ol class="arabic simple">
+<li>‘point’ (irregular points) where <code class="docutils literal"><span class="pre">data.x</span></code>, <code class="docutils literal"><span class="pre">data.y</span></code> and <code class="docutils literal"><span class="pre">data.z</span></code> are columns in <code class="docutils literal"><span class="pre">data.data</span></code></li>
+<li>‘grid’ (regular or rectilinear grid) where <code class="docutils literal"><span class="pre">data.griddef</span></code> must be initialized</li>
+<li>‘sgrid’ (structured grid) where <code class="docutils literal"><span class="pre">data.x</span></code>, <code class="docutils literal"><span class="pre">data.y</span></code> and <code class="docutils literal"><span class="pre">data.z</span></code> are columns in <code class="docutils literal"><span class="pre">data.data</span></code>. <code class="docutils literal"><span class="pre">data.griddef</span></code> should also be initialized, although only <code class="docutils literal"><span class="pre">griddef.nx</span></code>, <code class="docutils literal"><span class="pre">griddef.ny</span></code> and <code class="docutils literal"><span class="pre">griddef.nz</span></code> are utilized (since the grid is assumed to not be regular)</li>
+</ol>
+</dd></dl>
+
+</div>
+<div class="section" id="write-hdf5-vtk">
+<h3>Write HDF5 VTK<a class="headerlink" href="#write-hdf5-vtk" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.write_hvtk">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">write_hvtk</code><span class="sig-paren">(</span><em>data</em>, <em>flname</em>, <em>griddef</em>, <em>variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.write_hvtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes out an H5 file and corresponding xdmf file that Paraview can read. Currently only
+supports 3D gridded datasets. This function will fail if the length of the DataFile or
+DataFrame does not equal <code class="docutils literal"><span class="pre">griddef.count()</span></code>.</p>
+<p>The extension xdmf is silently enforced. Any other extension passed is replaced.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>pd.DataFrame</em>) – The DataFrame to writeout</li>
+<li><strong>flname</strong> (<em>str</em>) – Path (or name) of file to write out.</li>
+<li><strong>griddef</strong> (<a class="reference internal" href="griddef.html#pygeostat.data.grid_definition.GridDef" title="pygeostat.data.grid_definition.GridDef"><em>GridDef</em></a>) – Grid definitions for the realizations to be written out</li>
+<li><strong>variables</strong> (<em>str</em><em> or </em><em>list</em>) – optional set of variables to write out from the DataFrame</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="count-lines-in-file">
+<h3>Count Lines in File<a class="headerlink" href="#count-lines-in-file" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.file_nlines">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">file_nlines</code><span class="sig-paren">(</span><em>flname</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.file_nlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file and get the total number of lines. Seems pretty fast. Copied from stackoverflow
+<a class="reference external" href="http://stackoverflow.com/questions/845058/how-to-get-line-count-cheaply-in-python">http://stackoverflow.com/questions/845058/how-to-get-line-count-cheaply-in-python</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>flname</strong> (<em>str</em>) – Name of the file to read</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="write-ccg-gmm">
+<h3>Write CCG GMM<a class="headerlink" href="#write-ccg-gmm" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.iotools.writeout_gslib_gmm">
+<code class="descclassname">pygeostat.data.iotools.</code><code class="descname">writeout_gslib_gmm</code><span class="sig-paren">(</span><em>gmm</em>, <em>outfile</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.iotools.writeout_gslib_gmm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writeout a fitted Gaussian mixture to the format consistent with <code class="docutils literal"><span class="pre">gmmfit</span></code> from the CCG
+Knowledge Base. Assume <code class="docutils literal"><span class="pre">gmm</span></code> is a an <code class="docutils literal"><span class="pre">sklearn.mixture.GaussianMixture</span></code> class fitted to data</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Recently GMM was replaced with GaussianMixture, and there are subtle differences in
+attributes between the different versions..</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gmm</strong> (<em>GaussianMixture</em>) – a fitted mixture model</li>
+<li><strong>outfile</strong> (<em>str</em>) – the output file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="hdf5-i-o">
+<span id="hdf5"></span><h2>HDF5 I/O<a class="headerlink" href="#hdf5-i-o" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="write-hdf5">
+<h3>Write HDF5<a class="headerlink" href="#write-hdf5" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.h5_io.write_h5">
+<code class="descclassname">pygeostat.data.h5_io.</code><code class="descname">write_h5</code><span class="sig-paren">(</span><em>data</em>, <em>flname</em>, <em>h5path=None</em>, <em>datasets=None</em>, <em>dtype=None</em>, <em>gridstr=None</em>, <em>trim_variable=None</em>, <em>var_min=-998.0</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.write_h5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write data to an HDF5 file using the python package H5PY. The file is appended to and in
+the case that a dataset already exists, it is overwritten.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – A 1-D np.array/pd.Series or a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> containing different variables as
+columns</li>
+<li><strong>flname</strong> (<em>str</em>) – Path of the HDF5 you wish to write to or create</li>
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+place the dataset(s) specified by the argument <code class="docutils literal"><span class="pre">datasets</span></code> into. The dataset name
+cannot be passed using this argument, it is interpreted as a group name. A value of
+<code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root directory of the HDF5 file.</li>
+<li><strong>datasets</strong> (<em>str</em><em> or </em><em>list</em>) – Name of the dataset(s) to write out. If a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> is
+passed, the values passed by the argument <code class="docutils literal"><span class="pre">datasets</span></code> must match the DataFrame’s
+columns.</li>
+<li><strong>dtype</strong> (<em>str</em>) – The data type to write. Currently, only the following values are permitted:
+<code class="docutils literal"><span class="pre">['int32',</span> <span class="pre">'float32',</span> <span class="pre">'float64']</span></code>. If a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> is passed and this argument
+is left to it’s default value of <code class="docutils literal"><span class="pre">None</span></code>, the DataFrame’s dtypes must be of the types
+listed above.</li>
+<li><strong>gridstr</strong> (<em>str</em>) – Grid definition string that is saved to the HDF5 file as an attribute
+of the group defined by the parameter <code class="docutils literal"><span class="pre">h5path</span></code>.</li>
+<li><strong>trim_variable</strong> (<em>str</em>) – Variable to use for trimming the data. An index will be written to the
+h5file and will be used to rebuild dataset while only nontrimmed data will be written
+out</li>
+<li><strong>var_min</strong> (<em>float</em>) – minimum trimming limit usedif trim_variable is passed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Write a single pd.Series or np.array to an HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="s1">&#39;file.h5&#39;</span><span class="p">,</span> <span class="n">h5path</span><span class="o">=</span><span class="s1">&#39;Modeled/Var1&#39;</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="s1">&#39;Realization_0001&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Write a whole <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> in group (folder) ‘OriginalData’ that contains a dataset
+for every column in the <code class="docutils literal"><span class="pre">pd.DataFrame</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gs</span><span class="o">.</span><span class="n">write_h5</span><span class="p">(</span><span class="s1">&#39;file.h5&#39;</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">h5path</span><span class="o">=</span><span class="s1">&#39;OriginalData&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="read-hdf5">
+<h3>Read HDF5<a class="headerlink" href="#read-hdf5" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.h5_io.read_h5">
+<code class="descclassname">pygeostat.data.h5_io.</code><code class="descname">read_h5</code><span class="sig-paren">(</span><em>flname</em>, <em>h5path=None</em>, <em>datasets=None</em>, <em>fill_value=-999</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.read_h5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 1-D array from an HDF5 file or build a <code class="docutils literal"><span class="pre">pd.DataFrame()</span></code> from a list of datasets in a
+single group.</p>
+<p>The argument <code class="docutils literal"><span class="pre">h5path</span></code> must be a path to a group. If 1 or more specific variables are desired
+to be loaded, pass a list to <code class="docutils literal"><span class="pre">datasets</span></code> to specify which to read.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>flname</strong> (<em>str</em>) – Path of the HDF5 you wish to write to or create</li>
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+read the dataset(s) specified by the argument <code class="docutils literal"><span class="pre">datasets</span></code> from. The dataset name
+cannot be passed using this argument, it is interpreted as a group name only. A
+value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root directory of the HDF5 file. A value
+of <code class="docutils literal"><span class="pre">False</span></code> loads a blank pd.DataFrame().</li>
+<li><strong>datasets</strong> (<em>str</em><em> or </em><em>list</em>) – Name of the dataset(s) to read from the group specified by
+<code class="docutils literal"><span class="pre">h5path</span></code>. Does nothing if <code class="docutils literal"><span class="pre">h5path</span></code> points to a dataset.</li>
+<li><strong>fill_value</strong> (<em>float</em><em> or </em><em>np.NaN</em>) – value to fill in grid with if trimmed data was written out.
+default is -999</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">DataFrame containing one or more columns, each containing a single
+1-D array of a variable.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">data (pd.DataFrame)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="is-hdf5">
+<h3>Is HDF5<a class="headerlink" href="#is-hdf5" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.h5_io.ish5dataset">
+<code class="descclassname">pygeostat.data.h5_io.</code><code class="descname">ish5dataset</code><span class="sig-paren">(</span><em>h5fl</em>, <em>dataset</em>, <em>h5path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.ish5dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check to see if a dataset exits within an HDF5 file</p>
+<p>The argument <code class="docutils literal"><span class="pre">h5path</span></code> must be a path to a group and cannot contain the dataset name.
+Can only check for one dataset at a time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>flname</strong> (<em>str</em>) – Path of the HDF5 you wish to check</li>
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+check for the specified dataset. The dataset name cannot be passed using this
+argument, it is interpreted as a group name only. A value of <code class="docutils literal"><span class="pre">None</span></code> places the
+dataset into the root directory of the HDF5 file.</li>
+<li><strong>dataset</strong> (<em>str</em>) – Name of the dataset to check for in the group specified by <code class="docutils literal"><span class="pre">h5path</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Indicator if the specified dataset exists</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">exists (bool)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="combine-datasets-from-multiple-paths">
+<h3>Combine Datasets from Multiple Paths<a class="headerlink" href="#combine-datasets-from-multiple-paths" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pygeostat.data.h5_io.h5_combine_data">
+<code class="descclassname">pygeostat.data.h5_io.</code><code class="descname">h5_combine_data</code><span class="sig-paren">(</span><em>flname</em>, <em>h5paths</em>, <em>datasets=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.h5_combine_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine data into one DataFrame from multiple paths in a HDF5 file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>flname</strong> (<em>str</em>) – Path of the HDF5 you wish to read from</li>
+<li><strong>h5paths</strong> (<em>list</em>) – A list of h5paths to combine. Forward slash (/) delimited path through the
+group hierarchy you wish to place the dataset(s) specified by the argument <code class="docutils literal"><span class="pre">datasets</span></code>
+into. The dataset name cannot be passed using this argument, it is interpreted as a
+group name. A value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root directory of the
+HDF5 file.</li>
+<li><strong>datasets</strong> (<em>list of lists</em>) – If only a specific set of datasets from each path are desired then
+pass a list of lists of equal length as the h5paths list. An empty list within the list
+will cause all datasets in the corresponding path to be readin.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">flname</span> <span class="o">=</span> <span class="s1">&#39;drilldata.h5&#39;</span>
+<span class="gp">... </span><span class="n">h5paths</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/Orig_data/series4870/&#39;</span><span class="p">,</span> <span class="s1">&#39;NS/Declus/series4870/&#39;</span><span class="p">]</span>
+<span class="gp">... </span><span class="n">datasets</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;LOCATIONX&#39;</span><span class="p">,</span> <span class="s1">&#39;LOCATIONY&#39;</span><span class="p">,</span> <span class="s1">&#39;LOCATIONZ&#39;</span><span class="p">],</span> <span class="p">[]]</span>
+<span class="gp">... </span><span class="n">data</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">h5_combine_data</span><span class="p">(</span><span class="n">flname</span><span class="p">,</span> <span class="n">h5paths</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="pygeostat-hdf5-class">
+<h3>Pygeostat HDF5 Class<a class="headerlink" href="#pygeostat-hdf5-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pygeostat.data.h5_io.H5Store">
+<em class="property">class </em><code class="descclassname">pygeostat.data.h5_io.</code><code class="descname">H5Store</code><span class="sig-paren">(</span><em>flname</em>, <em>replace=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.H5Store" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple class within pygeostat to manage and use HDF5 files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
+<li><strong>flname</strong> (<em>str</em>) – Path to a HDF5 file to create or use</li>
+<li><strong>h5data</strong> (<em>h5py.File</em>) – h5py File object</li>
+<li><strong>paths</strong> (<em>dict</em>) – Dictionary containing all of the groups found in the HDF5 file that
+contain datasets</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first last"><strong>flname</strong> (<em>str</em>) – Path to a HDF5 file to create or use</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<blockquote>
+<div><p>Write a np.array or pd.Series to the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2/Var1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Write all the columns in a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> to the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Retrieve a single 1-D array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2/Var1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve a single 1-D array within the root directory of the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve the first value from the array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve a slice of values from the array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<div class="section" id="write-data">
+<h4>Write Data<a class="headerlink" href="#write-data" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.h5_io.H5Store.__setitem__">
+<code class="descclassname">H5Store.</code><code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.H5Store.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the the HDF5 file using the self[key] notation.</p>
+<p>If a pd.Series or np.array is passed, the last entry in the path is used as the dataset
+name. If a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> is passed, all columns are written to the path specified to
+datasets with their names retrieved from the <code class="docutils literal"><span class="pre">pd.DataFrame</span></code>’s columns. If more flexible
+usage is required, please use <a class="reference internal" href="#pygeostat.data.h5_io.write_h5" title="pygeostat.data.h5_io.write_h5"><code class="xref py py-func docutils literal"><span class="pre">gs.write_h5()</span></code></a>.</p>
+<p class="rubric">Example</p>
+<p>Write a np.array or pd.Series to the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2/Var1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Write all the columns in a <code class="docutils literal"><span class="pre">pd.DataFrame</span></code> to the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="read-data">
+<h4>Read Data<a class="headerlink" href="#read-data" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.h5_io.H5Store.__getitem__">
+<code class="descclassname">H5Store.</code><code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.H5Store.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve an array using the self[key] notation. The passed key is the path used to access
+the array desired and included direction through groups if required and the dataset name.
+The array may be selectively queried allowing a specific value or range of values to be
+loaded into the systems memory and not the whole array.</p>
+<p class="rubric">Example</p>
+<p>Retrieve a single 1-D array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Group1/Group2/Var1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve a single 1-D array within the root directory of the HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve the first value from the array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">value</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Retrieve a slice of values from the array:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">values</span> <span class="o">=</span> <span class="n">H5Store</span><span class="p">[</span><span class="s1">&#39;Var1&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="print-contents-of-hdf5-file">
+<h4>Print Contents of HDF5 File<a class="headerlink" href="#print-contents-of-hdf5-file" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.h5_io.H5Store.__str__">
+<code class="descclassname">H5Store.</code><code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.H5Store.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print a nice list of groups and the datasets found within them using the variable
+<code class="docutils literal"><span class="pre">self.paths</span></code>.</p>
+<p class="rubric">Example</p>
+<p>Print any groups found within the HDF5 file and the datasets within:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">H5Store</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="close-the-hdf5-file">
+<h4>Close the HDF5 File<a class="headerlink" href="#close-the-hdf5-file" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.h5_io.H5Store.close">
+<code class="descclassname">H5Store.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.h5_io.H5Store.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release the open HDF5 file from python.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="datasets-in-h5-store">
+<h4>Datasets in H5 Store<a class="headerlink" href="#datasets-in-h5-store" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.H5Store.datasets">
+<code class="descclassname">H5Store.</code><code class="descname">datasets</code><span class="sig-paren">(</span><em>h5path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.H5Store.datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the datasets found in the specified group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+retrieve the lists of datasets from. A dataset name cannot be passed using this
+argument, it is interpreted as a group name. A value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset
+into the root directory of the HDF5 file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of the datasets found within the specified <cite>h5path</cite></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pygeostat.data.H5Store.datasets" title="pygeostat.data.H5Store.datasets">datasets</a> (list)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="generate-iterator">
+<h4>Generate Iterator<a class="headerlink" href="#generate-iterator" title="Permalink to this headline">¶</a></h4>
+<dl class="method">
+<dt id="pygeostat.data.H5Store.iteritems">
+<code class="descclassname">H5Store.</code><code class="descname">iteritems</code><span class="sig-paren">(</span><em>h5path=None</em>, <em>datasets=None</em>, <em>wildcard=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.H5Store.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an iterator that can be used to iterate over HDF5 datasets.</p>
+<p>Can use the parameter <code class="docutils literal"><span class="pre">h5path</span></code> to indicate which group to retrieve the datasets from.
+If a set of specific datasets are required, the parameter <code class="docutils literal"><span class="pre">datasets</span></code> will restrict the
+iterator to those. The parameter <code class="docutils literal"><span class="pre">wildcard</span></code> allows a string wild-card value to restrict
+which datasets are iterated over.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first last simple">
+<li><strong>h5path</strong> (<em>str</em>) – Forward slash (/) delimited path through the group hierarchy you wish to
+retrieve datasets from. A dataset name cannot be passed using this argument, it is
+interpreted as a group name. A value of <code class="docutils literal"><span class="pre">None</span></code> places the dataset into the root
+directory of the HDF5 file.</li>
+<li><strong>datasets</strong> (<em>list</em>) – List of specific dataset names found within the specified group to
+iterator over</li>
+<li><strong>wildcard</strong> (<em>str</em>) – String to search for within the names of the datasets found within the
+specified group to iterate over</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>Load a HDF5 file to pygeostat:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">H5Store</span><span class="p">(</span><span class="s1">&#39;data.h5&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Iterate over all datasets within the root directory of a HDF5 file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">gs</span><span class="o">.</span><span class="n">histplt</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Iterate over the datasets within a specific group that are realizations:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">h5path</span><span class="o">=</span><span class="s1">&#39;Simulation/NS_AU&#39;</span><span class="p">,</span> <span class="n">wildcard</span><span class="o">=</span><span class="s1">&#39;Realization&#39;</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">gs</span><span class="o">.</span><span class="n">histplt</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+<div class="section" id="dictfile-class">
+<h2>DictFile Class<a class="headerlink" href="#dictfile-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pygeostat.data.data.DictFile">
+<em class="property">class </em><code class="descclassname">pygeostat.data.data.</code><code class="descname">DictFile</code><span class="sig-paren">(</span><em>flname=None</em>, <em>readfl=False</em>, <em>dictionary={}</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DictFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class containing dictionary file information</p>
+</dd></dl>
+
+<div class="section" id="read-dictionary">
+<h3>Read Dictionary<a class="headerlink" href="#read-dictionary" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DictFile.read_dict">
+<code class="descclassname">DictFile.</code><code class="descname">read_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DictFile.read_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read dictionary information from file</p>
+</dd></dl>
+
+</div>
+<div class="section" id="write-dictionary">
+<h3>Write Dictionary<a class="headerlink" href="#write-dictionary" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="pygeostat.data.data.DictFile.write_dict">
+<code class="descclassname">DictFile.</code><code class="descname">write_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.data.data.DictFile.write_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write dictionary information to csv style dictionary</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="griddef.html" class="btn btn-neutral float-right" title="Grid Definitions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Center for Computational Geostatistics
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

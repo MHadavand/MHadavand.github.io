@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; pygeostat 1.0.6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0.6',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Data Files" href="data.html" />
+    <link rel="prev" title="Welcome" href="welcome.html" />
+    <link href="_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> pygeostat
+          
+
+          
+            
+            <img src="_static/pygeostat_logo_notxt.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-installation">Python Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pygeostat-installation">Pygeostat Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#additional-software-ccg-members">Additional Software (CCG Members)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-virtual-environments">Create Virtual Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-r-from-python">Using R from Python</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="griddef.html">Grid Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="statistics.html">Statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="programs.html">Scripting CCG Executables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">Core Development Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html#id1">Contribution</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pygeostat</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="installation"></span><div class="section" id="id1">
+<h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Note that pygeostat requires Python 3.6+. Pygeostat will likely require modification to work with
+any other version of python. Pygeostat is also dependent on the suite of curated python
+packages provided with the Anaconda Python distribution. It is recommended to install this
+prior to pygeostat installation.</p>
+<div class="section" id="python-installation">
+<h2>Python Installation<a class="headerlink" href="#python-installation" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://www.anaconda.com">Anaconda</a> distribution by Continuum Analytics is recommended. If unfamiliar with Python and virtual environments,
+then accepting the defaults of registering with the system and installing to the path are
+recommended.</p>
+</div>
+<div class="section" id="pygeostat-installation">
+<h2>Pygeostat Installation<a class="headerlink" href="#pygeostat-installation" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pypi.org/project/pygeostat/">Pygeostat</a> can be installed from python package index (PyPI) repository.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pip install pygeostat
+</pre></div>
+</div>
+<div class="section" id="additional-software-ccg-members">
+<h3>Additional Software (<a class="reference external" href="https://CCGAlberta.com/">CCG</a> Members)<a class="headerlink" href="#additional-software-ccg-members" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://CCGAlberta.com/">CCG</a> memebers have the option to install CCG/GSLIB software (executable files) to enable pygeostat <a class="reference internal" href="programs.html#programs"><span class="std std-ref">scripting features</span></a>. This can be done using the following function. While GSLIB executable files are avilable through a public repository, for <a class="reference external" href="https://CCGAlberta.com/">CCG</a> software a vlid access token is required to download executables files from a private repository. The access token is avilable for CCG members at CCG knowledge base website.</p>
+<dl class="function">
+<dt id="pygeostat.utility.get_executable">
+<code class="descclassname">pygeostat.utility.</code><code class="descname">get_executable</code><span class="sig-paren">(</span><em>source='gslib'</em>, <em>access_token=None</em>, <em>clean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeostat.utility.get_executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a collection of executable files from a protected repository using an access token. Note that in order to use this function, git needs to be installed on the target computer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> (<em>str</em>) – gslib or CCG as the source of software.</li>
+<li><strong>access_token</strong> (<em>str</em>) – An access token to authorize access to the target private repository for CCG software. Access token is available for CCG members and can be found at CCG knowledge base.</li>
+<li><strong>clean</strong> (<em>bool</em>) – Option to clean the executable directory prior to upload the files from the target private repository. Note that choosing this option will delete the existing executable files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples</strong></p>
+<p>Installing GSLIB executable files</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeostat</span> <span class="k">as</span> <span class="nn">gs</span>
+<span class="n">gs</span><span class="o">.</span><span class="n">get_executable</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;GSLIB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/GslibGetFiles.png" src="_images/GslibGetFiles.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Installing CCG software</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeostat</span> <span class="k">as</span> <span class="nn">gs</span>
+<span class="n">gs</span><span class="o">.</span><span class="n">get_executable</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;CCG&#39;</span><span class="p">,</span> <span class="n">clean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/CcgGetFiles.png" src="_images/CcgGetFiles.png" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>Using the installed software</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Load example data included in pygeostat</span>
+<span class="n">data_file</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">ExampleData</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+
+<span class="c1"># Initialize the Program object</span>
+<span class="n">nscore</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">Program</span><span class="p">(</span><span class="s1">&#39;nscore&#39;</span><span class="p">,</span> <span class="n">getpar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Run normal score transformation</span>
+<span class="n">parstr</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; Parameters for NSCORE</span>
+<span class="s2">             *********************</span>
+<span class="s2">START OF PARAMETERS:</span>
+<span class="si">{datafile}</span><span class="s2">                -  file with data</span>
+<span class="s2">3  1  2  3                -  number of variables and columns</span>
+<span class="s2">5                         -  column for weight, 0 if none</span>
+<span class="s2">0                         -  column for category, 0 if none</span>
+<span class="s2">0                         -  number of records if known, 0 if unknown</span>
+<span class="s2">-1.0e21   1.0e21          -  trimming limits</span>
+<span class="s2">0                         -transform using a reference distribution, 1=yes</span>
+<span class="s2">../histsmth/histsmth.out  -file with reference distribution.</span>
+<span class="s2">1   2   0                 -  columns for variable, weight, and category</span>
+<span class="s2">101                       -maximum number of quantiles, 0 for all</span>
+<span class="si">{outfl}</span><span class="s2">                   -file for output</span>
+<span class="si">{trnfl}</span><span class="s2">                   -file for output transformation table</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">pars</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">datafile</span><span class="o">=</span><span class="n">data_file</span><span class="o">.</span><span class="n">flname</span><span class="p">,</span>
+            <span class="n">outfl</span> <span class="o">=</span> <span class="s1">&#39;nscore.out&#39;</span><span class="p">,</span>
+            <span class="n">trnfl</span> <span class="o">=</span> <span class="s1">&#39;nscore.trn&#39;</span><span class="p">)</span>
+<span class="n">nscore</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parstr</span><span class="o">=</span><span class="n">parstr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">pars</span><span class="p">),</span> <span class="n">liveoutput</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="create-virtual-environments">
+<h2>Create Virtual Environments<a class="headerlink" href="#create-virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>Python environments can be used to isolate different projects with different dependencies. The following code snippets can be used to setup a python environment using <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/index.html/">conda</a> package manager.</p>
+<ol class="arabic simple">
+<li>Creat the environment</li>
+</ol>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>conda env create -n &lt;environment_name&gt; -f environment.yml
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Activate the environment</li>
+</ol>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>conda activate &lt;environment_name&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Install pygeostat on the new environment that is activate</li>
+</ol>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pip install pygeostat
+</pre></div>
+</div>
+<p>The nexs step is to launch your favorite IDE for python (e.g. Jupyter).</p>
+<div class="section" id="using-r-from-python">
+<h3>Using R from Python<a class="headerlink" href="#using-r-from-python" title="Permalink to this headline">¶</a></h3>
+<p>Consider:</p>
+<blockquote>
+<div><ul class="simple">
+<li>rpy2 - a Python library providing a low-level interface to R from Python -
+<a class="reference external" href="http://rpy.sourceforge.net/">http://rpy.sourceforge.net/</a></li>
+<li>Matrix - a R library - <a class="reference external" href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/matrix.html">https://stat.ethz.ch/R-manual/R-devel/library/base/html/matrix.html</a></li>
+</ul>
+</div></blockquote>
+<p>To allow interfacing between Python and R, rpy2 is required. Currently, only the utility gs.nearpd()
+uses rpy2 which also requires the R library “Matrix” to be installed through R. Installing rpy2 can
+be temperamental. Use the following installation instructions for rpy2:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Download the rpy2 wheel file (e.g., rpy2-2.6.0-cp34-none-win_amd64) from:
+<a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#rpy2">http://www.lfd.uci.edu/~gohlke/pythonlibs/#rpy2</a></li>
+<li>From the command prompt, install the wheel file by using the command</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">rpy2</span><span class="o">-</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">cp34</span><span class="o">-</span><span class="n">none</span><span class="o">-</span><span class="n">win_amd64</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Add the path to the folder containing R.dll to the environment variable PATH
+(e.g., C:Program FilesRR-3.1.2/bini386)</li>
+<li>Add an environment variable R_HOME pointing to R (e.g., C:Program FilesRR-3.1.2)</li>
+<li>Add an environment variable R_USER that is your windows user name</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data.html" class="btn btn-neutral float-right" title="Data Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="welcome.html" class="btn btn-neutral float-left" title="Welcome" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2015-2020, Center for Computational Geostatistics
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
